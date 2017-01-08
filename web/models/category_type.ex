@@ -6,7 +6,7 @@ defmodule Artour.CategoryType do
   will affect values stored in database
   """
   def values() do
-    [:artwork, :photography, :audio, :video]
+    [:album, :audio, :video]
   end
 
   @doc """
