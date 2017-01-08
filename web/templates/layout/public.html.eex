@@ -15,7 +15,7 @@
   <body>
     <header class="header container">
       <nav class="nav">
-        <div class="brand"><%= link "Strange Scenery", to: page_path(@conn, :index) %></div>
+        <div class="brand"><%= link site_title, to: page_path(@conn, :index) %></div>
         <ul class="menu-list">
           <li><a href="/browse">Browse</a></li>
           <li><a href="/about">About</a></li>
