@@ -52,6 +52,7 @@ defmodule Artour.Web do
       import Artour.Router.Helpers
       import Artour.ErrorHelpers
       import Artour.Gettext
+      import Artour.LayoutHelpers
     end
   end
 
