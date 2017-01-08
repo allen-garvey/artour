@@ -1,6 +1,7 @@
 # OS specific
 .directory
 .DS_Store
+.fuse_*
 
 # App artifacts
 /_build
