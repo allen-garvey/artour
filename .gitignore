@@ -2,6 +2,7 @@
 .directory
 .DS_Store
 .fuse_*
+npm-debug.log.*
 
 # App artifacts
 /_build
