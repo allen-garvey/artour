@@ -19,7 +19,6 @@ defmodule Artour.Router do
 
     get "/", PageController, :index
 
-    resources "/categories", CategoryController, only: [:index, :show]
   end
 
   #Admin site
