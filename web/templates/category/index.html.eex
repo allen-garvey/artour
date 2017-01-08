@@ -1,28 +1,19 @@
-<h1>Categories</h1>
-<div>
-  <%= link "Add category", to: category_path(@conn, :new), class: "btn btn-sm btn-success" %>
-</div>
-<table class="table">
-  <thead>
+<%= render Artour.SharedView, "index_heading.html", 
+                                item_name_singular: "category",
+                                item_name_plural: "categories",
+                                headings: ["Name", "Slug", "Type"],
+                                new_path: category_path(@conn, :new) %>
+    
+<%= for category <- @categories do %>
     <tr>
-      <th>Name</th>
-      <th>Slug</th>
-      <th>Type</th>
+      <td><%= link category.name, to: category_path(@conn, :show, category) %></td>
+      <td><%= category.slug %></td>
+      <td><%= category_type_name(category.type) %></td>
 
-      <th></th>
+      <td class="text-right">
+        <%= link "Edit", to: category_path(@conn, :edit, category), class: "btn btn-default btn-xs" %>
+      </td>
     </tr>
-  </thead>
-  <tbody>
-    <%= for category <- @categories do %>
-        <tr>
-          <td><%= link category.name, to: category_path(@conn, :show, category) %></td>
-          <td><%= category.slug %></td>
-          <td><%= category_type_name(category.type) %></td>
+<% end %>
 
-          <td class="text-right">
-            <%= link "Edit", to: category_path(@conn, :edit, category), class: "btn btn-default btn-xs" %>
-          </td>
-        </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render Artour.SharedView, "index_footer.html" %>
