@@ -14,7 +14,7 @@
 
   <li>
     <strong>Type:</strong>
-    <%= @category.type %>
+    <%= category_type_name(@category.type) %>
   </li>
 
 </ul>
