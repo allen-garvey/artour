@@ -1,0 +1,20 @@
+/**
+* Homepage
+*/
+.post-brief{
+	padding-bottom: 1.5em;
+	border-bottom: 1px solid gray;
+	margin-bottom: 4em;
+}
+.post-heading{
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+}
+.post-title{
+	margin: 0;
+}
+.post-date{
+	font-size: 0.8em;
+	margin-left: 1em;
+}
