@@ -2,8 +2,10 @@
 * Base Styles
 */
 
-body{
-	padding-bottom: 3em;
+.container{
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 0 1em;
 }
 
 /* Space out content a bit */
