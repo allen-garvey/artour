@@ -1,11 +1,11 @@
-<h1><%= pluralize_item_name(@item_name_singular, assigns[:item_name_plural]) |> String.capitalize %></h1>
+<h1><%= naive_pluralize(@item_name_singular) |> String.capitalize %></h1>
 <div>
   <%= link "Add " <> @item_name_singular, to: item_new_path(@item_name_singular, @conn), class: "btn btn-sm btn-success" %>
 </div>
 <table class="table">
   <thead>
     <tr>
-      <%= for heading <- @headings do %>
+      <%= for heading <- @column_headings do %>
         <th><%= heading %></th>
       <% end %>
       <th></th>

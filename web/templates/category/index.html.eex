@@ -3,7 +3,6 @@
                                 item_view: view_module(@conn),
                                 row_values_func_name: :index_row_values,
                                 item_name_singular: "category",
-                                item_name_plural: "categories",
-                                headings: ["Name", "Slug", "Type"],
+                                column_headings: ["Name", "Slug", "Type"],
                                 items: @categories
 %>

@@ -2,12 +2,11 @@ defmodule Artour.SharedView do
 	use Artour.Web, :view
 
 	@doc """
-  	On index pages, plural form might not necessarily be set,
-  	so use assigns[:item_name_plural] as second argument
+  	Naive implementation of function to pluralize string
   	"""
-	def pluralize_item_name(singular, plural) do
-		if plural do
-		  plural
+	def naive_pluralize(singular) do
+		if String.ends_with? singular, "y" do
+		  String.replace_trailing(singular, "y", "ies")
 		else
 			singular <> "s"
 		end
