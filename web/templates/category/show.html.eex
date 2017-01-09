@@ -1,23 +1,8 @@
-<h2>Show category</h2>
-
-<ul>
-
-  <li>
-    <strong>Name:</strong>
-    <%= @category.name %>
-  </li>
-
-  <li>
-    <strong>Slug:</strong>
-    <%= @category.slug %>
-  </li>
-
-  <li>
-    <strong>Type:</strong>
-    <%= category_type_name(@category.type) %>
-  </li>
-
-</ul>
-
-<%= link "Edit", to: category_path(@conn, :edit, @category) %>
-<%= link "Back", to: category_path(@conn, :index) %>
+<%= render Artour.SharedView, "show_heading.html",
+                                conn: @conn,
+                                item_attribute_names: attribute_names(),
+                                item_attribute_values: attribute_values(@category),
+                                item_name_singular: "category",
+                                item: @category,
+                                title: Artour.Category.display_name(@category)
+%>

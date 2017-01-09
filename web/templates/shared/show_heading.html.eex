@@ -1,0 +1,13 @@
+<h1><%= @title %></h1>
+
+<%= link "Edit", to: path_for_item(@conn, @item_name_singular, :edit, @item) %>
+<%= link "All " <> naive_pluralize(@item_name_singular), to: path_for_item(@conn, @item_name_singular, :index) %>
+
+<ul>
+  <%= for {name, attribute} <- Enum.zip(@item_attribute_names, @item_attribute_values) do %>
+    <li>
+      <strong><%= name %>:</strong>
+      <%= attribute %>  
+    </li>
+  <% end %>
+</ul>
