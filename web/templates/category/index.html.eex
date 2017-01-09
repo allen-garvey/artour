@@ -1,19 +1,9 @@
-<%= render Artour.SharedView, "index_heading.html", 
+<%= render Artour.SharedView, "index.html",
+                                conn: @conn,
+                                item_view: view_module(@conn),
+                                row_values_func_name: :index_row_values,
                                 item_name_singular: "category",
                                 item_name_plural: "categories",
                                 headings: ["Name", "Slug", "Type"],
-                                new_path: category_path(@conn, :new) %>
-    
-<%= for category <- @categories do %>
-    <tr>
-      <td><%= link category.name, to: category_path(@conn, :show, category) %></td>
-      <td><%= category.slug %></td>
-      <td><%= category_type_name(category.type) %></td>
-
-      <td class="text-right">
-        <%= link "Edit", to: category_path(@conn, :edit, category), class: "btn btn-default btn-xs" %>
-      </td>
-    </tr>
-<% end %>
-
-<%= render Artour.SharedView, "index_footer.html" %>
+                                items: @categories
+%>

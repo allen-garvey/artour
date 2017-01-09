@@ -1,0 +1,26 @@
+<h1><%= pluralize_item_name(@item_name_singular, assigns[:item_name_plural]) |> String.capitalize %></h1>
+<div>
+  <%= link "Add " <> @item_name_singular, to: item_new_path(@item_name_singular, @conn), class: "btn btn-sm btn-success" %>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <%= for heading <- @headings do %>
+        <th><%= heading %></th>
+      <% end %>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for item <- @items do %>
+      <tr>
+        <%= for value <- apply(@item_view, @row_values_func_name, [item]) do %>
+          <td><%= value %></td>
+        <% end %>
+        <td class="text-right">
+          <%= link "Edit", to: item_edit_path(@item_name_singular, @conn, item), class: "btn btn-default btn-xs" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
