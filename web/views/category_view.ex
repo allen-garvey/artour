@@ -10,10 +10,19 @@ defmodule Artour.CategoryView do
   end
 
   @doc """
-  Used on index page - takes category index and returns list of 
+  Used on index and show pages - returns list of attribute names in the
+  same order as the attribute_values function
+  """
+  def attribute_names() do
+    ["Name", "Slug", "Type"]
+  end
+
+  @doc """
+  Used on index and show pages - takes category index and returns list of 
   formatted values
   """
-  def index_row_values(category) do
+  def attribute_values(category) do
   	[category.name, category.slug, category_type_name(category.type)]
   end
+
 end

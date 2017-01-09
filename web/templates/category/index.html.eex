@@ -1,8 +1,8 @@
 <%= render Artour.SharedView, "index.html",
                                 conn: @conn,
                                 item_view: view_module(@conn),
-                                row_values_func_name: :index_row_values,
+                                row_values_func_name: :attribute_values,
                                 item_name_singular: "category",
-                                column_headings: ["Name", "Slug", "Type"],
+                                column_headings: attribute_names(),
                                 items: @categories
 %>

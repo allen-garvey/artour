@@ -1,6 +1,6 @@
 <h1><%= naive_pluralize(@item_name_singular) |> String.capitalize %></h1>
 <div>
-  <%= link "Add " <> @item_name_singular, to: item_new_path(@item_name_singular, @conn), class: "btn btn-sm btn-success" %>
+  <%= link "Add " <> @item_name_singular, to: path_for_item(@conn, @item_name_singular, :new), class: "btn btn-sm btn-success" %>
 </div>
 <table class="table">
   <thead>
@@ -16,14 +16,14 @@
       <tr>
         <% [first_value | tail_values] = apply(@item_view, @row_values_func_name, [item]) %>
 
-        <td><%= link first_value, to: item_show_path(@item_name_singular, @conn, item) %></td>
+        <td><%= link first_value, to: path_for_item(@conn, @item_name_singular, :show, item) %></td>
         
         <%= for value <- tail_values do %>
           <td><%= value %></td>
         <% end %>
         
         <td class="text-right">
-          <%= link "Edit", to: item_edit_path(@item_name_singular, @conn, item), class: "btn btn-default btn-xs" %>
+          <%= link "Edit", to: path_for_item(@conn, @item_name_singular, :edit, item), class: "btn btn-default btn-xs" %>
         </td>
         
       </tr>

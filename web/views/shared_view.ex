@@ -20,22 +20,19 @@ defmodule Artour.SharedView do
 	end
 
 	@doc """
-  	Returns path for new item
+  	Returns path for item
+  	(e.g. :index, :show, :new)
   	"""
-	def item_new_path(item_name_singular, conn) do
-		apply(Artour.Router.Helpers, item_path_func_name(item_name_singular), [conn, :new])
+	def path_for_item(conn, item_name_singular, path_atom) do
+		apply(Artour.Router.Helpers, item_path_func_name(item_name_singular), [conn, path_atom])
 	end
 
 	@doc """
-  	Returns path to edit item
+  	Returns path for item instance
+  	(e.g. :edit and :show)
   	"""
-	def item_edit_path(item_name_singular, conn, item) do
-		apply(Artour.Router.Helpers, item_path_func_name(item_name_singular), [conn, :edit, item])
+	def path_for_item(conn, item_name_singular, path_atom, item_instance) do
+		apply(Artour.Router.Helpers, item_path_func_name(item_name_singular), [conn, path_atom, item_instance])
 	end
-	@doc """
-  	Returns path to show item
-  	"""
-	def item_show_path(item_name_singular, conn, item) do
-		apply(Artour.Router.Helpers, item_path_func_name(item_name_singular), [conn, :show, item])
-	end
+
 end
