@@ -27,9 +27,15 @@ defmodule Artour.SharedView do
 	end
 
 	@doc """
-  	Returns path for edit item
+  	Returns path to edit item
   	"""
 	def item_edit_path(item_name_singular, conn, item) do
 		apply(Artour.Router.Helpers, item_path_func_name(item_name_singular), [conn, :edit, item])
+	end
+	@doc """
+  	Returns path to show item
+  	"""
+	def item_show_path(item_name_singular, conn, item) do
+		apply(Artour.Router.Helpers, item_path_func_name(item_name_singular), [conn, :show, item])
 	end
 end
