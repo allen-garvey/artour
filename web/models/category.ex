@@ -10,6 +10,13 @@ defmodule Artour.Category do
   end
 
   @doc """
+  How single category instance should be represented in views
+  """
+  def display_name(category) do
+    category.name
+  end
+
+  @doc """
   category type acts as an enum, so check it is valid
   before saving
   """
