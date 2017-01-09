@@ -14,12 +14,18 @@
   <tbody>
     <%= for item <- @items do %>
       <tr>
-        <%= for value <- apply(@item_view, @row_values_func_name, [item]) do %>
+        <% [first_value | tail_values] = apply(@item_view, @row_values_func_name, [item]) %>
+
+        <td><%= link first_value, to: item_show_path(@item_name_singular, @conn, item) %></td>
+        
+        <%= for value <- tail_values do %>
           <td><%= value %></td>
         <% end %>
+        
         <td class="text-right">
           <%= link "Edit", to: item_edit_path(@item_name_singular, @conn, item), class: "btn btn-default btn-xs" %>
         </td>
+        
       </tr>
     <% end %>
   </tbody>
