@@ -5,26 +5,24 @@ defmodule Artour.CategoryView do
   Renders page to create new category
   """
   def render("new.html", assigns) do
-    render "new_edit_page.html", changeset: assigns[:changeset],
-                        conn: assigns[:conn],
-                        action: category_path(assigns[:conn], :create),
-                        category_types: assigns[:category_types],
-                        heading: "New category"
+    assigns = Map.merge(assigns, %{action: category_path(assigns[:conn], :create),
+                                   heading: Artour.SharedView.form_heading("category", :new)})
+
+    render "new_edit_page.html", assigns
   end
 
   @doc """
   Renders page to edit category
   """
   def render("edit.html", assigns) do
-    render "new_edit_page.html", changeset: assigns[:changeset],
-                        conn: assigns[:conn],
-                        action: category_path(assigns[:conn], :update, assigns[:category]),
-                        category_types: assigns[:category_types],
-                        heading: "Edit " <> Artour.Category.display_name(assigns[:category])
+    assigns = Map.merge(assigns, %{action: category_path(assigns[:conn], :update, assigns[:category]),
+                                   heading: Artour.SharedView.form_heading(Artour.Category.display_name(assigns[:category]), :edit)})
+
+    render "new_edit_page.html", assigns
   end
 
   @doc """
-  Used on index page - transforms category type integer into title-case
+  Used on index and show pages - transforms category type integer into title-case
   string
   """
   def category_type_name(category_type_value) do
