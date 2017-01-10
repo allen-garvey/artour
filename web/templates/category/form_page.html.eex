@@ -1,6 +1,8 @@
-<%= link "All categories", to: category_path(@conn, :index), class: "back-link" %>
-
-<h1><%= @heading %></h1>
+<%= render Artour.SharedView, "form_page_heading.html",
+                                conn: @conn,
+                                item_name_singular: "category",
+                                heading: @heading
+%>
 
 <%= render "form.html", changeset: @changeset,
                         action: @action,
