@@ -8,7 +8,7 @@ defmodule Artour.CategoryView do
     assigns = Map.merge(assigns, %{action: category_path(assigns[:conn], :create),
                                    heading: Artour.SharedView.form_heading("category", :new)})
 
-    render "new_edit_page.html", assigns
+    render "form_page.html", assigns
   end
 
   @doc """
@@ -18,7 +18,7 @@ defmodule Artour.CategoryView do
     assigns = Map.merge(assigns, %{action: category_path(assigns[:conn], :update, assigns[:category]),
                                    heading: Artour.SharedView.form_heading(Artour.Category.display_name(assigns[:category]), :edit)})
 
-    render "new_edit_page.html", assigns
+    render "form_page.html", assigns
   end
 
   @doc """
