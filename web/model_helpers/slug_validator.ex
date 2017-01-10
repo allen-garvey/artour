@@ -24,7 +24,7 @@ defmodule Artour.SlugValidator do
 		if is_valid_slug(slug_value) do
 			changeset
 		else
-			add_error(changeset, slug_key, "Only lower-case letters, numbers and hyphens are allowed. Cannot begin or end with a hyphen and hyphens cannot repeat")
+			add_error(changeset, slug_key, "Only lowercase letters, numbers and hyphens are allowed. Cannot begin or end with a hyphen and hyphens cannot repeat")
 		end
 	end
 end
