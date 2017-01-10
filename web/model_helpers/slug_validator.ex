@@ -4,8 +4,8 @@ defmodule Artour.SlugValidator do
 	@doc """
 	Returns true or false based on whether slug
 	contains valid characters
-	Slug must only contain lowercase letters and hyphens
-	slug cannot begin or end with hyphen and repeating hypens
+	Slug must only contain lowercase letters, numbers and hyphens
+	slug cannot begin or end with hyphen and repeating hyphens
 	are not allowed
 	"""
 	def is_valid_slug(slug) do
