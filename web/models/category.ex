@@ -1,5 +1,6 @@
 defmodule Artour.Category do
   use Artour.Web, :model
+  import Artour.SlugValidator
 
   schema "categories" do
     field :name, :string
@@ -24,8 +25,9 @@ defmodule Artour.Category do
     type_value = get_field(changeset, type_key)
     if !Artour.CategoryType.is_valid(type_value) do
       add_error(changeset, type_key, "Invalid category type")
+    else
+      changeset
     end
-    changeset
   end
 
   @doc """
@@ -36,6 +38,7 @@ defmodule Artour.Category do
     |> cast(params, [:name, :slug, :type])
     |> validate_required([:name, :slug, :type])
     |> validate_category_type(:type)
+    |> validate_slug(:slug)
     |> unique_constraint(:name)
     |> unique_constraint(:slug)
   end
