@@ -2,6 +2,28 @@ defmodule Artour.CategoryView do
   use Artour.Web, :view
 
   @doc """
+  Renders page to create new category
+  """
+  def render("new.html", assigns) do
+    render "new_edit_page.html", changeset: assigns[:changeset],
+                        conn: assigns[:conn],
+                        action: category_path(assigns[:conn], :create),
+                        category_types: assigns[:category_types],
+                        heading: "New category"
+  end
+
+  @doc """
+  Renders page to edit category
+  """
+  def render("edit.html", assigns) do
+    render "new_edit_page.html", changeset: assigns[:changeset],
+                        conn: assigns[:conn],
+                        action: category_path(assigns[:conn], :update, assigns[:category]),
+                        category_types: assigns[:category_types],
+                        heading: "Edit " <> Artour.Category.display_name(assigns[:category])
+  end
+
+  @doc """
   Used on index page - transforms category type integer into title-case
   string
   """

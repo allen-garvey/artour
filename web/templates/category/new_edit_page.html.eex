@@ -1,0 +1,7 @@
+<%= link "All categories", to: category_path(@conn, :index), class: "back-link" %>
+
+<h1><%= @heading %></h1>
+
+<%= render "form.html", changeset: @changeset,
+                        action: @action,
+                        category_types: @category_types %>

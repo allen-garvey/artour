@@ -1,7 +1,0 @@
-<h2>New category</h2>
-
-<%= render "form.html", changeset: @changeset,
-                        action: category_path(@conn, :create),
-                        category_types: @category_types %>
-
-<%= link "Back", to: category_path(@conn, :index) %>
