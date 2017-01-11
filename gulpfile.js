@@ -12,17 +12,17 @@ var config = require(path.join(__dirname, 'gulp-config.js'));
 /*
 * JavaScript Tasks
 */
-gulp.task('concatScripts', function(){
-	return gulp.src(config.js.app_files)
-		.pipe(concat(config.js.DIST_NAME + '.js'))
-		.pipe(gulp.dest(config.js.DEST_DIR));
+gulp.task('concatScriptsAdmin', function(){
+	return gulp.src(config.js.admin.app_files)
+		.pipe(concat(config.js.admin.DIST_NAME + '.js'))
+		.pipe(gulp.dest(config.js.admin.DEST_DIR));
 });
 
-gulp.task('minifyScripts', ['concatScripts'], function(){
-	return gulp.src(path.join(config.js.DEST_DIR, config.js.DIST_NAME + '.js'))
+gulp.task('minifyScriptsAdmin', ['concatScriptsAdmin'], function(){
+	return gulp.src(path.join(config.js.admin.DEST_DIR, config.js.admin.DIST_NAME + '.js'))
 		.pipe(uglify())
-		.pipe(rename(config.js.DIST_NAME + '.min.js'))
-		.pipe(gulp.dest(config.js.DEST_DIR));
+		.pipe(rename(config.js.admin.DIST_NAME + '.min.js'))
+		.pipe(gulp.dest(config.js.admin.DEST_DIR));
 });
 
 /*
@@ -51,8 +51,8 @@ gulp.task('watchSass',function() {
     gulp.watch(config.styles.SOURCE_DIR + '**/*.scss', ['sass']);
 });
 
-gulp.task('watchScripts', function(){
-	gulp.watch(config.js.SOURCE_DIR + '**/*.js', ['minifyScripts']);
+gulp.task('watchScriptsAdmin', function(){
+	gulp.watch(config.js.admin.SOURCE_DIR + '**/*.js', ['minifyScriptsAdmin']);
 });
 
 gulp.task('watchStaticAssets', function(){
@@ -63,6 +63,6 @@ gulp.task('watchStaticAssets', function(){
 /*
 * Main gulp tasks
 */
-gulp.task('watch', ['build', 'watchSass', 'watchScripts', 'watchStaticAssets']);
-gulp.task('build', ['minifyScripts', 'sass', 'copyStaticAssets']);
+gulp.task('watch', ['build', 'watchSass', 'watchScriptsAdmin', 'watchStaticAssets']);
+gulp.task('build', ['minifyScriptsAdmin', 'sass', 'copyStaticAssets']);
 gulp.task('default', ['build']);

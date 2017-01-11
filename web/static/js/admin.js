@@ -1,1 +1,0 @@
-//JavaScript for admin pages
