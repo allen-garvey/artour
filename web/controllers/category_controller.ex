@@ -5,7 +5,7 @@ defmodule Artour.CategoryController do
   alias Artour.CategoryType
 
   def index(conn, _params) do
-    categories = Repo.all(Category)
+    categories = Repo.all(Category.default_order_query())
     render(conn, "index.html", categories: categories)
   end
 

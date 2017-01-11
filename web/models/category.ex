@@ -18,6 +18,13 @@ defmodule Artour.Category do
   end
 
   @doc """
+  Query used for default order
+  """
+  def default_order_query() do
+    from(c in Artour.Category, order_by: c.name)
+  end
+
+  @doc """
   category type acts as an enum, so check it is valid
   before saving
   """
