@@ -2,7 +2,9 @@
 .directory
 .DS_Store
 .fuse_*
+npm-debug.log
 npm-debug.log.*
+*.sublime-project
 
 # App artifacts
 /_build
