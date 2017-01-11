@@ -5,6 +5,7 @@
 npm-debug.log
 npm-debug.log.*
 *.sublime-project
+*.sublime-workspace
 
 # App artifacts
 /_build
