@@ -2,4 +2,5 @@
 
 <ul>
 	<li><%= link "Categories", to: category_path(@conn, :index) %></li>
+	<li><%= link "Posts", to: post_path(@conn, :index) %></li>
 </ul>

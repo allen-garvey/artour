@@ -34,6 +34,7 @@ defmodule Artour.Router do
     get "/", AdminController, :index
 
     resources "/categories", CategoryController
+    resources "/posts", PostController
   end
 
   # Other scopes may use custom stacks.
