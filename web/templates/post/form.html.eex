@@ -7,7 +7,7 @@
 
   <div class="form-group">
     <%= label f, :title, class: "control-label" %>
-    <%= text_input f, :title, class: "form-control", data_slug_source: true %>
+    <%= text_input f, :title, class: "form-control", data_slug_source: true, spellcheck: "true" %>
     <%= error_tag f, :title %>
   </div>
 
@@ -19,7 +19,7 @@
 
   <div class="form-group">
     <%= label f, :body, class: "control-label" %>
-    <%= textarea f, :body, class: "form-control" %>
+    <%= textarea f, :body, class: "form-control", spellcheck: "true" %>
     <%= error_tag f, :body %>
   </div>
 
