@@ -33,6 +33,14 @@ defmodule Artour.PostController do
     render(conn, "show.html", post: post)
   end
 
+  @doc """
+  Used on public site to show individual post
+  """
+  def show_public(conn, %{"slug" => slug}) do
+    post = Repo.get_by!(Post, slug: slug) |> Repo.preload([:category])
+    render(conn, "show_public_album.html", post: post)
+  end
+
   def edit(conn, %{"id" => id}) do
     post = Repo.get!(Post, id)
     changeset = Post.changeset(post)

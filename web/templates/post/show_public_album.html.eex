@@ -1,0 +1,7 @@
+<h1><%= @post.title %></h1>
+<div>
+	<%= datetime_to_display_date(Artour.Post.date_created(@post)) %>
+</div>
+<div>
+	<%= to_paragraphs(@post.body) %>
+</div>

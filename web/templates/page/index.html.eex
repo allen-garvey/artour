@@ -1,5 +1,5 @@
 <%= for post <- @posts do
   
-  render Artour.PostView, "post_box_album.html", post: post
+  render Artour.PostView, "post_box_album.html", conn: @conn, post: post
 
 end %>

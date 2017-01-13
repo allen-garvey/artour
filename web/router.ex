@@ -25,6 +25,8 @@ defmodule Artour.Router do
 
     get "/", PageController, :index
 
+    #show individual post by slug
+    get "/posts/:slug", PostController, :show_public
   end
 
   #Admin site
