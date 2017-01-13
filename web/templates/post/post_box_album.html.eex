@@ -1,0 +1,12 @@
+<article class="post-brief">
+	<div class="post-heading">
+		<h2 class="post-title"><a href="/posts/whatever"><%= @post.title %></a></h2>
+		<div class="post-date"><%= datetime_to_display_date(Artour.Post.date_created(@post)) %></div>
+	</div>
+	<div class="post-excerpt">
+		<p><a href="/posts/whatever">View album</a></p>
+	</div>
+	<a href="/posts/whatever">
+		<img src="http://10.0.1.22/card/christmas-card-2016-2.png" alt="Garvey Christmas Card 2016" />
+	</a>
+</article>
