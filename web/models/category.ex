@@ -49,4 +49,20 @@ defmodule Artour.Category do
     |> unique_constraint(:name)
     |> unique_constraint(:slug)
   end
+
+  @doc """
+  Maps a list of categories into tuples, used for forms
+  """
+  def map_for_form(categories) do
+    Enum.map(categories, &{&1.name, &1.id})
+  end
+
+  @doc """
+  Returns list of categories with name and id
+  ordered in default order suitable for select fields
+  for forms
+  """
+  def form_list(repo) do
+    repo.all(default_order_query()) |> map_for_form
+  end
 end
