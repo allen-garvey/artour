@@ -19,6 +19,13 @@ defmodule Artour.Post do
   end
 
   @doc """
+  Returns string datetime of when post was created
+  """
+  def date_created(post) do
+    post.inserted_at 
+  end
+
+  @doc """
   Query used for default order
   """
   def default_order_query() do
