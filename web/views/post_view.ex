@@ -27,7 +27,7 @@ defmodule Artour.PostView do
   same order as the attribute_values function
   """
   def attribute_names_short() do
-    ["Title", "Slug", "Category"]
+    ["Title", "Slug", "Category", "Date Created"]
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule Artour.PostView do
   formatted values
   """
   def attribute_values_short(post) do
-  	[post.title, post.slug, Artour.Category.display_name(post.category)]
+  	[post.title, post.slug, Artour.Category.display_name(post.category), datetime_to_us_date(Artour.Post.date_created(post))]
   end
 
   @doc """
@@ -43,7 +43,7 @@ defmodule Artour.PostView do
   same order as the attribute_values function
   """
   def attribute_names() do
-    ["Title", "Slug", "Category", "Body"]
+    ["Title", "Slug", "Date Created", "Category", "Body"]
   end
 
   @doc """
@@ -51,6 +51,6 @@ defmodule Artour.PostView do
   formatted values
   """
   def attribute_values(post) do
-    [post.title, post.slug, Artour.Category.display_name(post.category), post.body]
+    [post.title, post.slug, datetime_to_us_date(Artour.Post.date_created(post)), Artour.Category.display_name(post.category), post.body]
   end
 end
