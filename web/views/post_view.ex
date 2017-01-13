@@ -51,6 +51,6 @@ defmodule Artour.PostView do
   formatted values
   """
   def attribute_values(post) do
-    [post.title, post.slug, datetime_to_us_date(Artour.Post.date_created(post)), Artour.Category.display_name(post.category), post.body]
+    [post.title, post.slug, datetime_to_us_date(Artour.Post.date_created(post)), Artour.Category.display_name(post.category), to_paragraphs(post.body)]
   end
 end
