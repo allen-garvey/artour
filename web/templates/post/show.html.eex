@@ -1,28 +1,8 @@
-<h2>Show post</h2>
-
-<ul>
-
-  <li>
-    <strong>Title:</strong>
-    <%= @post.title %>
-  </li>
-
-  <li>
-    <strong>Slug:</strong>
-    <%= @post.slug %>
-  </li>
-
-  <li>
-    <strong>Body:</strong>
-    <%= @post.body %>
-  </li>
-
-  <li>
-    <strong>Category:</strong>
-    <%= @post.category_id %>
-  </li>
-
-</ul>
-
-<%= link "Edit", to: post_path(@conn, :edit, @post) %>
-<%= link "Back", to: post_path(@conn, :index) %>
+<%= render Artour.SharedView, "show_heading.html",
+                                conn: @conn,
+                                item_attribute_names: attribute_names(),
+                                item_attribute_values: attribute_values(@post),
+                                item_name_singular: "post",
+                                item: @post,
+                                title: Artour.Post.display_name(@post)
+%>

@@ -4,13 +4,14 @@ defmodule Artour.PostController do
   alias Artour.Post
 
   def index(conn, _params) do
-    posts = Repo.all(Post)
+    posts = Repo.all(Post.default_order_query()) |> Repo.preload([:category])
     render(conn, "index.html", posts: posts)
   end
 
   def new(conn, _params) do
     changeset = Post.changeset(%Post{})
-    render(conn, "new.html", changeset: changeset)
+    categories = Artour.Category.form_list(Repo)
+    render(conn, "new.html", changeset: changeset, categories: categories)
   end
 
   def create(conn, %{"post" => post_params}) do
@@ -22,19 +23,21 @@ defmodule Artour.PostController do
         |> put_flash(:info, "Post created successfully.")
         |> redirect(to: post_path(conn, :index))
       {:error, changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        categories = Artour.Category.form_list(Repo)
+        render(conn, "new.html", changeset: changeset, categories: categories)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    post = Repo.get!(Post, id)
+    post = Repo.get!(Post, id) |> Repo.preload([:category])
     render(conn, "show.html", post: post)
   end
 
   def edit(conn, %{"id" => id}) do
     post = Repo.get!(Post, id)
     changeset = Post.changeset(post)
-    render(conn, "edit.html", post: post, changeset: changeset)
+    categories = Artour.Category.form_list(Repo)
+    render(conn, "edit.html", post: post, changeset: changeset, categories: categories)
   end
 
   def update(conn, %{"id" => id, "post" => post_params}) do
@@ -47,7 +50,8 @@ defmodule Artour.PostController do
         |> put_flash(:info, "Post updated successfully.")
         |> redirect(to: post_path(conn, :show, post))
       {:error, changeset} ->
-        render(conn, "edit.html", post: post, changeset: changeset)
+        categories = Artour.Category.form_list(Repo)
+        render(conn, "edit.html", post: post, changeset: changeset, categories: categories)
     end
   end
 
