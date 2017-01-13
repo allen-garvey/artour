@@ -10,6 +10,28 @@ defmodule Artour.LayoutHelpers do
 	end
 
 	@doc """
+  	Takes integer representing month
+  	returns full English month-name
+  	"""
+	def to_month_name(month_number) do
+		case month_number do
+		  1 -> "January"
+		  2 -> "February"
+		  3 -> "March"
+		  4 -> "April"
+		  5 -> "May"
+		  6 -> "June"
+		  7 -> "July"
+		  8 -> "August"
+		  9 -> "September"
+		  10 -> "October"
+		  11 -> "November"
+		  12 -> "December"
+		  _ -> "Month number out of range"
+		end
+	end
+
+	@doc """
   	Takes datetime string as argument
   	returns tuple of integers
   	{YYYY, MM, DD}
@@ -20,6 +42,19 @@ defmodule Artour.LayoutHelpers do
 			|> Ecto.DateTime.to_date
 			|> Ecto.Date.dump
 			|> elem(1)
+	end
+
+	@doc """
+  	Takes datetime string as argument
+  	returns string date in format `Month name DD, YYYY`
+  	"""
+	def datetime_to_display_date(datetime) do
+		date_tuple = datetime_to_tuple(datetime)
+		to_month_name(elem(date_tuple, 1)) <> 
+		" " <>
+		Integer.to_string(elem(date_tuple, 2)) <> 
+		", " <>
+		Integer.to_string(elem(date_tuple, 0))
 	end
 
 	@doc """
