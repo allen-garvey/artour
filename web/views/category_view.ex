@@ -39,7 +39,7 @@ defmodule Artour.CategoryView do
   end
 
   @doc """
-  Used on index and show pages - takes category index and returns list of 
+  Used on index and show pages - takes category instance and returns list of 
   formatted values
   """
   def attribute_values(category) do
