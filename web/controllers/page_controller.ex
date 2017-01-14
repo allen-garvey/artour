@@ -11,7 +11,7 @@ defmodule Artour.PageController do
   """
   def browse(conn, _params) do
   	category_id_subquery = Repo.all(from(p in Artour.Post, distinct: true, select: p.category_id))
-  	categories = Repo.all(from c in Artour.Category, where: c.id in ^category_id_subquery)
+  	categories = Repo.all(from c in Artour.Category, where: c.id in ^category_id_subquery, order_by: c.name)
     
     render conn, "browse.html", categories: categories
   end
