@@ -7,6 +7,8 @@ defmodule Artour.Category do
     field :slug, :string
     field :type, :integer
 
+    has_many :posts, Artour.Post
+
     timestamps()
   end
 
