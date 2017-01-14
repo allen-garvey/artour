@@ -23,6 +23,22 @@ defmodule Artour.CategoryView do
   end
 
   @doc """
+  Renders page of list of related posts on public site
+  """
+  def render("show_public_post_list.html", assigns) do
+    category = assigns[:category]
+
+    render Artour.SharedView, "post_listing.html", conn: assigns[:conn], title: Artour.Category.display_name(category), posts: category.posts
+  end
+
+  @doc """
+  Used to get the path for a category's public show page
+  """
+  def public_show_path(conn, category) do
+    category_path(conn, :show_public, category.slug)
+  end
+
+  @doc """
   Used on index and show pages - transforms category type integer into title-case
   string
   """

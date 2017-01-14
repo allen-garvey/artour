@@ -34,6 +34,15 @@ defmodule Artour.CategoryController do
     render(conn, "show.html", category: category)
   end
 
+  @doc """
+  Used on public site to show listing of
+  individual category's posts
+  """
+  def show_public(conn, %{"slug" => slug}) do
+    category = Repo.get_by!(Category, slug: slug) |> Repo.preload([:posts])
+    render(conn, "show_public_post_list.html", category: category)
+  end
+
   def edit(conn, %{"id" => id}) do
     category = Repo.get!(Category, id)
     changeset = Category.changeset(category)

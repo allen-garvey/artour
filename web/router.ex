@@ -24,7 +24,10 @@ defmodule Artour.Router do
     pipe_through [:browser, :public_layout] # Use the default browser stack
 
     get "/", PageController, :index
+    get "/browse", PageController, :browse
 
+    #show individual category by slug
+    get "/categories/:slug", CategoryController, :show_public
     #show individual post by slug
     get "/posts/:slug", PostController, :show_public
   end

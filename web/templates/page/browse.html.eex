@@ -1,0 +1,6 @@
+<h2>Categories</h2>
+<ul>
+	<%= for category <- @categories do
+		content_tag :li, link(Artour.Category.display_name(category), to: Artour.CategoryView.public_show_path(@conn, category))
+	end %>
+</ul>
