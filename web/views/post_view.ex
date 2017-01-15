@@ -2,6 +2,13 @@ defmodule Artour.PostView do
   use Artour.Web, :view
 
   @doc """
+  How single post instance should be represented in views
+  """
+  def display_name(post) do
+    post.title
+  end
+
+  @doc """
   Renders page to create new post
   """
   def render("new.html", assigns) do
@@ -16,7 +23,7 @@ defmodule Artour.PostView do
   """
   def render("edit.html", assigns) do
     assigns = Map.merge(assigns, %{action: post_path(assigns[:conn], :update, assigns[:post]),
-                                   heading: Artour.SharedView.form_heading(Artour.Post.display_name(assigns[:post]), :edit),
+                                   heading: Artour.SharedView.form_heading(display_name(assigns[:post]), :edit),
                                    show_delete: true})
 
     render "form_page.html", assigns
@@ -42,7 +49,7 @@ defmodule Artour.PostView do
   formatted values
   """
   def attribute_values_short(post) do
-  	[post.title, post.slug, Artour.Category.display_name(post.category), datetime_to_us_date(Artour.Post.date_created(post))]
+  	[post.title, post.slug, Artour.CategoryView.display_name(post.category), datetime_to_us_date(Artour.Post.date_created(post))]
   end
 
   @doc """
@@ -58,6 +65,6 @@ defmodule Artour.PostView do
   formatted values
   """
   def attribute_values(post) do
-    [post.title, post.slug, datetime_to_us_date(Artour.Post.date_created(post)), Artour.Category.display_name(post.category), to_paragraphs(post.body)]
+    [post.title, post.slug, datetime_to_us_date(Artour.Post.date_created(post)), Artour.CategoryView.display_name(post.category), to_paragraphs(post.body)]
   end
 end

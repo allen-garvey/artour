@@ -2,6 +2,13 @@ defmodule Artour.CategoryView do
   use Artour.Web, :view
 
   @doc """
+  How single category instance should be represented in views
+  """
+  def display_name(category) do
+    category.name
+  end
+
+  @doc """
   Renders page to create new category
   """
   def render("new.html", assigns) do
@@ -16,7 +23,7 @@ defmodule Artour.CategoryView do
   """
   def render("edit.html", assigns) do
     assigns = Map.merge(assigns, %{action: category_path(assigns[:conn], :update, assigns[:category]),
-                                   heading: Artour.SharedView.form_heading(Artour.Category.display_name(assigns[:category]), :edit),
+                                   heading: Artour.SharedView.form_heading(display_name(assigns[:category]), :edit),
                                    show_delete: true})
 
     render "form_page.html", assigns
@@ -28,7 +35,7 @@ defmodule Artour.CategoryView do
   def render("show_public_post_list.html", assigns) do
     category = assigns[:category]
 
-    render Artour.SharedView, "post_listing.html", conn: assigns[:conn], title: Artour.Category.display_name(category), posts: category.posts
+    render Artour.SharedView, "post_listing.html", conn: assigns[:conn], title: display_name(category), posts: category.posts
   end
 
   @doc """

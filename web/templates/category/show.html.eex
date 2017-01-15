@@ -4,5 +4,5 @@
                                 item_attribute_values: attribute_values(@category),
                                 item_name_singular: "category",
                                 item: @category,
-                                title: Artour.Category.display_name(@category)
+                                title: display_name(@category)
 %>

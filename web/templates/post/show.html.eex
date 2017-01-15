@@ -4,5 +4,5 @@
                                 item_attribute_values: attribute_values(@post),
                                 item_name_singular: "post",
                                 item: @post,
-                                title: Artour.Post.display_name(@post)
+                                title: display_name(@post)
 %>

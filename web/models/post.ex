@@ -12,13 +12,6 @@ defmodule Artour.Post do
   end
 
   @doc """
-  How single post instance should be represented in views
-  """
-  def display_name(post) do
-    post.title
-  end
-
-  @doc """
   Returns string datetime of when post was created
   """
   def date_created(post) do
