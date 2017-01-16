@@ -103,6 +103,18 @@ defmodule Artour.LayoutHelpers do
   	paragraph tags and returns string of combined paragraphs
   	"""
   	def to_paragraphs(text) do
+  		cond do
+  			#is_binary tests if string
+  			is_binary(text) -> to_paragraphs_safe text
+  			true -> raw ""
+  		end
+  	end
+
+  	@doc """
+  	Same as to paragraphs, but text should be checked first that 
+  	argument is string and not nil
+  	"""
+  	def to_paragraphs_safe(text) do
   		text
   			|> String.split("\n")
   			# remove empty strings to allow multiple line-breaks in raw text
