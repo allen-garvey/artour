@@ -1,5 +1,6 @@
 defmodule Artour.Image do
   use Artour.Web, :model
+  import Artour.FilenameValidator, only: [validate_image_filename: 2]
 
   schema "images" do
     field :title, :string
@@ -24,5 +25,9 @@ defmodule Artour.Image do
     |> foreign_key_constraint(:format_id)
     |> assoc_constraint(:format) #validate format exists
     |> unique_constraint(:title)
+    |> validate_image_filename(:filename_large)
+    |> validate_image_filename(:filename_medium)
+    |> validate_image_filename(:filename_small)
+    |> validate_image_filename(:filename_thumbnail)
   end
 end
