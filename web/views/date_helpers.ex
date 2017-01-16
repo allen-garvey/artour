@@ -19,7 +19,6 @@ defmodule Artour.DateHelpers do
 		  10 -> "October"
 		  11 -> "November"
 		  12 -> "December"
-		  _ -> "Month number out of range"
 		end
 	end
 
