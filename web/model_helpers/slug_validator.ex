@@ -14,7 +14,7 @@ defmodule Artour.SlugValidator do
 			is_nil(slug) -> false
 			String.length(slug) == 0 -> false
 			String.length(slug) > 80 -> false
-			true -> Regex.match?(~r/^[a-z0-9]*(-[a-z0-9]|[a-z0-9])*$/, slug)
+			true -> Regex.match?(~r/^[a-z0-9]+(-[a-z0-9]|[a-z0-9])*$/, slug)
 		end
 	end
 
