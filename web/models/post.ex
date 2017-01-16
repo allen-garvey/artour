@@ -1,6 +1,6 @@
 defmodule Artour.Post do
   use Artour.Web, :model
-  import Artour.SlugValidator
+  import Artour.SlugValidator, only: [validate_slug: 2]
 
   schema "posts" do
     field :title, :string
