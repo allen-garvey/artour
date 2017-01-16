@@ -5,3 +5,15 @@
 textarea.form-control{
 	height: 15em;
 }
+
+.date-select {
+	display: flex;
+	select.form-control{
+		display: inline-block;
+		width: initial;
+		flex-grow: 1;
+		&:first-of-type{
+			flex-basis: 40%;
+		}
+	}
+}
