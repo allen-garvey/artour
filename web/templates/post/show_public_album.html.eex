@@ -6,7 +6,7 @@
 	<%= to_paragraphs(@post.body) %>
 </div>
 <div class="post-thumbnails">
-	<%= for i <- 1..10 do
+	<%= for _i <- 1..10 do
 	  link img_tag("http://10.0.1.22/card/christmas-card-2016-2.png", alt: "Garvey Christmas Card 2016"), to: "http://10.0.1.22/card/christmas-card-2016-2.png"
 	end %>
 </div>
