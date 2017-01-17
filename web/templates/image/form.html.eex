@@ -7,7 +7,7 @@
 
   <div class="form-group">
     <%= label f, :title, class: "control-label" %>
-    <%= text_input f, :title, class: "form-control" %>
+    <%= text_input f, :title, class: "form-control", data_image_name: "true" %>
     <%= error_tag f, :title %>
   </div>
 
@@ -19,25 +19,25 @@
 
   <div class="form-group">
     <%= label f, :filename_large, class: "control-label" %>
-    <%= text_input f, :filename_large, class: "form-control" %>
+    <%= text_input f, :filename_large, class: "form-control", data_image_large: "true" %>
     <%= error_tag f, :filename_large %>
   </div>
 
   <div class="form-group">
     <%= label f, :filename_medium, class: "control-label" %>
-    <%= text_input f, :filename_medium, class: "form-control" %>
+    <%= text_input f, :filename_medium, class: "form-control", data_image_medium: "true" %>
     <%= error_tag f, :filename_medium %>
   </div>
 
   <div class="form-group">
     <%= label f, :filename_small, class: "control-label" %>
-    <%= text_input f, :filename_small, class: "form-control" %>
+    <%= text_input f, :filename_small, class: "form-control", data_image_small: "true" %>
     <%= error_tag f, :filename_small %>
   </div>
 
   <div class="form-group">
     <%= label f, :filename_thumbnail, class: "control-label" %>
-    <%= text_input f, :filename_thumbnail, class: "form-control" %>
+    <%= text_input f, :filename_thumbnail, class: "form-control", data_image_thumbnail: true %>
     <%= error_tag f, :filename_thumbnail %>
   </div>
 
