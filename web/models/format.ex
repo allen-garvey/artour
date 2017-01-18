@@ -4,6 +4,7 @@ defmodule Artour.Format do
   schema "formats" do
     field :name, :string
 
+    has_many :images, Artour.Image
     timestamps()
   end
 
