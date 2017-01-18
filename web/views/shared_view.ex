@@ -16,7 +16,7 @@ defmodule Artour.SharedView do
   	Used to generate name for path helper function
   	"""
 	def item_path_func_name(item_name_singular) do
-		String.to_atom(item_name_singular <> "_path")
+		String.to_atom(String.replace(item_name_singular, " ", "_") <> "_path")
 	end
 
 	@doc """
