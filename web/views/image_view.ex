@@ -30,6 +30,36 @@ defmodule Artour.ImageView do
   end
 
   @doc """
+  Returns cloud URL for image (i.e. for public site)
+  size is atom representing image size
+  While same as local url for now, in the future this might change to
+  S3 or B2
+  """
+  def cloud_url_for(conn, image, size) do
+    cloud_folder = "/media/images/"
+    case size do
+      :large -> static_path(conn, cloud_folder <> image.filename_large)
+      :medium -> static_path(conn, cloud_folder <> image.filename_medium)
+      :small -> static_path(conn, cloud_folder <> image.filename_small)
+      :thumbnail -> static_path(conn, cloud_folder <> image.filename_thumbnail)      
+    end
+  end
+
+  @doc """
+  Returns local URL for image (i.e. for admin site)
+  size is atom representing image size
+  """
+  def local_url_for(conn, image, size) do
+    local_folder = "/media/images/"
+    case size do
+      :large -> static_path(conn, local_folder <> image.filename_large)
+      :medium -> static_path(conn, local_folder <> image.filename_medium)
+      :small -> static_path(conn, local_folder <> image.filename_small)
+      :thumbnail -> static_path(conn, local_folder <> image.filename_thumbnail)      
+    end
+  end
+
+  @doc """
   Used on index page - returns abbreviated list of attribute names in the
   same order as the attribute_values function
   """
