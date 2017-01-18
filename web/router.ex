@@ -42,6 +42,7 @@ defmodule Artour.Router do
     resources "/posts", PostController
     resources "/formats", FormatController
     resources "/images", ImageController
+    resources "/post_images", PostImageController
   end
 
   # Other scopes may use custom stacks.

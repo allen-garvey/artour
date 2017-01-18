@@ -6,8 +6,9 @@ defmodule Artour.Post do
     field :title, :string
     field :slug, :string
     field :body, :string
-    belongs_to :category, Artour.Category
 
+    belongs_to :category, Artour.Category
+    many_to_many :images, Artour.Image, join_through: "post_images", on_delete: :delete_all
     timestamps()
   end
 
