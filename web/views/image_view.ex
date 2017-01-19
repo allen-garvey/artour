@@ -30,12 +30,40 @@ defmodule Artour.ImageView do
   end
 
   @doc """
+  Generates the contents of HTML img tag srcset attribute
+  for a given image instance
+  assumes that image.filename_small is used as src attribute
+  """
+  def srcset_for(conn, image, location) do
+    url_for(conn, image, :medium, location) <> " 800w " <>
+    url_for(conn, image, :large, location) <> " 1600w"
+  end
+
+  @doc """
+  Returns HTML img tag for a given image instance
+  src is set to the small source file, and srcset is used for other sizes
+  location: atom that should be either :cloud or :local
+  """
+  def img_tag_for(conn, image, location) do
+    img_tag url_for(conn, image, :small, location), alt: image.description, srcset: srcset_for(conn, image, location)
+  end
+
+  @doc """
+  Returns HTML img tag for a given image instance
+  size: atom should be the same as for url_for
+  location: atom that should be either :cloud or :local
+  """
+  def img_tag_for(conn, image, size, location) do
+    img_tag url_for(conn, image, size, location), alt: image.description
+  end
+
+  @doc """
   Returns cloud URL for image (i.e. for public site)
   size is atom representing image size
   While same as local url for now, in the future this might change to
   S3 or B2
   """
-  def cloud_url_for(conn, image, size) do
+  def url_for(conn, image, size, :cloud) do
     cloud_folder = "/media/images/"
     case size do
       :large -> static_path(conn, cloud_folder <> image.filename_large)
@@ -49,7 +77,7 @@ defmodule Artour.ImageView do
   Returns local URL for image (i.e. for admin site)
   size is atom representing image size
   """
-  def local_url_for(conn, image, size) do
+  def url_for(conn, image, size, :local) do
     local_folder = "/media/images/"
     case size do
       :large -> static_path(conn, local_folder <> image.filename_large)
