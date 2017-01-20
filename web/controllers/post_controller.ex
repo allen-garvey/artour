@@ -30,7 +30,8 @@ defmodule Artour.PostController do
 
   def show(conn, %{"id" => id}) do
     post = Repo.get!(Post, id) |> Repo.preload([:category])
-    render(conn, "show.html", post: post)
+    post_images = Repo.all(from(pi in Artour.PostImage, where: pi.post_id == ^post.id, order_by: [pi.order, pi.id])) |> Repo.preload([:image])
+    render(conn, "show.html", post: post, post_images: post_images)
   end
 
   @doc """

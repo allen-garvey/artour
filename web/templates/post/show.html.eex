@@ -6,3 +6,8 @@
                                 item: @post,
                                 title: display_name(@post)
 %>
+<ol class="post-album-image-list">
+	<%= for post_image <- @post_images do
+	  render "admin_album_image_list_item.html", conn: @conn, image: post_image.image, post_image: post_image
+	end %>
+</ol>
