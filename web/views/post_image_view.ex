@@ -22,7 +22,7 @@ defmodule Artour.PostImageView do
   Renders page to edit post image
   """
   def render("edit.html", assigns) do
-    assigns = Map.merge(assigns, %{action: post_image_path(assigns[:conn], :update, assigns[:image]),
+    assigns = Map.merge(assigns, %{action: post_image_path(assigns[:conn], :update, assigns[:post_image]),
                                    heading: Artour.SharedView.form_heading(display_name(assigns[:post_image]), :edit),
                                    show_delete: true})
 
