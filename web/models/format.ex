@@ -12,7 +12,7 @@ defmodule Artour.Format do
   Query used for default order
   """
   def default_order_query() do
-    from(f in Artour.Format, order_by: f.name)
+    from(Artour.Format, order_by: :name)
   end
 
   @doc """
@@ -38,7 +38,7 @@ defmodule Artour.Format do
   for forms
   """
   def form_list(repo) do
-    repo.all(default_order_query()) |> map_for_form
+    repo.all(from(Artour.Format, order_by: [desc: :name])) |> map_for_form
   end
 
 end
