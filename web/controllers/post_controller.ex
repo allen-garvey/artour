@@ -30,7 +30,7 @@ defmodule Artour.PostController do
 
   def show(conn, %{"id" => id}) do
     post = Repo.get!(Post, id) |> Repo.preload([:category])
-    post_images = Repo.all(from(pi in Artour.PostImage, where: pi.post_id == ^post.id, order_by: [pi.order, pi.id])) |> Repo.preload([:image])
+    post_images = Post.album_post_images(Repo, post)
     render(conn, "show.html", post: post, post_images: post_images)
   end
 
@@ -39,7 +39,8 @@ defmodule Artour.PostController do
   """
   def show_public(conn, %{"slug" => slug}) do
     post = Repo.get_by!(Post, slug: slug) |> Repo.preload([:category])
-    render(conn, "show_public_album.html", post: post)
+    post_images = Post.album_post_images(Repo, post)
+    render(conn, "show_public_album.html", post: post, post_images: post_images)
   end
 
   def edit(conn, %{"id" => id}) do
