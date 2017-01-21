@@ -1,0 +1,14 @@
+//Shared styles for all post show pages
+$post_show_spacing_margin: 30px;
+
+.post-show-heading{
+	margin: $post_show_spacing_margin 0;
+}
+
+.post-body-container{
+	margin-bottom: $post_show_spacing_margin;
+
+	& > p:last-of-type{
+		margin-bottom: 0;
+	}
+}

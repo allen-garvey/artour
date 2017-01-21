@@ -1,8 +1,10 @@
-<h1><%= @post.title %></h1>
-<div>
-	<%= datetime_to_display_date(Artour.Post.date_created(@post)) %>
+<div class="post-show-heading post-heading">
+	<h1 class="post-title"><%= @post.title %></h1>
+	<div class="post-date">
+		<%= datetime_to_display_date(Artour.Post.date_created(@post)) %>
+	</div>
 </div>
-<div>
+<div class="post-body-container">
 	<%= to_paragraphs(@post.body) %>
 </div>
 <div class="post-thumbnails">
