@@ -8,6 +8,8 @@ defmodule Artour.Post do
     field :body, :string
 
     belongs_to :category, Artour.Category
+    belongs_to :cover_image, Artour.Image
+
     many_to_many :images, Artour.Image, join_through: "post_images", on_delete: :delete_all
     timestamps()
   end
@@ -40,10 +42,12 @@ defmodule Artour.Post do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :slug, :body, :category_id])
-    |> validate_required([:title, :slug, :category_id])
+    |> cast(params, [:title, :slug, :body, :category_id, :cover_image_id])
+    |> validate_required([:title, :slug, :category_id, :cover_image_id])
     |> foreign_key_constraint(:category_id)
     |> assoc_constraint(:category) #validate category exists
+    |> foreign_key_constraint(:cover_image_id)
+    |> assoc_constraint(:cover_image) #validate image exists
     |> validate_slug(:slug)
     |> unique_constraint(:title)
     |> unique_constraint(:slug)
