@@ -30,6 +30,13 @@ defmodule Artour.PostView do
   end
 
   @doc """
+  Used to get post admin show pages to highlight cover image
+  """
+  def is_cover_image(post, image) do
+    post.cover_image.id === image.id
+  end
+
+  @doc """
   Used to get the path for a post's public show page
   """
   def public_show_path(conn, post) do
