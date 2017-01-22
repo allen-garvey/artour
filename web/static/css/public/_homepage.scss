@@ -30,3 +30,11 @@
 	text-align: right;
 	min-width: 10em;
 }
+
+.post-key-image-container{
+	display: flex;
+	justify-content: center;
+	img{
+		max-height: 650px;	
+	}
+}
