@@ -29,7 +29,7 @@ defmodule Artour.Router do
     #show individual category by slug
     get "/categories/:slug", CategoryController, :show_public
     #show individual post by slug
-    get "/posts/:slug", PostController, :show_public
+    get "/posts/:slug", PublicPostController, :show
   end
 
   #Admin site

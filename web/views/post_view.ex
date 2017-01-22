@@ -37,13 +37,6 @@ defmodule Artour.PostView do
   end
 
   @doc """
-  Used to get the path for a post's public show page
-  """
-  def public_show_path(conn, post) do
-    post_path(conn, :show_public, post.slug)
-  end
-
-  @doc """
   Used on index page - returns abbreviated list of attribute names in the
   same order as the attribute_values function
   """

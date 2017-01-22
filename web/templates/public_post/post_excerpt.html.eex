@@ -1,14 +1,14 @@
 <article class="post-brief">
 	<div class="post-heading">
 		<h2 class="post-title">
-			<%= link @post.title, to: public_show_path(@conn, @post) %>		
+			<%= link @post.title, to: show_path(@conn, @post) %>		
 		</h2>
 		<div class="post-date"><%= datetime_to_display_date(Artour.Post.date_created(@post)) %></div>
 	</div>
 	<div class="post-excerpt">
-		<p><%= link "View album", to: public_show_path(@conn, @post) %></p>
+		<p><%= link "View album", to: show_path(@conn, @post) %></p>
 	</div>
 	<div class="post-key-image-container">
-		<%= link Artour.ImageView.img_tag_for(@conn, @post.cover_image, :cloud), to: public_show_path(@conn, @post) %>
+		<%= link Artour.ImageView.img_tag_for(@conn, @post.cover_image, :cloud), to: show_path(@conn, @post) %>
 	</div>
 </article>

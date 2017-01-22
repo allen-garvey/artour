@@ -12,6 +12,6 @@
 		if is_cover_image(@post, post_image.image) do
 		  list_item_class = "cover-image-container"
 		end
-		render "admin_album_image_list_item.html", conn: @conn, image: post_image.image, post_image: post_image, list_item_class: list_item_class
+		render "album_list_item.html", conn: @conn, image: post_image.image, post_image: post_image, list_item_class: list_item_class
 	end %>
 </ol>
