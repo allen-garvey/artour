@@ -9,6 +9,13 @@ defmodule Artour.Router do
     plug :put_secure_browser_headers
   end
 
+  #no need for CSRF protection, sessions or flash
+  #since we are just viewing pages
+  pipeline :public_browser do
+    plug :accepts, ["html"]
+    plug :put_secure_browser_headers
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -21,7 +28,7 @@ defmodule Artour.Router do
 
   # public site
   scope "/", Artour do
-    pipe_through [:browser, :public_layout] # Use the default browser stack
+    pipe_through [:public_browser, :public_layout]
 
     get "/", PageController, :index
     get "/browse", PageController, :browse
@@ -34,7 +41,7 @@ defmodule Artour.Router do
 
   #Admin site
   scope "/admin", Artour do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", AdminController, :index
 
