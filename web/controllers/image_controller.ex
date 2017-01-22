@@ -14,14 +14,22 @@ defmodule Artour.ImageController do
     render(conn, "new.html", changeset: changeset, formats: formats)
   end
 
-  def create(conn, %{"image" => image_params}) do
+  def create(conn, %{"image" => image_params, "form_submit_type" => submit_type}) do
     changeset = Image.changeset(%Image{}, image_params)
 
     case Repo.insert(changeset) do
-      {:ok, _image} ->
-        conn
-        |> put_flash(:info, "Image created successfully.")
-        |> redirect(to: image_path(conn, :index))
+      {:ok, image} ->
+        if submit_type == "add_another" do
+          changeset = Image.changeset(%Image{format_id: image.format_id, completion_date: image.completion_date})
+          formats = Artour.Format.form_list(Repo)
+          conn
+            |> put_flash(:info, Artour.ImageView.display_name(image) <> " saved.")
+            |> render("new.html", changeset: changeset, formats: formats)
+        else
+          conn
+            |> put_flash(:info, "Image created successfully.")
+            |> redirect(to: image_path(conn, :index))
+        end
       {:error, changeset} ->
         formats = Artour.Format.form_list(Repo)
         render(conn, "new.html", changeset: changeset, formats: formats)
