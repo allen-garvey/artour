@@ -8,10 +8,12 @@
 %>
 <ol class="post-album-image-list">
 	<%= for post_image <- @post_images do
-		list_item_class = ""
-		if is_cover_image(@post, post_image.image) do
-		  list_item_class = "cover-image-container"
-		end
+		list_item_class = 
+			case is_cover_image(@post, post_image.image) do
+		   		true -> "cover-image-container"
+		    	false -> ""
+			end
+
 		render "album_list_item.html", conn: @conn, image: post_image.image, post_image: post_image, list_item_class: list_item_class
 	end %>
 </ol>
