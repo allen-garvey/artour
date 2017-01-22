@@ -13,7 +13,8 @@ defmodule Artour.PostImageView do
   """
   def render("new.html", assigns) do
     assigns = Map.merge(assigns, %{action: post_image_path(assigns[:conn], :create),
-                                   heading: Artour.SharedView.form_heading("post image", :new)})
+                                   heading: Artour.SharedView.form_heading("post image", :new),
+                                   save_another: true})
 
     render "form_page.html", assigns
   end

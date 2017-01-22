@@ -13,14 +13,21 @@ defmodule Artour.PostImageController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"post_image" => post_image_params}) do
+  def create(conn, %{"post_image" => post_image_params, "form_submit_type" => submit_type}) do
     changeset = PostImage.changeset(%PostImage{}, post_image_params)
 
     case Repo.insert(changeset) do
-      {:ok, _post_image} ->
-        conn
-        |> put_flash(:info, "Post image created successfully.")
-        |> redirect(to: post_image_path(conn, :index))
+      {:ok, post_image} ->
+        if submit_type == "add_another" do
+          changeset = PostImage.changeset(%PostImage{post_id: post_image.post_id})
+          conn
+            |> put_flash(:info, "Post image saved.")
+            |> render("new.html", changeset: changeset)
+        else
+          conn
+            |> put_flash(:info, "Post image created successfully.")
+            |> redirect(to: post_image_path(conn, :index))
+        end
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
