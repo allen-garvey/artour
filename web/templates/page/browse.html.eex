@@ -4,3 +4,5 @@
 		content_tag :li, link(Artour.CategoryView.display_name(category), to: Artour.PublicCategoryView.show_path(@conn, category))
 	end %>
 </ul>
+
+<h2><%= link "All Posts", to: public_post_path(@conn, :index) %></h2>
