@@ -8,5 +8,7 @@
 	<div class="post-excerpt">
 		<p><%= link "View album", to: public_show_path(@conn, @post) %></p>
 	</div>
-	<%= link img_tag("http://10.0.1.22/card/christmas-card-2016-2.png", alt: "Garvey Christmas Card 2016"), to: public_show_path(@conn, @post) %>
+	<div class="post-key-image-container">
+		<%= link Artour.ImageView.img_tag_for(@conn, @post.cover_image, :cloud), to: public_show_path(@conn, @post) %>
+	</div>
 </article>
