@@ -35,8 +35,7 @@ defmodule Artour.ImageView do
   assumes that image.filename_small is used as src attribute
   """
   def srcset_for(conn, image, location) do
-    url_for(conn, image, :medium, location) <> " 800w, " <>
-    url_for(conn, image, :large, location) <> " 1600w"
+    url_for(conn, image, :medium, location) <> " 800w"
   end
 
   @doc """
