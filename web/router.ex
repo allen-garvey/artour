@@ -53,6 +53,7 @@ defmodule Artour.Router do
     resources "/images", ImageController
     resources "/post_images", PostImageController
     resources "/tags", TagController
+    resources "/post_tags", PostTagController
   end
 
   # Other scopes may use custom stacks.
