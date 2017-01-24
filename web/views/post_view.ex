@@ -57,14 +57,14 @@ defmodule Artour.PostView do
   same order as the attribute_values function
   """
   def attribute_names() do
-    ["Title", "Slug", "Date Created", "Category", "Body"]
+    ["Title", "Public Url", "Date Created", "Category", "Body"]
   end
 
   @doc """
   Used on show page - takes post instance and returns list of 
   formatted values
   """
-  def attribute_values(post) do
-    [post.title, post.slug, datetime_to_us_date(Artour.Post.date_created(post)), Artour.CategoryView.display_name(post.category), to_paragraphs(post.body)]
+  def attribute_values(conn, post) do
+    [post.title, link(Artour.PublicPostView.show_path(conn, post), to: Artour.PublicPostView.show_path(conn, post)), datetime_to_us_date(Artour.Post.date_created(post)), Artour.CategoryView.display_name(post.category), to_paragraphs(post.body)]
   end
 end
