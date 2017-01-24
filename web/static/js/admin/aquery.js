@@ -50,6 +50,15 @@ function aQuery(selector){
 		}
 	}
 
+	//callback - element, index
+	aQueryObject.prototype.map = function(func){
+		var ret = [];
+		for (var i = 0; i < this.length; i++) {
+			ret.push(func.call(this.elementList[i], this.elementList[i], i));
+		}
+		return ret;
+	}
+
 	aQueryObject.prototype.first = function(){
 		//if empty, just return same empty object
 		//since all empty objects are functionally identical
@@ -149,6 +158,16 @@ aQueryObject.prototype.closest = function(selector){
 	//not found
 	return new aQueryObject([]);
 };
+
+aQueryObject.prototype.find = function(selector){
+	//if empty, just return same empty object
+	//since empty objects have no parents
+	if(this.length === 0){
+		return this;
+	}
+	var element = this.first().elementList[0];
+	return new aQueryObject(element.querySelectorAll(selector));
+}
 /*
 * DOM Manipulation methods
 */
