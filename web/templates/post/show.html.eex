@@ -6,7 +6,7 @@
                                 item: @post,
                                 title: display_name(@post)
 %>
-<ul class="list-group post-tags-list" data-post-id="<%= @post.id %>" data-state="">
+<ul class="list-group post-tags-list" data-post-id="<%= @post.id %>" data-api-url="<%= api_post_path(@conn, :tags_for, @post.id) %>" data-state="">
 	<li class="list-group-item list-group-item-info">
 		<div class="list-header">
 			<h4 class="list-heading">Tags</h4>
@@ -19,9 +19,7 @@
 		</div>
 		<div class="add-tags-container">
 			<div class="tag-checkboxes">
-				<label><input type="checkbox">Pencil</label>
-				<label><input type="checkbox">Drawing</label>
-				<label><input type="checkbox">Another Tag</label>
+				<label><input type="checkbox" value="{{tag_id}}">{{tag_name}}</label>
 			</div>
 			<div class="button-container-right">
 				<button class="btn btn-default" data-role="cancel-tag-button">Cancel</button>
