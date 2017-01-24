@@ -59,7 +59,11 @@ defmodule Artour.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", Artour do
-  #   pipe_through :api
-  # end
+  scope "/admin/api", Artour do
+    pipe_through :api
+
+    get "/posts/:post_id/tags", ApiPostController, :tags_for
+    post "/posts/:post_id/tags", ApiPostController, :add_tags
+    delete "/posts/:post_id/tags/:tag_id", ApiPostController, :remove_tag
+  end
 end
