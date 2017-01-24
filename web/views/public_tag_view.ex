@@ -16,7 +16,7 @@ defmodule Artour.PublicTagView do
     render Artour.PublicSharedView, "index.html", conn: assigns[:conn], 
     											title: "Tags", 
     											items: assigns[:tags], 
-    											item_view: view_module(assigns[:conn]),
+    											item_view: Artour.PublicTagView,
     											item_display_func_name: :display_name, 
     											item_path_func_name: :show_path
   end
@@ -26,8 +26,13 @@ defmodule Artour.PublicTagView do
   """
   def render("show.html", assigns) do
     tag = assigns[:tag]
+    render Artour.PublicSharedView, "index.html", conn: assigns[:conn], 
+    											title: display_name(tag), 
+    											items: tag.posts, 
+    											item_view: Artour.PublicPostView,
+    											item_display_func_name: :display_name, 
+    											item_path_func_name: :show_path
 
-    render Artour.PublicSharedView, "post_listing.html", conn: assigns[:conn], title: display_name(tag), posts: tag.posts
   end
 
   @doc """

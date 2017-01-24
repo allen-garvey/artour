@@ -1,6 +1,0 @@
-<h1><%= @title %></h1>
-<ul>
-	<%= for post <- @posts do
-	  content_tag :li, link(Artour.PostView.display_name(post), to: Artour.PublicPostView.show_path(@conn, post))
-	end %>
-</ul>

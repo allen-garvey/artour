@@ -26,8 +26,12 @@ defmodule Artour.PublicCategoryView do
   """
   def render("show.html", assigns) do
     category = assigns[:category]
-
-    render Artour.PublicSharedView, "post_listing.html", conn: assigns[:conn], title: display_name(category), posts: category.posts
+    render Artour.PublicSharedView, "index.html", conn: assigns[:conn], 
+                          title: display_name(category), 
+                          items: category.posts, 
+                          item_view: Artour.PublicPostView,
+                          item_display_func_name: :display_name, 
+                          item_path_func_name: :show_path
   end
 
   @doc """
