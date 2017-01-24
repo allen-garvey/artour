@@ -20,6 +20,15 @@ defmodule Artour.Category do
   end
 
   @doc """
+  Returns list of all category instances that have
+  at least 1 post associated with them
+  """
+  def all_with_posts(repo) do
+    category_ids_subquery = repo.all(from(p in Artour.Post, distinct: true, select: p.category_id))
+    repo.all(from c in Artour.Category, where: c.id in ^category_ids_subquery, order_by: c.name)
+  end
+
+  @doc """
   category type acts as an enum, so check it is valid
   before saving
   """

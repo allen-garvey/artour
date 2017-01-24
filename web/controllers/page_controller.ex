@@ -10,11 +10,9 @@ defmodule Artour.PageController do
   Shows list of categories that contain 1 or more related posts
   """
   def browse(conn, _params) do
-  	category_ids_subquery = Repo.all(from(p in Artour.Post, distinct: true, select: p.category_id))
-  	categories = Repo.all(from c in Artour.Category, where: c.id in ^category_ids_subquery, order_by: c.name)
-
-    tag_ids_subquery = Repo.all(from(pt in Artour.PostTag, distinct: true, select: pt.tag_id))
-    tags = Repo.all(from t in Artour.Tag, where: t.id in ^tag_ids_subquery, order_by: t.name)
+  	
+  	categories = Artour.Category.all_with_posts Repo
+    tags = Artour.Tag.all_with_posts Repo 
     
     render conn, "browse.html", categories: categories, tags: tags
   end
