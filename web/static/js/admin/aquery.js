@@ -66,19 +66,16 @@ function aQuery(selector){
 //otherwise returns the value of that attribute for the first element
 //in the collection
 aQueryObject.prototype.attr = function(attributeName, newValue){
-	var setVal = typeof newValue === 'string' ? true : false;
-
-	var ret = setVal ? this : '';
-
 	if(this.length > 0){
-		if(setVal && typeof this.elementList[0][attributeName] !== undefined){
-			this.elementList[0][attributeName] = newValue;
+		if(typeof newValue === 'string'){
+			this.elementList[0].setAttribute(attributeName, newValue);
+			return this;
 		}
 		else{
-			ret = this.elementList[0][attributeName];
+			return this.elementList[0].getAttribute(attributeName);
 		}
 	}
-	return ret;
+	return this;
 }
 
 
@@ -142,16 +139,41 @@ aQueryObject.prototype.closest = function(selector){
 */
 
 //based on http://stackoverflow.com/questions/4793604/how-to-do-insert-after-in-javascript-without-using-a-library
-//content should already be element, such as that returned by aQuery.parseHTML()
+//content should already be element, such as that returned by aQuery.parseHTML() or html string
 aQueryObject.prototype.before = function(content){
+	if(typeof content == 'string'){
+		content = aQuery.parseHTML(content);
+	}
 	this.each(function(i, element){
 		element.parentNode.insertBefore(content, element);
 	});
 };
 
 aQueryObject.prototype.after = function(content){
+	if(typeof content == 'string'){
+		content = aQuery.parseHTML(content);
+	}
 	this.each(function(i, element){
 		element.parentNode.insertBefore(content, element.nextSibling);
+	});
+};
+
+aQueryObject.prototype.append = function(content){
+	if(typeof content == 'string'){
+		content = aQuery.parseHTML(content);
+	}
+	this.each(function(i, element){
+		element.appendChild(content);
+	});
+};
+
+//http://stackoverflow.com/questions/6104125/how-can-i-remove-an-element-in-javascript-without-jquery
+aQueryObject.prototype.remove = function(){
+	if(typeof content == 'string'){
+		content = aQuery.parseHTML(content);
+	}
+	this.each(function(i, element){
+		element.parentNode.removeChild(element);
 	});
 };
 
@@ -369,3 +391,7 @@ aQuery.ajax = function(settings){
     xmlhttp.send(data);
 
 };
+
+
+
+
