@@ -28,3 +28,61 @@
 		background-color: paleturquoise;
 	}
 }
+
+.post-tags-list{
+	//list header
+	& > .list-group-item:first-of-type{
+		padding-bottom: 2em;
+	}
+	.list-header{
+		display: flex;
+		justify-content: space-between;
+		.list-heading{
+			font-size: 1.563em;
+		}
+	}
+	.error-container, .add-tags-container{
+		display: none;
+	}
+	&[data-state="add"]{
+		.add-tags-container{
+			display: block;
+		}
+		.header-buttons-container{
+			display: none;
+		}
+	}
+
+	&[data-state="error"]{
+		.header-buttons-container{
+			display: none;
+		}
+		.error-container{
+			display: block;
+		}
+	}
+
+	.add-tags-container{
+		label{
+			margin-right: 10px;
+		}
+		.button-container-right{
+			display: flex;
+			justify-content: flex-end;
+			button{
+				margin-right: 12px;
+				&:last-of-type{
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+	//tag list items
+	.tag-item{
+		display: flex;
+		justify-content: space-between;
+		padding-top: 1em;
+		padding-bottom: 1em;
+	}
+}
