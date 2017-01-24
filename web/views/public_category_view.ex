@@ -1,5 +1,6 @@
 defmodule Artour.PublicCategoryView do
   use Artour.Web, :view
+  import Artour.CategoryView, only: [display_name: 1]
 
   @doc """
   Renders page of list of related posts on public site
@@ -7,7 +8,7 @@ defmodule Artour.PublicCategoryView do
   def render("show.html", assigns) do
     category = assigns[:category]
 
-    render Artour.PublicSharedView, "post_listing.html", conn: assigns[:conn], title: Artour.CategoryView.display_name(category), posts: category.posts
+    render Artour.PublicSharedView, "post_listing.html", conn: assigns[:conn], title: display_name(category), posts: category.posts
   end
 
   @doc """
