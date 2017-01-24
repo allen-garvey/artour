@@ -5,4 +5,11 @@
 	end %>
 </ul>
 
+<h2>Tags</h2>
+<ul>
+	<%= for tag <- @tags do
+		content_tag :li, link(Artour.TagView.display_name(tag), to: Artour.PublicTagView.show_path(@conn, tag))
+	end %>
+</ul>
+
 <h2><%= link "All Posts", to: public_post_path(@conn, :index) %></h2>

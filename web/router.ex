@@ -35,6 +35,8 @@ defmodule Artour.Router do
 
     #show individual category by slug
     get "/categories/:slug", PublicCategoryController, :show
+    #show individual tag by slug
+    get "/tags/:slug", PublicTagController, :show
     #list of all posts
     get "/posts", PublicPostController, :index
     #show individual post by slug
