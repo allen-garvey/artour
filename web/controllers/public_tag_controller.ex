@@ -4,7 +4,7 @@ defmodule Artour.PublicTagController do
   alias Artour.Tag
 
   def index(conn, _params) do
-    tags = Repo.all(Tag)
+    tags = Tag.all_with_posts Repo
     render(conn, "index.html", tags: tags)
   end
 

@@ -33,13 +33,13 @@ defmodule Artour.Router do
     get "/", PageController, :index
     get "/browse", PageController, :browse
 
-    #show individual category by slug
+    get "/categories", PublicCategoryController, :index
     get "/categories/:slug", PublicCategoryController, :show
-    #show individual tag by slug
+    
+    get "/tags", PublicTagController, :index
     get "/tags/:slug", PublicTagController, :show
-    #list of all posts
+    
     get "/posts", PublicPostController, :index
-    #show individual post by slug
     get "/posts/:slug", PublicPostController, :show
   end
 

@@ -3,6 +3,11 @@ defmodule Artour.PublicCategoryController do
 
   alias Artour.Category
 
+  def index(conn, _params) do
+    categories = Category.all_with_posts Repo
+    render(conn, "index.html", categories: categories)
+  end
+
   @doc """
   Used on public site to show listing of
   individual category's posts

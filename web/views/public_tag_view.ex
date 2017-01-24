@@ -1,6 +1,25 @@
 defmodule Artour.PublicTagView do
   use Artour.Web, :view
-  import Artour.TagView, only: [display_name: 1]
+
+  @doc """
+  Unfortunately can't import this, because it makes the code for getting the display name
+  in the shared index messier
+  """
+  def display_name(tag) do
+    Artour.TagView.display_name tag
+  end
+
+  @doc """
+  Renders list of tags on public site
+  """
+  def render("index.html", assigns) do
+    render Artour.PublicSharedView, "index.html", conn: assigns[:conn], 
+    											title: "Tags", 
+    											items: assigns[:tags], 
+    											item_view: view_module(assigns[:conn]),
+    											item_display_func_name: :display_name, 
+    											item_path_func_name: :show_path
+  end
 
   @doc """
   Renders page of list of related posts on public site
