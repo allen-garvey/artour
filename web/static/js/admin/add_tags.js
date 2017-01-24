@@ -33,8 +33,34 @@
     		}
     	});
     });
+    //hide checkboxes
     $('[data-role="cancel-tag-button"]').on('click', function(event){
     	tagsList.attr('data-state', '');
+    });
+
+    //save list of tags
+    $('[data-role="save-tag-button"]').on('click', function(event){
+        var tagIds = checkboxesContainer.find('input[type=checkbox]:checked').map(function(checkbox){ return checkbox.value; });
+        if(tagIds.length < 1){
+            return;
+        }
+        $.ajax({
+            url: apiUrlBase,
+            method: 'POST',
+            dataType: 'JSON',
+            data: {tags: tagIds},
+            success: function(response){
+                if(response.error){
+                    console.log(response);
+                }
+                else{
+                    //easier for right now just to reload window on success
+                    //than trying to adjust list of tags
+                    window.location.reload();
+                }
+            }
+        });
+        
     });
 
     //remove tag from post and delete list item from DOM
