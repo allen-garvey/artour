@@ -1,23 +1,24 @@
 defmodule Artour.ApiPostController do
   use Artour.Web, :controller
 
-  alias Artour.Post
-
   @doc """
   Returns list of all tags unused by a post
   """
   def tags_for(conn, %{"post_id" => post_id, "unused" => "true"}) do
     tag_ids_used = Repo.all(from(pt in Artour.PostTag, select: pt.tag_id, where: pt.post_id == ^post_id))
     tags = Repo.all(from(t in Artour.Tag, where: not(t.id in ^tag_ids_used), order_by: t.name))
-    render(conn, "tags_for_post.json", tags: tags)
+    render(conn, "tags_list.json", tags: tags)
   end
 
   @doc """
   Adds tags to a post
-  tags should be a comma-separated list of tag_ids
+  tags json list of tag ids
   """
-  def tags_for(conn, %{"post_id" => post_id, "tags" => tags}) do
-    
+  def add_tags(conn, %{"post_id" => post_id, "tags" => tags}) do
+    for tag_id <- String.split(tags, ",") do
+      changeset = Artour.PostTag.changeset(%Artour.PostTag{}, %{"post_id" => post_id, "tag_id" => tag_id})
+      Repo.insert!(changeset)   
+    end
     render(conn, "ok.json", message: "Tags added to post")
   end
 

@@ -11,7 +11,7 @@ defmodule Artour.ApiPostView do
   @doc """
   Used to get all tags for a specific post
   """
-  def render("tags_for_post.json", %{tags: tags}) do
+  def render("tags_list.json", %{tags: tags}) do
     %{data: render_many(tags, Artour.ApiTagView, "tag.json")}
   end
 
