@@ -33,7 +33,7 @@ defmodule Artour.PostView do
   Used to get post admin show pages to highlight cover image
   """
   def is_cover_image(post, image) do
-    post.cover_image.id === image.id
+    post.cover_image_id === image.id
   end
 
   @doc """

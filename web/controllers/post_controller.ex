@@ -30,9 +30,9 @@ defmodule Artour.PostController do
 
   def show(conn, %{"id" => id}) do
     post = Repo.get!(Post, id) 
-      |> Repo.preload([:category, :cover_image])
+      |> Repo.preload([:category])
       |> Repo.preload(tags: Artour.Tag.default_order_query)
-      
+
     post_images = Post.album_post_images(Repo, post)
     render(conn, "show.html", post: post, post_images: post_images)
   end
