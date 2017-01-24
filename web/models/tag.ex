@@ -6,6 +6,7 @@ defmodule Artour.Tag do
     field :name, :string
     field :slug, :string
 
+    many_to_many :posts, Artour.Post, join_through: "post_tags", on_delete: :delete_all
     timestamps()
   end
 
