@@ -85,7 +85,7 @@
     	if(currentlyDraggedItemIndex === currentlyDraggedOverIndex){
     		return;
     	}
-    	else if(currentlyDraggedOverIndex !== 1 || currentlyDraggedOverIndex > currentlyDraggedOverIndex){
+    	else if(currentlyDraggedOverIndex < currentlyDraggedItemIndex){
     		listItemDraggedOver.addClass('dragged-over-from-bottom');
     	}
     	else{
