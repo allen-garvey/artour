@@ -1,4 +1,4 @@
-<li class="<%= @list_item_class %>" draggable="true">
+<li class="<%= @list_item_class %>" draggable="true" data-image-id="<%= @image.id %>">
 	<div>
 		<%= link(Artour.ImageView.img_tag_for(@conn, @image, :thumbnail, :local), to: image_path(@conn, :show, @image)) %>
 	</div>
