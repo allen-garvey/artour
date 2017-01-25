@@ -6,7 +6,7 @@
                                 item: @post,
                                 title: display_name(@post)
 %>
-<ul class="list-group post-tags-list" data-post-id="<%= @post.id %>" data-api-url="<%= api_post_path(@conn, :tags_for, @post.id) %>" data-state="">
+<ul class="list-group post-tags-list" data-api-url="<%= api_post_path(@conn, :tags_for, @post.id) %>" data-state="">
 	<li class="list-group-item list-group-item-info">
 		<div class="list-header">
 			<h4 class="list-heading">Tags</h4>
