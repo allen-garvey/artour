@@ -98,6 +98,10 @@
     	//remove placeholders
     	removeDragPlaceholders(imageListItems);
     	reorderListItems(currentlyDraggedItemIndex, currentlyDraggedOverIndex);
+    	//show save button if reordered at least once
+    	if(currentlyDraggedItemIndex !== currentlyDraggedOverIndex){
+    		$('.post-album-image-list-controls').removeClass('hidden');
+    	}
     });
 
 
