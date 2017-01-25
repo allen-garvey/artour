@@ -6,46 +6,5 @@
                                 item: @post,
                                 title: display_name(@post)
 %>
-<ul class="list-group post-tags-list" data-api-url="<%= api_post_path(@conn, :tags_for, @post.id) %>" data-state="">
-	<li class="list-group-item list-group-item-info">
-		<div class="list-header">
-			<h4 class="list-heading">Tags</h4>
-			<div class="header-buttons-container">
-				<button class="btn btn-primary" data-role="add-tag-button">Add</button>
-	        </div>
-		</div>
-		<div class="alert alert-warning error-container">
-			This post has already been tagged with all available tags. <%= link "Want to create more?", to: tag_path(@conn, :new) %>
-		</div>
-		<div class="add-tags-container">
-			<div class="tag-checkboxes">
-				<label><input type="checkbox" value="{{tag_id}}">{{tag_name}}</label>
-			</div>
-			<div class="button-container-right">
-				<button class="btn btn-default" data-role="cancel-tag-button">Cancel</button>
-	        	<button class="btn btn-success" data-role="save-tag-button">Save</button>
-			</div>
-		</div>
-	</li>
-	<%= for tag <- @post.tags do %>
-		<li class="list-group-item tag-item" data-tag-id="<%= tag.id %>">
-			<%= Artour.TagView.display_name(tag) %>
-			<button class="btn btn-danger btn-xs" data-role="delete-tag-button">Remove</button>
-		</li>
-	<% end %>
-</ul>
-
-<div class="list-group-item-info post-album-image-list-controls hidden">
-	<button class="btn btn-primary" data-role="save-image-order-button">Save Image Order</button>
-</div>
-<ol class="post-album-image-list">
-	<%= for post_image <- @post_images do
-		list_item_class = 
-			case is_cover_image(@post, post_image.image) do
-		   		true -> "cover-image-container"
-		    	false -> ""
-			end
-
-		render "album_list_item.html", conn: @conn, image: post_image.image, post_image: post_image, list_item_class: list_item_class
-	end %>
-</ol>
+<%= render "tags_list.html", conn: @conn, post: @post %>
+<%= render "album_list.html", conn: @conn, post: @post, post_images: @post_images %>
