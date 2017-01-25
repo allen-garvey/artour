@@ -104,6 +104,22 @@
     	}
     });
 
+    $('[data-role="save-image-order-button"]').on('click', function(event) {
+    	var apiReorderImageUrl = $('.post-album-image-list').data('reorder-images-url');
+    	var imageIds = $('.post-album-image-list li').map(function(el){ return $(el).data('image-id'); });
+    	$.ajax({
+    		url: apiReorderImageUrl,
+    		method: 'PATCH',
+    		dataType: 'json',
+    		data: {images: imageIds},
+    		success: function(response){
+    			//no action necessary
+    		}
+    	});
+    	//rehide save button
+    	$('.post-album-image-list-controls').addClass('hidden');
+    });
+
 
 
 })(aQuery);

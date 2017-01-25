@@ -64,6 +64,7 @@ defmodule Artour.Router do
 
     get "/posts/:post_id/tags", ApiPostController, :tags_for
     patch "/posts/:post_id", ApiPostController, :update
+    patch "/posts/:post_id/images/reorder", ApiPostController, :reorder_images
     post "/posts/:post_id/tags", ApiPostController, :add_tags
     delete "/posts/:post_id/tags/:tag_id", ApiPostController, :remove_tag
   end

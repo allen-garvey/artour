@@ -44,8 +44,20 @@ defmodule Artour.ApiPostController do
     post = Repo.get!(Artour.Post, post_id)
     post = Ecto.Changeset.change post, cover_image_id: String.to_integer(cover_image_id)
     case Repo.update post do
-      {:ok, struct}       -> render(conn, "ok.json", message: "Post cover_image_id updated")
-      {:error, changeset} -> render(conn, "error.json", message: "Error changing post cover_image_id")
+      {:ok, _struct}       -> render(conn, "ok.json", message: "Post cover_image_id updated")
+      {:error, _changeset} -> render(conn, "error.json", message: "Error changing post cover_image_id")
     end
+  end
+
+  @doc """
+  Reorder post album images
+  """
+  def reorder_images(conn, %{"post_id" => post_id, "images" => images}) do
+   for {image_id, i} <- String.split(images, ",") |> Enum.with_index do
+      post_tag = Repo.get_by!(Artour.PostImage, post_id: post_id, image_id: image_id)
+      post_tag = Ecto.Changeset.change post_tag, order: i
+      Repo.update!(post_tag)   
+    end
+    render(conn, "ok.json", message: "Post image order updated")
   end
 end
