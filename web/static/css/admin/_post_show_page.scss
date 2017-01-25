@@ -19,9 +19,7 @@
 		.list-item-dragger{
 			padding: 2em;
 			font-size: 2em;
-			&:hover{
-				cursor: pointer;
-			}
+			cursor: move;
 		}
 	}
 	.cover-image-container{
