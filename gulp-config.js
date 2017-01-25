@@ -16,7 +16,7 @@ config.js.admin = {};
 config.js.admin.SOURCE_DIR = path.join(config.SOURCE_DIR, 'js/admin/');
 config.js.admin.DEST_DIR = path.join(config.DEST_DIR, 'js/');
 config.js.admin.DIST_NAME = 'admin'; //name of compiled file to be served i.e. app.js and app.min.js
-config.js.admin.app_files = ['aquery', 'slugify', 'form_delete_button', 'autofill_image_name', 'add_tags'];
+config.js.admin.app_files = ['aquery', 'slugify', 'form_delete_button', 'autofill_image_name', 'add_tags', 'reorder_images'];
 
 //add source dir prefix and .js suffix to js source files
 config.js.admin.app_files = config.js.admin.app_files.map(function(file){return path.join(config.js.admin.SOURCE_DIR, file + '.js');});

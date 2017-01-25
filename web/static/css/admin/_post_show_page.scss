@@ -21,6 +21,14 @@
 			font-size: 2em;
 			cursor: move;
 		}
+		//for when dragged over
+		$dragged_over_margin: 100px;
+		&.dragged-over-from-top{
+			margin-bottom: $dragged_over_margin;
+		}
+		&.dragged-over-from-bottom{
+			margin-top: $dragged_over_margin;
+		}
 	}
 	.cover-image-container{
 		background-color: paleturquoise;
