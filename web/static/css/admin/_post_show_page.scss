@@ -44,7 +44,14 @@
 	}
 	.cover-image-container{
 		background-color: paleturquoise;
+		[data-role="set-cover-image-button"]{
+			display: none;
+		}
 	}
+	[data-role="set-cover-image-button"]{
+		margin-left: 1em;
+	}
+
 }
 
 .post-tags-list{

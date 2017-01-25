@@ -9,6 +9,13 @@ defmodule Artour.ApiPostView do
   end
 
   @doc """
+  Generic error message, such as for when there is an error
+  """
+  def render("error.json", %{message: message}) do
+    %{error: message}
+  end
+
+  @doc """
   Used to get all tags for a specific post
   """
   def render("tags_list.json", %{tags: tags}) do

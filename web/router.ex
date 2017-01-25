@@ -63,6 +63,7 @@ defmodule Artour.Router do
     pipe_through :api
 
     get "/posts/:post_id/tags", ApiPostController, :tags_for
+    patch "/posts/:post_id", ApiPostController, :update
     post "/posts/:post_id/tags", ApiPostController, :add_tags
     delete "/posts/:post_id/tags/:tag_id", ApiPostController, :remove_tag
   end

@@ -1,7 +1,7 @@
 <div class="list-group-item-info post-album-image-list-controls hidden">
 	<button class="btn btn-primary" data-role="save-image-order-button">Save Image Order</button>
 </div>
-<ol class="post-album-image-list">
+<ol class="post-album-image-list" data-post-update-url="<%= api_post_path(@conn, :update, @post) %>">
 	<%= for post_image <- @post_images do
 		list_item_class = 
 			case is_cover_image(@post, post_image.image) do
