@@ -1,7 +1,7 @@
 #run task with 'mix artour.gen.html'
 defmodule Mix.Tasks.Artour.Gen.Html do
   use Mix.Task
-  import Plug.Test #for conn function
+  import Plug.Test, only: [conn: 2]
 
   @shortdoc "Generates static html files from pages and saves in given directory"
   def run(_args) do
