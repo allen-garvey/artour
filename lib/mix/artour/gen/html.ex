@@ -6,10 +6,8 @@ defmodule Mix.Tasks.Artour.Gen.Html do
   @shortdoc "Generates static html files from pages and saves in given directory"
   def run(_args) do
     IO.puts "Generating HTML files"
-    #directory static files will be saved
-    dest_dir = File.cwd! |> Path.join("_build") |> Path.join("static_site")
-    #create dest dir if not exists
-    File.mkdir_p! dest_dir
+    
+    initialize_dest_directory()
 
     #start app so repo is available
     Mix.Task.run "app.start", []
@@ -23,6 +21,16 @@ defmodule Mix.Tasks.Artour.Gen.Html do
     
     
     #Path.join(dest_dir, "index.html") |> File.write!(conn.resp_body, [:utf8, :append])
+  end
+
+  @doc """
+  Creates directory to store generated static site if it doesn't exisit
+  """
+  def initialize_dest_directory() do
+    #directory where static files will be saved
+    dest_dir = File.cwd! |> Path.join("_build") |> Path.join("static_site")
+    #create dest dir if not exists
+    File.mkdir_p! dest_dir
   end
 
   @doc """
