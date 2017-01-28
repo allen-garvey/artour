@@ -7,16 +7,20 @@ defmodule Mix.Tasks.Distill.Html do
   def run(_args) do
     IO.puts "Generating HTML files"
     
-    initialize_dest_directory()
+    dest_dir = initialize_dest_directory()
 
     #start app so repo is available
     Mix.Task.run "app.start", []
     
-    routes = Distill.Page.page_routes() ++ Distill.Post.post_routes()
+    routes = Distill.Page.routes
+              ++ Distill.Post.routes
+              ++ Distill.Tag.routes
+              ++ Distill.Category.routes
 
     for page_route <- routes do
-      conn = default_conn |> render_page_route(page_route)
-      IO.puts conn.resp_body
+      #conn = default_conn |> render_page_route(page_route)
+      #IO.puts conn.resp_body
+      dest_dir |> Path.join(filename_for(page_route)) |> IO.puts
     end
     
     
@@ -24,13 +28,15 @@ defmodule Mix.Tasks.Distill.Html do
   end
 
   @doc """
-  Creates directory to store generated static site if it doesn't exisit
+  Creates directory to store generated static site if it doesn't exist
+  Returns absolute path of directory created
   """
   def initialize_dest_directory() do
     #directory where static files will be saved
-    dest_dir = File.cwd! |> Path.join("_build") |> Path.join("static_site")
+    dest_dir = File.cwd! |> Path.join("_build") |> Path.join("distilled")
     #create dest dir if not exists
     File.mkdir_p! dest_dir
+    dest_dir
   end
 
   @doc """

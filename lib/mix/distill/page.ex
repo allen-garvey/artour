@@ -3,10 +3,13 @@ defmodule Distill.Page do
 	Returns list of tuples in format: path (string), controller module(atom), controller handler function (atom), params (map)
 	e.g. {"/posts", Artour.PostController, :index, %{}}
 	"""
-	def page_routes() do
+	def routes() do
 		[
 	  		{"/", Artour.PageController, :index, %{}}, 
-	  		{"/browse", Artour.PageController, :browse, %{}}
+	  		{"/browse", Artour.PageController, :browse, %{}},
+	  		{"/posts", Artour.PublicPostController, :index, %{}},
+	  		{"/categories", Artour.PublicCategoryController, :index, %{}},
+	  		{"/tags", Artour.PublicTagController, :index, %{}},
 		]
 	end
 end
