@@ -43,8 +43,8 @@ defmodule Mix.Tasks.Distill.Html do
   Saves html in conn response body to file specified by filename
   be aware that it overwrites the file if it exists
   """
-  def save_to_file(conn, filename) when is_binary(filename) do
-    File.write!(filename, conn.resp_body, [:utf8, :write])
+  def save_to_file(%Plug.Conn{resp_body: resp_body}, filename) when is_binary(filename) do
+    File.write!(filename, resp_body, [:utf8, :write])
   end
 
   @doc """
