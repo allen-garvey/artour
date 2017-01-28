@@ -12,7 +12,7 @@ defmodule Mix.Tasks.Distill.Html do
     #start app so repo is available
     Mix.Task.run "app.start", []
     
-    routes = page_routes() ++ post_routes()
+    routes = Distill.Page.page_routes() ++ Distill.Post.post_routes()
 
     for page_route <- routes do
       conn = default_conn |> render_page_route(page_route)
@@ -69,34 +69,15 @@ defmodule Mix.Tasks.Distill.Html do
   @doc """
   Returns the filename to save a current path as
   """
+  def filename_for({path, _controller, _handler, _params}) do
+    filename_for path
+  end
+
+  @doc """
+  Returns the filename to save a current path as
+  """
   def filename_for(path) when is_binary(path) do
     Path.join(path, "index.html")
   end
 
-
-  @doc """
-  Returns list of tuples in format: path (string), controller module(atom), controller handler function (atom), params (map)
-  e.g. {"/posts", Artour.PostController, :index, %{}}
-  """
-  def page_routes() do
-    [
-      {"/", Artour.PageController, :index, %{}}, 
-      {"/browse", Artour.PageController, :browse, %{}}
-    ]
-  end
-
-  @doc """
-  Returns list of tuples in format: path (string), controller module(atom), controller handler function (atom), params (map)
-  e.g. {"/posts", Artour.PostController, :index, %{}}
-  """
-  def post_routes() do
-    Artour.Repo.all(Artour.Post) |> Enum.map(&post_to_route/1)
-  end
-
-  @doc """
-  Takes a post struct and returns route tuple
-  """
-  def post_to_route(post) do
-    {"/posts/" <> post.slug, Artour.PublicPostController, :show, %{"slug" => post.slug}}
-  end
 end
