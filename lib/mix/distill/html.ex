@@ -5,7 +5,7 @@ defmodule Mix.Tasks.Distill.Html do
 
   @shortdoc "Generates static html files from pages and saves in given directory"
   def run(_args) do
-    dest_dir = default_dest_directory
+    dest_dir = Distill.Directory.default_dest_directory
     #create root directory if it doesn't exist
     File.mkdir_p! dest_dir
 
@@ -30,13 +30,6 @@ defmodule Mix.Tasks.Distill.Html do
       save_to_file(conn, filename)
     end
     
-  end
-
-  @doc """
-  Default directory to store generated static site
-  """
-  def default_dest_directory() do
-    File.cwd! |> Path.join("_build") |> Path.join("distilled")
   end
 
   @doc """
