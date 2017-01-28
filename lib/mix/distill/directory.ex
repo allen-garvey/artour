@@ -3,6 +3,6 @@ defmodule Distill.Directory do
   Default directory to store generated static site
   """
   def default_dest_directory() do
-    File.cwd! |> Path.join("_build") |> Path.join("distilled")
+    File.cwd! |> Path.join("priv") |> Path.join("distilled")
   end
 end
