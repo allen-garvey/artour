@@ -1,5 +1,5 @@
-#run task with 'mix artour.gen.html'
-defmodule Mix.Tasks.Artour.Gen.Html do
+#run task with 'mix distill.html'
+defmodule Mix.Tasks.Distill.Html do
   use Mix.Task
   import Plug.Test, only: [conn: 2]
 
