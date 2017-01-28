@@ -5,9 +5,11 @@ defmodule Mix.Tasks.Distill.Html do
 
   @shortdoc "Generates static html files from pages and saves in given directory"
   def run(_args) do
-    IO.puts "Generating HTML files"
-    
-    dest_dir = initialize_dest_directory()
+    dest_dir = default_dest_directory
+    #create root directory if it doesn't exist
+    File.mkdir_p! dest_dir
+
+    IO.puts "Generating HTML files in " <> dest_dir
 
     #start app so repo is available
     Mix.Task.run "app.start", []
@@ -18,26 +20,47 @@ defmodule Mix.Tasks.Distill.Html do
               ++ Distill.Category.routes
 
     for page_route <- routes do
-      #conn = default_conn |> render_page_route(page_route)
-      #IO.puts conn.resp_body
-      dest_dir |> Path.join(filename_for(page_route)) |> IO.puts
+      #render the page
+      conn = default_conn |> render_page_route(page_route)
+      #make sure directory for file exists
+      directory_name = dest_dir |> Path.join(elem(page_route, 0))
+      File.mkdir_p! directory_name
+      #save html to file
+      filename = dest_dir |> Path.join(filename_for(page_route))
+      save_to_file(conn, filename)
     end
     
-    
-    #Path.join(dest_dir, "index.html") |> File.write!(conn.resp_body, [:utf8, :append])
   end
 
   @doc """
-  Creates directory to store generated static site if it doesn't exist
-  Returns absolute path of directory created
+  Default directory to store generated static site
   """
-  def initialize_dest_directory() do
-    #directory where static files will be saved
-    dest_dir = File.cwd! |> Path.join("_build") |> Path.join("distilled")
-    #create dest dir if not exists
-    File.mkdir_p! dest_dir
-    dest_dir
+  def default_dest_directory() do
+    File.cwd! |> Path.join("_build") |> Path.join("distilled")
   end
+
+  @doc """
+  Saves html in conn response body to file specified by filename
+  be aware that it overwrites the file if it exists
+  """
+  def save_to_file(conn, filename) when is_binary(filename) do
+    File.write!(filename, conn.resp_body, [:utf8, :write])
+  end
+
+  @doc """
+  Returns the filename to save a current path as
+  """
+  def filename_for({path, _controller, _handler, _params}) do
+    filename_for path
+  end
+
+  @doc """
+  Returns the filename to save a current path as
+  """
+  def filename_for(path) when is_binary(path) do
+    Path.join(path, "index.html")
+  end
+
 
   @doc """
   Returns base conn struct
@@ -70,20 +93,6 @@ defmodule Mix.Tasks.Distill.Html do
       |> Atom.to_string 
       |> String.replace_suffix("Controller", "View") 
       |> String.to_atom
-  end
-
-  @doc """
-  Returns the filename to save a current path as
-  """
-  def filename_for({path, _controller, _handler, _params}) do
-    filename_for path
-  end
-
-  @doc """
-  Returns the filename to save a current path as
-  """
-  def filename_for(path) when is_binary(path) do
-    Path.join(path, "index.html")
   end
 
 end
