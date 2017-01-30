@@ -23,7 +23,10 @@ defmodule Mix.Tasks.Distill.Html do
       #render the page
       conn = default_conn |> render_page_route(page_route)
       #make sure directory for file exists
-      directory_name = dest_dir |> Path.join(elem(page_route, 0))
+      #parent_dir_name is relative directory name for page_route
+      #note that Path.dirname returns directory without trailing slash
+      relative_directory_name = page_route |> elem(0) |> Path.dirname
+      directory_name = dest_dir |> Path.join(relative_directory_name)
       File.mkdir_p! directory_name
       #save html to file
       filename = dest_dir |> Path.join(filename_for(page_route))
@@ -51,7 +54,11 @@ defmodule Mix.Tasks.Distill.Html do
   Returns the filename to save a current path as
   """
   def filename_for(path) when is_binary(path) do
-    Path.join(path, "index.html")
+    if String.ends_with? path, ".html" do
+      path
+    else
+      Path.join(path, "index.html")
+    end
   end
 
 
