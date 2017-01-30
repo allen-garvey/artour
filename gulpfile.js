@@ -25,6 +25,19 @@ gulp.task('minifyScriptsAdmin', ['concatScriptsAdmin'], function(){
 		.pipe(gulp.dest(config.js.admin.DEST_DIR));
 });
 
+gulp.task('concatScriptsPublic', function(){
+	return gulp.src(config.js.public.app_files)
+		.pipe(concat(config.js.public.DIST_NAME + '.js'))
+		.pipe(gulp.dest(config.js.public.DEST_DIR));
+});
+
+gulp.task('minifyScriptsPublic', ['concatScriptsPublic'], function(){
+	return gulp.src(path.join(config.js.public.DEST_DIR, config.js.public.DIST_NAME + '.js'))
+		.pipe(uglify())
+		.pipe(rename(config.js.public.DIST_NAME + '.min.js'))
+		.pipe(gulp.dest(config.js.public.DEST_DIR));
+});
+
 /*
 * Sass/Styles Tasks
 */
@@ -55,6 +68,10 @@ gulp.task('watchScriptsAdmin', function(){
 	gulp.watch(config.js.admin.SOURCE_DIR + '**/*.js', ['minifyScriptsAdmin']);
 });
 
+gulp.task('watchScriptsPublic', function(){
+	gulp.watch(config.js.public.SOURCE_DIR + '**/*.js', ['minifyScriptsPublic']);
+});
+
 gulp.task('watchStaticAssets', function(){
 	gulp.watch(config.static_assets.SOURCE_DIR + '**/*', ['copyStaticAssets']);
 });
@@ -63,6 +80,6 @@ gulp.task('watchStaticAssets', function(){
 /*
 * Main gulp tasks
 */
-gulp.task('watch', ['build', 'watchSass', 'watchScriptsAdmin', 'watchStaticAssets']);
-gulp.task('build', ['minifyScriptsAdmin', 'sass', 'copyStaticAssets']);
+gulp.task('watch', ['build', 'watchSass', 'watchScriptsAdmin', 'watchScriptsPublic', 'watchStaticAssets']);
+gulp.task('build', ['minifyScriptsAdmin', 'minifyScriptsPublic', 'sass', 'copyStaticAssets']);
 gulp.task('default', ['build']);
