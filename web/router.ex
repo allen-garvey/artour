@@ -32,6 +32,7 @@ defmodule Artour.Router do
 
     get "/", PageController, :index
     get "/browse", PageController, :browse
+    get "/404.html", PageController, :error_404
 
     get "/categories", PublicCategoryController, :index
     get "/categories/:slug", PublicCategoryController, :show

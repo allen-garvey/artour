@@ -16,4 +16,11 @@ defmodule Artour.PageController do
     
     render conn, "browse.html", categories: categories, tags: tags
   end
+
+  @doc """
+  Displays 404 page
+  """
+  def error_404(conn, _params) do
+    render conn, "404.html"
+  end
 end
