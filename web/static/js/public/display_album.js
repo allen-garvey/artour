@@ -6,6 +6,8 @@
     //used to keep track on if an image has been initialized to lightbox already
     //used to lazy-load images
     var imageInitializedMap = imageLinks.map(function(){ return false; });
+    var currentImageIndex = null;
+    var isLightboxVisible = false;
 
     function initializeLightbox(numImageLinks){
     	var lightboxContainer = document.createElement('div');
@@ -26,7 +28,10 @@
     	document.body.appendChild(lightboxContainer);
     }
 
-    function displayLightbox(imageIndex){
+    //displays image at index
+    //creates img tag if necessary - used for lazy loading
+    function setVisibleImageAt(imageIndex){
+        currentImageIndex = imageIndex;
         var parentSelector = '.lightbox-images-container>*:nth-child('+(imageIndex + 1) + ')';
         //initialize img tag if necessary
         if(!imageInitializedMap[imageIndex]){
@@ -39,10 +44,15 @@
         }
         $('.lightbox-images-container>*').addClass('hidden');
         $(parentSelector).removeClass('hidden');
+    }
+
+    function displayLightbox(imageIndex){
+        isLightboxVisible = true;
         $('.lightbox-container').removeClass('hidden');
     }
 
     function hideLightbox(){
+        isLightboxVisible = false;
         $('.lightbox-container').addClass('hidden');
     }
 
@@ -51,12 +61,17 @@
         imageLinks.each(function(i, el){
             el.onclick = function(e){
                 e.preventDefault();
-                displayLightbox(i);
+                setVisibleImageAt(i);
+                displayLightbox();
             };
         });
     }
 
     document.onkeydown = function(e) {
+        //don't do anything if lightbox is invisible
+        if (!isLightboxVisible){
+            return;
+        }
         if(e.keyCode == 27){ // escape key maps to keycode `27`
             hideLightbox();
         }
