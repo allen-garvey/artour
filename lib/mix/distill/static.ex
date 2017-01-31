@@ -39,7 +39,8 @@ defmodule Mix.Tasks.Distill.Static do
     [
       "favicon.ico",
       "robots.text",
-      Path.join("css", "main.css")
+      Path.join("css", "main.css"),
+      Path.join("js", "app.min.js"),
     ]
   end
 
