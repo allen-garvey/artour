@@ -15,3 +15,36 @@
 		}
 	}
 }
+
+.lightbox-container, .lightbox-background{
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.lightbox-container{
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	&.hidden{
+		display: none;
+	}
+	
+	.lightbox-background{
+		position: fixed;
+		background-color: black;
+		opacity: 0.8;
+		z-index: 1;
+	}
+
+	.lightbox-images-container{
+		display: inline-block;
+		//so we can use z-index
+		position: relative;
+		z-index: 100;
+		img{
+			max-height: 100vh;
+		}
+	}
+}
