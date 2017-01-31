@@ -12,7 +12,9 @@
 	//passed in value
 	//if it does not already have a value already
 	var autofillTextfield = function(textfield, value){
-		if(textfield.val() !== ''){
+		//val() is null if unset
+		var val = textfield.val();
+		if(val && val !== ''){
 			return;
 		}
 		textfield.val(value);
