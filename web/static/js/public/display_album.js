@@ -67,13 +67,43 @@
         });
     }
 
-    document.onkeydown = function(e) {
+    function showNextImage(){
+        //don't do anything if we are at the last image
+        if(currentImageIndex >= imageLinks.length - 1){
+            return;
+        }
+        setVisibleImageAt(currentImageIndex + 1);
+    }
+    function showPreviousImage(){
+        //don't do anything if we are at the first image
+        if(currentImageIndex <= 0){
+            return;
+        }
+        setVisibleImageAt(currentImageIndex - 1);
+
+    }
+
+    document.onkeydown = function(e){
         //don't do anything if lightbox is invisible
         if (!isLightboxVisible){
             return;
         }
         if(e.keyCode == 27){ // escape key maps to keycode `27`
             hideLightbox();
+        }
+        switch(e.keyCode){
+            //escape key
+            case 27:
+                hideLightbox();       
+                break;
+            //right arrow
+            case 39:
+                showNextImage();
+                break;
+            //left arrow
+            case 37:
+                showPreviousImage();
+                break;
         }
     };
 
