@@ -23,10 +23,7 @@ defmodule Mix.Tasks.Distill.Html do
       #render the page
       conn = default_conn |> render_page_route(page_route)
       #make sure directory for file exists
-      #parent_dir_name is relative directory name for page_route
-      #note that Path.dirname returns directory without trailing slash
-      relative_directory_name = page_route |> elem(0) |> Path.dirname
-      directory_name = dest_dir |> Path.join(relative_directory_name)
+      directory_name = dest_dir |> Path.join(directory_for(page_route))
       File.mkdir_p! directory_name
       #save html to file
       filename = dest_dir |> Path.join(filename_for(page_route))
@@ -41,6 +38,18 @@ defmodule Mix.Tasks.Distill.Html do
   """
   def save_to_file(%Plug.Conn{resp_body: resp_body}, filename) when is_binary(filename) do
     File.write!(filename, resp_body, [:utf8, :write])
+  end
+
+  @doc """
+  Can't use Path.dirname unaltered, as it strips the directory name if
+  path is already a directory
+  """
+  def directory_for({path, _controller, _handler, _params}) do
+    if String.ends_with? path, ".html" do
+      Path.dirname path
+    else
+      path
+    end
   end
 
   @doc """
