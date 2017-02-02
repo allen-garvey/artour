@@ -19,9 +19,24 @@
 
         var imagesContainer = document.createElement('div');
     	imagesContainer.className = 'lightbox-images-container';
+        
+        //add empty placeholder divs for images
+        //will be lazy loaded by inserting img tag
+        //when necessary
         for(var i=0; i<numImageLinks;i++){
-            imagesContainer.appendChild(document.createElement('div'));
+            var div = document.createElement('div');
+            div.className = 'image-container';
+            imagesContainer.appendChild(div);
         }
+
+        //add close 'X' button
+        //have to add this after the .image-containers,
+        //because nth-child and nth-of-type do not work
+        //on class selectors, only elements
+        var closeButton = document.createElement('div');
+        closeButton.className = 'close-window-button';
+        closeButton.onclick = hideLightbox;
+        imagesContainer.appendChild(closeButton);
     	
         lightboxContainer.appendChild(imagesContainer);
     	lightboxContainer.appendChild(lightboxBackground);
@@ -31,8 +46,9 @@
     //displays image at index
     //creates img tag if necessary - used for lazy loading
     function setVisibleImageAt(imageIndex){
+        console.log(imageIndex);
         currentImageIndex = imageIndex;
-        var parentSelector = '.lightbox-images-container>*:nth-child('+(imageIndex + 1) + ')';
+        var parentSelector = '.lightbox-images-container>div:nth-child('+(imageIndex + 1) + ')';
         //initialize img tag if necessary
         if(!imageInitializedMap[imageIndex]){
             imageInitializedMap[imageIndex] = true;
@@ -42,7 +58,7 @@
             imgTag.srcset = imageLink.data('srcset');
             document.querySelector(parentSelector).appendChild(imgTag);
         }
-        $('.lightbox-images-container>*').addClass('hidden');
+        $('.lightbox-images-container>.image-container').addClass('hidden');
         $(parentSelector).removeClass('hidden');
     }
 
