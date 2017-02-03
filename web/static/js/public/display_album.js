@@ -37,6 +37,16 @@
         closeButton.className = 'close-window-button';
         closeButton.onclick = hideLightbox;
         imagesContainer.appendChild(closeButton);
+
+        var rightButton = document.createElement('div');
+        rightButton.className = 'slideshow-right-button';
+        rightButton.onclick = showNextImage;
+        imagesContainer.appendChild(rightButton);
+
+        var leftButton = document.createElement('div');
+        leftButton.className = 'slideshow-left-button';
+        leftButton.onclick = showPreviousImage;
+        imagesContainer.appendChild(leftButton);
     	
         lightboxContainer.appendChild(imagesContainer);
     	lightboxContainer.appendChild(lightboxBackground);
@@ -46,7 +56,6 @@
     //displays image at index
     //creates img tag if necessary - used for lazy loading
     function setVisibleImageAt(imageIndex){
-        console.log(imageIndex);
         currentImageIndex = imageIndex;
         var parentSelector = '.lightbox-images-container>div:nth-child('+(imageIndex + 1) + ')';
         //initialize img tag if necessary
