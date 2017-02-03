@@ -34,8 +34,20 @@ defmodule Artour.ImageView do
   Generates the contents of HTML img tag srcset attribute
   for a given image instance
   assumes that image.filename_small is used as src attribute
+  doesn't use large url, because assumes image is in container
   """
   def srcset_for(conn, image, location) do
+    url_for(conn, image, :medium, location) <> " 800w"
+  end
+
+  @doc """
+  Generates the contents of HTML img tag srcset attribute
+  for a given image instance
+  assumes that image.filename_small is used as src attribute
+  used for when image is being shown fullsize 
+  (not in a container, such as in an album)
+  """
+  def srcset_for_fullsize(conn, image, location) do
     url_for(conn, image, :medium, location) <> " 800w, "
     <> url_for(conn, image, :large, location) <> " 1000w"
   end
