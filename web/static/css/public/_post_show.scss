@@ -16,9 +16,14 @@ $post_show_spacing_margin: 30px;
 }
 
 .post-meta-info{
-	margin-top: 2em;
+	margin-top: 3em;
+	.post-meta-section{
+		display: flex;
+		margin-bottom: 0.5em;
+	}
 	.meta-title{
-		margin-bottom: 0.4em;
+		margin: 0 1em 0.4em 0;
+		flex-basis: 5em;
 	}
 }
 
@@ -28,6 +33,7 @@ $post_show_spacing_margin: 30px;
 	margin-top: 0;
 	padding-left: 0;
 	list-style-type: none;
+	flex-grow: 1;
 	li{
 		flex-grow: 1;
 	}
