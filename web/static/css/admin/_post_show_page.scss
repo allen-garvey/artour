@@ -69,6 +69,12 @@
 	.error-container, .add-tags-container{
 		display: none;
 	}
+	.add-tag-link a:after{
+		content: '+';
+		//so not underlined on hover
+		display: inline-block;
+		margin-left: 0.2em;
+	}
 	&[data-state="add"]{
 		.add-tags-container{
 			display: block;

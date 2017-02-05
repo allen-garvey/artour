@@ -13,6 +13,9 @@
 			<div class="tag-checkboxes">
 				<label><input type="checkbox" value="{{tag_id}}">{{tag_name}}</label>
 			</div>
+			<div class="add-tag-link">
+				<%= link "Add tag", to: tag_path(@conn, :new) %>
+			</div>
 			<div class="button-container-right">
 				<button class="btn btn-default" data-role="cancel-tag-button">Cancel</button>
 	        	<button class="btn btn-success" data-role="save-tag-button">Save</button>
