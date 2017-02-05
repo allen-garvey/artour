@@ -43,16 +43,12 @@
 		//so we can use z-index
 		position: relative;
 		z-index: 100;
-		// margin-top: 10px;
 		img{
 			max-height: 100vh;
 		}
 		//buttons
 		.slideshow-right-button, .slideshow-left-button, .close-window-button{
 			position: absolute;
-		}
-		.slideshow-right-button:before, .slideshow-left-button:before, .close-window-button:before{
-			opacity: 0.5;
 			font-family: 'Times', serif;
 			text-align: center;
 			font-size: 20px;
@@ -61,34 +57,33 @@
 			background-color: black;
 			color: white;
 			cursor: pointer;
-		}
-		.slideshow-right-button:hover:before, .slideshow-left-button:hover:before, .close-window-button:hover:before{
-			opacity: 1;
+			height: 25px;
+			width: 25px;
+			opacity: 0.5;
+			&:hover{
+				opacity: 1;
+			}
 		}
 		.slideshow-right-button, .slideshow-left-button{
 			bottom: 8px;
 		}
 		.slideshow-right-button{
 			right: calc(50% - 55px);
+			&:before{
+				content: '\203A';
+			}
 		}
 		.slideshow-left-button{
 			right: calc(50% + 55px);
-		}
-		.slideshow-right-button:before, .slideshow-left-button:before{
-			padding: 0 8px 2px;
-		}
-		.slideshow-right-button:before{
-			content: '\203A';
-		}
-		.slideshow-left-button:before{
-			content: '\2039';
+			&:before{
+				content: '\2039';
+			}
 		}
 		.close-window-button{
 			top: 8px;
 			right: 6px;
 			&:before{
 				content: '\2715';
-				padding: 2px 5px;
 			}
 		}
 	}
