@@ -15,7 +15,7 @@ defmodule Artour.PublicPostController do
   Used on public site to show individual post
   """
   def show(conn, %{"slug" => slug}) do
-    post = Repo.get_by!(Post, slug: slug) |> Repo.preload([:category])
+    post = Repo.get_by!(Post, slug: slug) |> Repo.preload([:category, :tags])
     post_images = Post.album_post_images(Repo, post)
     render(conn, "show.html", post: post, post_images: post_images, javascript: true)
   end

@@ -8,3 +8,4 @@
 	<%= to_paragraphs(@post.body) %>
 </div>
 <%= render "album.html", conn: @conn, post_images: @post_images %>
+<%= render "post_meta_info.html", conn: @conn, post: @post %>

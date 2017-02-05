@@ -14,3 +14,21 @@ $post_show_spacing_margin: 30px;
 		margin-bottom: 0;
 	}
 }
+
+.post-meta-info{
+	margin-top: 2em;
+	.meta-title{
+		margin-bottom: 0.4em;
+	}
+}
+
+.post-tags-list{
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 0;
+	padding-left: 0;
+	list-style-type: none;
+	li{
+		flex-grow: 1;
+	}
+}
