@@ -17,7 +17,7 @@ defmodule Artour.PublicPostController do
   def show(conn, %{"slug" => slug}) do
     post = Repo.get_by!(Post, slug: slug) |> Repo.preload([:category])
     post_images = Post.album_post_images(Repo, post)
-    render(conn, "show_album.html", post: post, post_images: post_images, javascript: true)
+    render(conn, "show.html", post: post, post_images: post_images, javascript: true)
   end
 
   
