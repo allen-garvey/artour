@@ -95,7 +95,10 @@
 
 	.add-tags-container{
 		label{
-			margin-right: 10px;
+			margin-right: 16px;
+		}
+		input[type="checkbox"]{
+			margin-right: 3px;
 		}
 		.button-container-right{
 			display: flex;
