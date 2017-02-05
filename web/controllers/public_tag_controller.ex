@@ -9,7 +9,7 @@ defmodule Artour.PublicTagController do
   end
 
   def show(conn, %{"slug" => slug}) do
-    tag = Repo.get_by!(Tag, slug: slug) |> Repo.preload(posts: from(p in Artour.Post, order_by: [desc: :id]))
+    tag = Repo.get_by!(Tag, slug: slug) |> Repo.preload(posts: from(Artour.Post, order_by: [desc: :id]))
     render(conn, "show.html", tag: tag)
   end
 

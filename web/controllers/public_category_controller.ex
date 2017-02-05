@@ -13,7 +13,7 @@ defmodule Artour.PublicCategoryController do
   individual category's posts
   """
   def show(conn, %{"slug" => slug}) do
-    category = Repo.get_by!(Category, slug: slug) |> Repo.preload(posts: from(p in Artour.Post, order_by: [desc: :id]))
+    category = Repo.get_by!(Category, slug: slug) |> Repo.preload(posts: from(Artour.Post, order_by: [desc: :id]))
     render(conn, "show.html", category: category)
   end
 
