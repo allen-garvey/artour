@@ -69,11 +69,15 @@
 	.error-container, .add-tags-container{
 		display: none;
 	}
-	.add-tag-link a:after{
-		content: '+';
-		//so not underlined on hover
-		display: inline-block;
-		margin-left: 0.2em;
+	.add-tag-link{
+		margin-top: 0.5em;
+		a:before{
+			content: '+';
+			//so not underlined on hover
+			display: inline-block;
+			margin-right: 0.2em;
+			font-weight: bold;
+		}
 	}
 	&[data-state="add"]{
 		.add-tags-container{
