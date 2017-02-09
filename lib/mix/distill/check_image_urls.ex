@@ -7,6 +7,8 @@ defmodule Mix.Tasks.Distill.CheckImageUrls do
         #start app so repo is available
         Mix.Task.run "app.start", []
 
+        #parallel map based on:
+        #http://elixir-recipes.github.io/concurrency/parallel-map/
     	Artour.Repo.all(Artour.Image)
     		|> Enum.flat_map(fn image -> image_sizes |> Enum.map(&(url_for_image(image, base_url, &1))) end)
     		|> Enum.map(&(Task.async(fn -> test_image_url(&1) end)))
