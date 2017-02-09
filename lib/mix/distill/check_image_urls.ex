@@ -8,18 +8,26 @@ defmodule Mix.Tasks.Distill.CheckImageUrls do
     	Mix.Task.run "app.start", []
 
     	images = Artour.Repo.all(Artour.Image)
-    	for image <- images do
-    		image_urls = [:thumbnail, :small, :medium, :large] |> Enum.map(&(url_for_image(image, base_url, &1)))
-    		for image_url <- image_urls do
-    		 	case test_url(image_url) do
-    		  		:ok -> :noop
-    		  		:error -> IO.puts image_url <> " not found"
-    		 	end
+
+    	image_responses = images
+    		|> Enum.flat_map(fn image -> [:thumbnail, :small, :medium, :large] |> Enum.map(&(url_for_image(image, base_url, &1))) end)
+    		|> Enum.map(&(Task.async(fn -> test_image_url(&1) end)))
+    		|> Enum.map(&Task.await/1)
+
+    	for image_response <- image_responses do
+    		if image_response != :ok do
+    			IO.puts image_response
     		end
     	end
 
     	IO.puts "All image urls checked"
+	end
 
+	def test_image_url(image_url) do
+		case test_url(image_url) do
+  			:ok -> :ok
+  			:error -> image_url <> " not found"
+ 		end
 	end
 
 	def url_for_image(image, base_url, size) do
@@ -42,9 +50,7 @@ defmodule Mix.Tasks.Distill.CheckImageUrls do
 	def test_url(url) do
   		case System.cmd "curl", ["-s", "-o", "/dev/null", "-w", "%{http_code}", url] do
     		{"200", 0} -> :ok
-    		{bad_status, _exit_code} -> 
-    			IO.puts bad_status
-    			:error
+    		{_bad_status, _exit_code} -> :error
     	end
   	end
 end
