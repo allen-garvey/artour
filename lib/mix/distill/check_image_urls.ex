@@ -11,27 +11,22 @@ defmodule Mix.Tasks.Distill.CheckImageUrls do
         #http://elixir-recipes.github.io/concurrency/parallel-map/
     	Artour.Repo.all(Artour.Image)
     		|> Enum.flat_map(fn image -> image_sizes |> Enum.map(&(url_for_image(image, base_url, &1))) end)
-    		|> Enum.map(&(Task.async(fn -> test_image_url(&1) end)))
+    		|> Enum.map(&(Task.async(fn -> test_url(&1) end)))
     		|> Enum.map(&Task.await/1)
-            |> Enum.each(fn image_response ->
-                    if image_response != :ok do
-                        IO.puts image_response
-                    end
-                end)
+            |> Enum.each(&print_image_response/1)
 
     	IO.puts "All image urls checked"
 	end
 
-  def image_sizes() do
-    [:thumbnail, :small, :medium, :large]
-  end
+    def image_sizes() do
+        [:thumbnail, :small, :medium, :large]
+    end
 
-	def test_image_url(image_url) do
-		case test_url(image_url) do
-  			:ok -> :ok
-  			:error -> image_url <> " not found"
- 		end
-	end
+    def print_image_response({status, message}) do
+        if status != :ok do
+            IO.puts message
+        end
+    end
 
 	def url_for_image(image, base_url, size) do
 		case size do
@@ -52,8 +47,8 @@ defmodule Mix.Tasks.Distill.CheckImageUrls do
   	"""
 	def test_url(url) do
   		case System.cmd "curl", ["-s", "-o", "/dev/null", "-w", "%{http_code}", url] do
-    		{"200", 0} -> :ok
-    		{_bad_status, _exit_code} -> :error
+    		{"200", 0} -> {:ok, url <> " found"}
+    		{_bad_status, _exit_code} -> {:error, url <> " not found"}
     	end
   	end
 end
