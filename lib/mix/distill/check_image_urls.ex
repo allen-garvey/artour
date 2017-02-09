@@ -1,16 +1,14 @@
 #run task with 'mix distill.check_image_urls'
 defmodule Mix.Tasks.Distill.CheckImageUrls do
-  use Mix.Task
+    use Mix.Task
 
-  	@shortdoc "Checks image urls for 404s. Requires curl"
+    @shortdoc "Checks image urls for 404s. Requires curl"
 	def run([base_url]) do
-		#start app so repo is available
-    	Mix.Task.run "app.start", []
+    #start app so repo is available
+    Mix.Task.run "app.start", []
 
-    	images = Artour.Repo.all(Artour.Image)
-
-    	image_responses = images
-    		|> Enum.flat_map(fn image -> [:thumbnail, :small, :medium, :large] |> Enum.map(&(url_for_image(image, base_url, &1))) end)
+    	image_responses = Artour.Repo.all(Artour.Image)
+    		|> Enum.flat_map(fn image -> image_sizes |> Enum.map(&(url_for_image(image, base_url, &1))) end)
     		|> Enum.map(&(Task.async(fn -> test_image_url(&1) end)))
     		|> Enum.map(&Task.await/1)
 
@@ -22,6 +20,10 @@ defmodule Mix.Tasks.Distill.CheckImageUrls do
 
     	IO.puts "All image urls checked"
 	end
+
+  def image_sizes() do
+    [:thumbnail, :small, :medium, :large]
+  end
 
 	def test_image_url(image_url) do
 		case test_url(image_url) do
