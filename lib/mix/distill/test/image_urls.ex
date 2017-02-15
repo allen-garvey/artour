@@ -1,5 +1,5 @@
-#run task with 'mix distill.check_image_urls'
-defmodule Mix.Tasks.Distill.CheckImageUrls do
+#run task with 'mix distill.test.image_urls'
+defmodule Mix.Tasks.Distill.Test.ImageUrls do
     use Mix.Task
 
     @shortdoc "Checks image urls for 404s. Requires curl"
