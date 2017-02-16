@@ -136,8 +136,22 @@
         }
     };
 
+    //display image in lightbox on page load if image slug is in
+    //hash url
+    function displayImageFromUrl(imageLinks, imageSlugUrl){
+        var matchFound = false;
+        imageLinks.each(function(index, el){
+            if(!matchFound && $(el).data('slug') === imageSlugUrl){
+                matchFound = true;
+                setVisibleImageAt(index);
+                displayLightbox();
+            }
+        });
+    }
+
     initializeLightbox(imageLinks.length);
     initializeImageLinkClickHandlers(imageLinks);
+    displayImageFromUrl(imageLinks, window.location.hash.replace(/^#/, ''));
 
 
 })(aQuery);
