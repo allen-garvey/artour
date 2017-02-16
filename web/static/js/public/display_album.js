@@ -58,15 +58,17 @@
     function setVisibleImageAt(imageIndex){
         currentImageIndex = imageIndex;
         var parentSelector = '.lightbox-images-container>div:nth-child('+(imageIndex + 1) + ')';
+        var imageLink = $(imageLinks.elementList[imageIndex]);
         //initialize img tag if necessary
         if(!imageInitializedMap[imageIndex]){
             imageInitializedMap[imageIndex] = true;
-            var imageLink = $(imageLinks.elementList[imageIndex]);
             var imgTag = document.createElement('img');
             imgTag.src = imageLink.data('src');
             imgTag.srcset = imageLink.data('srcset');
             document.querySelector(parentSelector).appendChild(imgTag);
         }
+        //set image slug in hash url
+        window.location.hash = '#' + imageLink.data('slug'); 
         $('.lightbox-images-container>.image-container').addClass('hidden');
         $(parentSelector).removeClass('hidden');
     }
@@ -79,6 +81,8 @@
     function hideLightbox(){
         isLightboxVisible = false;
         $('.lightbox-container').addClass('hidden');
+        //remove image slug from hash url
+        window.location.hash = '';
     }
 
     function initializeImageLinkClickHandlers(imageLinks){
