@@ -139,6 +139,9 @@
     //display image in lightbox on page load if image slug is in
     //hash url
     function displayImageFromUrl(imageLinks, imageSlugUrl){
+        if(!imageSlugUrl){
+            return;
+        }
         var matchFound = false;
         imageLinks.each(function(index, el){
             if(!matchFound && $(el).data('slug') === imageSlugUrl){
