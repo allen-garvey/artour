@@ -4,6 +4,7 @@ defmodule Artour.Image do
 
   schema "images" do
     field :title, :string
+    field :slug, :string
     field :description, :string
     field :filename_large, :string
     field :filename_medium, :string
@@ -21,11 +22,12 @@ defmodule Artour.Image do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :description, :filename_large, :filename_medium, :filename_small, :filename_thumbnail, :completion_date, :format_id])
-    |> validate_required([:title, :description, :filename_large, :filename_medium, :filename_small, :filename_thumbnail, :completion_date, :format_id])
+    |> cast(params, [:title, :slug, :description, :filename_large, :filename_medium, :filename_small, :filename_thumbnail, :completion_date, :format_id])
+    |> validate_required([:title, :slug, :description, :filename_large, :filename_medium, :filename_small, :filename_thumbnail, :completion_date, :format_id])
     |> foreign_key_constraint(:format_id)
     |> assoc_constraint(:format) #validate format exists
     |> unique_constraint(:title)
+    |> unique_constraint(:slug)
     |> validate_image_filename(:filename_large)
     |> validate_image_filename(:filename_medium)
     |> validate_image_filename(:filename_small)
