@@ -13,7 +13,7 @@ defmodule Artour.PageController do
   def about(conn, _params) do
     heading = "About " <> Artour.LayoutHelpers.site_title
 
-    render conn, "basic_page.html", heading: heading, body: Page.about_text
+    render conn, "basic_page.html", page_title: "About", heading: heading, body: Page.about_text
   end
 
   @doc """
@@ -24,13 +24,13 @@ defmodule Artour.PageController do
   	categories = Artour.Category.all_with_posts Repo
     tags = Artour.Tag.all_with_posts Repo 
     
-    render conn, "browse.html", categories: categories, tags: tags
+    render conn, "browse.html", page_title: "Browse", categories: categories, tags: tags
   end
 
   @doc """
   Displays 404 page
   """
   def error_404(conn, _params) do
-    render conn, "404.html"
+    render conn, "404.html", page_title: "404"
   end
 end

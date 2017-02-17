@@ -5,7 +5,7 @@ defmodule Artour.PublicCategoryController do
 
   def index(conn, _params) do
     categories = Category.all_with_posts Repo
-    render(conn, "index.html", categories: categories)
+    render conn, "index.html", page_title: "Categories", categories: categories
   end
 
   @doc """
@@ -14,7 +14,7 @@ defmodule Artour.PublicCategoryController do
   """
   def show(conn, %{"slug" => slug}) do
     category = Repo.get_by!(Category, slug: slug) |> Repo.preload(posts: from(Artour.Post, order_by: [desc: :id]))
-    render(conn, "show.html", category: category)
+    render conn, "show.html", page_title: Artour.CategoryView.display_name(category), category: category
   end
 
 end
