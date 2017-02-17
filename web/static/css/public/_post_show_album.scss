@@ -20,12 +20,11 @@
 	top: 0;
 	right: 0;
 	left: 0;
-	bottom: 0;
 }
 
-// .lightbox-container, .lightbox-background{
-// 	bottom: 0;
-// }
+.lightbox-container, .lightbox-background{
+	bottom: 0;
+}
 
 .lightbox-container{
 	position: absolute;
@@ -46,49 +45,59 @@
 		display: flex;
 		justify-content: center;
 		position: fixed;
-		z-index: 100;
+		z-index: 99;
 		img{
 			max-height: 100vh;
 		}
-		//buttons
-		.slideshow-right-button, .slideshow-left-button, .close-window-button{
-			position: absolute;
-			font-family: 'Times', serif;
-			text-align: center;
-			font-size: 20px;
-			border: 2px solid white;
-			border-radius: 50%;
-			background-color: black;
-			color: white;
-			cursor: pointer;
-			height: 25px;
-			width: 25px;
-			opacity: 0.5;
-			&:hover{
-				opacity: 1;
-			}
+	}
+	//buttons
+	$lightbox_button_dimensions: 25px;
+	.lightbox-button-container{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		top: calc(100vh - #{$lightbox_button_dimensions * 2 + 10px});
+		z-index: 100;
+	}
+
+	.slideshow-right-button, .slideshow-left-button, .close-window-button{
+		font-family: 'Times', serif;
+		text-align: center;
+		font-size: 20px;
+		border: 2px solid white;
+		border-radius: 50%;
+		background-color: black;
+		color: white;
+		cursor: pointer;
+		height: $lightbox_button_dimensions;
+		width: $lightbox_button_dimensions;
+		opacity: 0.5;
+		&:hover{
+			opacity: 1;
 		}
-		.slideshow-right-button, .slideshow-left-button{
-			bottom: 8px;
+	}
+
+	.slideshow-right-button{
+		&:before{
+			content: '\203A';
 		}
-		.slideshow-right-button{
-			right: calc(50% - 55px);
-			&:before{
-				content: '\203A';
-			}
+	}
+	.slideshow-left-button{
+		margin-right: 65px;
+		&:before{
+			content: '\2039';
 		}
-		.slideshow-left-button{
-			right: calc(50% + 55px);
-			&:before{
-				content: '\2039';
-			}
-		}
-		.close-window-button{
-			top: 8px;
-			right: 6px;
-			&:before{
-				content: '\2715';
-			}
+	}
+	.close-window-button{
+		position: absolute;
+		top: 8px;
+		right: 6px;
+		&:before{
+			content: '\2715';
 		}
 	}
 }

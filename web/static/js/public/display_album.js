@@ -38,16 +38,20 @@
         closeButton.onclick = hideLightbox;
         imagesContainer.appendChild(closeButton);
 
-        var rightButton = document.createElement('div');
-        rightButton.className = 'slideshow-right-button';
-        rightButton.onclick = showNextImage;
-        imagesContainer.appendChild(rightButton);
+        var buttonContainer = document.createElement('div');
+        buttonContainer.className = 'lightbox-button-container';
 
         var leftButton = document.createElement('div');
         leftButton.className = 'slideshow-left-button';
         leftButton.onclick = showPreviousImage;
-        imagesContainer.appendChild(leftButton);
+        buttonContainer.appendChild(leftButton);
+
+        var rightButton = document.createElement('div');
+        rightButton.className = 'slideshow-right-button';
+        rightButton.onclick = showNextImage;
+        buttonContainer.appendChild(rightButton);
     	
+        lightboxContainer.appendChild(buttonContainer);
         lightboxContainer.appendChild(imagesContainer);
     	lightboxContainer.appendChild(lightboxBackground);
     	document.body.appendChild(lightboxContainer);
