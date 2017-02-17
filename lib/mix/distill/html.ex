@@ -23,10 +23,10 @@ defmodule Mix.Tasks.Distill.Html do
       #render the page
       conn = default_conn |> render_page_route(page_route)
       #make sure directory for file exists
-      directory_name = dest_dir |> Path.join(directory_for(page_route))
+      directory_name = dest_dir |> Path.join(directory_for(elem(page_route, 0)))
       File.mkdir_p! directory_name
       #save html to file
-      filename = dest_dir |> Path.join(filename_for(page_route))
+      filename = dest_dir |> Path.join(filename_for(elem(page_route, 0)))
       save_to_file(conn, filename)
     end
     
@@ -45,6 +45,10 @@ defmodule Mix.Tasks.Distill.Html do
   path is already a directory
   """
   def directory_for({path, _controller, _handler, _params}) do
+    directory_for path
+  end
+
+  def directory_for(path) when is_binary(path) do
     if String.ends_with? path, ".html" do
       Path.dirname path
     else
@@ -91,6 +95,13 @@ defmodule Mix.Tasks.Distill.Html do
     #can't use pipes if we want to dynamically call controller
     conn = Phoenix.Controller.put_new_view(conn, default_view_for(controller))
     apply(controller, handler, [conn, params])
+  end
+
+  @doc """
+  Convenience version of render_page_route for routes with no params
+  """
+  def render_page_route(conn, {path, controller, handler}) do
+    render_page_route(conn, {path, controller, handler, %{}})
   end
 
   @doc """

@@ -5,13 +5,13 @@ defmodule Distill.Page do
 	"""
 	def routes() do
 		[
-	  		{"/", Artour.PageController, :index, %{}},
-	  		{"/404.html", Artour.PageController, :error_404, %{}},
-	  		{"/about", Artour.PageController, :about, %{}},
-	  		{"/browse", Artour.PageController, :browse, %{}},
-	  		{"/posts", Artour.PublicPostController, :index, %{}},
-	  		{"/categories", Artour.PublicCategoryController, :index, %{}},
-	  		{"/tags", Artour.PublicTagController, :index, %{}},
+	  		{"/", Artour.PageController, :index},
+	  		{"/404.html", Artour.PageController, :error_404},
+	  		{"/about", Artour.PageController, :about},
+	  		{"/browse", Artour.PageController, :browse},
+	  		{"/posts", Artour.PublicPostController, :index},
+	  		{"/categories", Artour.PublicCategoryController, :index},
+	  		{"/tags", Artour.PublicTagController, :index},
 		]
 	end
 end
