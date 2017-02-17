@@ -16,11 +16,11 @@
 
 	$('[data-slug-source]').on('blur', function(event){
 		var slugSource = this.value;
-		var slugDest = $('[data-slug]');
+		var slugDest = document.querySelector('[data-slug]');
     	//only replace destination text with generated slug if it doesn't have a value
-    	if(slugDest.val()){
+    	if(slugDest.value){
     		return;
     	}
-    	slugDest.val(slugify(slugSource));
+    	slugDest.value = slugify(slugSource);
 	});
 })(aQuery);

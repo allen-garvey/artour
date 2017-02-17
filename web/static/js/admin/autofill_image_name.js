@@ -8,21 +8,21 @@
 	if(imageNameSource.length < 1){
 		return;
 	}
-	//sets a textfield aQuery object sets value to 
+	//sets a textfield element value to 
 	//passed in value
 	//if it does not already have a value already
 	var autofillTextfield = function(textfield, value){
 		//val() is null if unset
-		var val = textfield.val();
+		var val = textfield.value;
 		if(val && val !== ''){
 			return;
 		}
-		textfield.val(value);
+		textfield.value = value;
 	};
 	var FILE_SUFFIXES = ['lg', 'med', 'sm', 'thumb'];
 
 	var TEXTFIELD_TARGETS = ['large', 'medium', 'small', 'thumbnail'].map(function(elem){
-		return $('[data-image-' + elem + ']');
+		return document.querySelector('[data-image-' + elem + ']');
 	});
 
 	var suffixToImageFilename = function(basename, suffix){
