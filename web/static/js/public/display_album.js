@@ -121,9 +121,6 @@
         if (!isLightboxVisible){
             return;
         }
-        if(e.keyCode == 27){ // escape key maps to keycode `27`
-            hideLightbox();
-        }
         switch(e.keyCode){
             //escape key
             case 27:
