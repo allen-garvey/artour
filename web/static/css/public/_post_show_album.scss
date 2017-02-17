@@ -18,18 +18,16 @@
 
 .lightbox-container, .lightbox-background, .lightbox-images-container{
 	top: 0;
-	right: 0;
-	left: 0;
 }
 
 .lightbox-container, .lightbox-background{
+	right: 0;
+	left: 0;
 	bottom: 0;
 }
 
 .lightbox-container{
 	position: absolute;
-	display: flex;
-	justify-content: center;
 	&.hidden{
 		display: none;
 	}
@@ -99,5 +97,16 @@
 		&:before{
 			content: '\2715';
 		}
+	}
+}
+
+@media screen and (min-width: 900px){
+	//horizontally center fixed element
+	//http://stackoverflow.com/questions/2005954/center-a-positionfixed-element
+	//with media query look a bit weird for tablets when portrait images are displayed
+	//but will have to do for now
+	.lightbox-images-container{
+		left: 50%;
+		transform: translateX(-50%);	
 	}
 }
