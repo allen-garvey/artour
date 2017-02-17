@@ -31,6 +31,7 @@ defmodule Artour.Router do
     pipe_through [:public_browser, :public_layout]
 
     get "/", PageController, :index
+    get "/about", PageController, :about
     get "/browse", PageController, :browse
     get "/404.html", PageController, :error_404
 

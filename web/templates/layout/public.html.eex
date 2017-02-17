@@ -14,7 +14,7 @@
         <div class="brand"><%= link site_title, to: page_path(@conn, :index) %></div>
         <ul class="menu-list">
           <li><%= link "Browse", to: page_path(@conn, :browse) %></li>
-          <li><a href="/about">About</a></li>
+          <li><%= link "About", to: page_path(@conn, :about) %></li>
         </ul>
       </nav>
     </header>

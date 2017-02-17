@@ -1,9 +1,19 @@
 defmodule Artour.PageController do
   use Artour.Web, :controller
+  alias Artour.Page
 
   def index(conn, _params) do
   	posts = Repo.all(from(Artour.Post, order_by: [desc: :id])) |> Repo.preload([:category, :cover_image])
     render conn, "index.html", posts: posts
+  end
+
+  @doc """
+  Shows about page
+  """
+  def about(conn, _params) do
+    heading = "About " <> Artour.LayoutHelpers.site_title
+
+    render conn, "basic_page.html", heading: heading, body: Page.about_text
   end
 
   @doc """
