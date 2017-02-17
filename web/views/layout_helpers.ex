@@ -9,6 +9,14 @@ defmodule Artour.LayoutHelpers do
 		"Strange Scenery"	
 	end
 
+  def site_title(nil) do
+    site_title
+  end
+
+  def site_title(page_title) when is_binary(page_title) do
+    site_title <> " | " <> page_title
+  end
+
   @doc """
     Description of site, used in meta description tag on public pages
     """

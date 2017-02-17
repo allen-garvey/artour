@@ -2,12 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= site_title assigns[:page_title] %></title>
     <%= tag :meta, name: "description", content: site_description %>
-
-    <title><%= site_title %></title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/main.css") %>">
+    <%= tag :link, rel: "stylesheet", href: static_path(@conn, "/css/main.css") %>
   </head>
 
   <body>
