@@ -9,6 +9,13 @@ defmodule Artour.LayoutHelpers do
 		"Strange Scenery"	
 	end
 
+  @doc """
+    Description of site, used in meta description tag on public pages
+    """
+  def site_description() do
+    "The artwork and photography of Allen Garvey"
+  end
+
 	@doc """
   	Takes string and splits by newlines, converts into
   	paragraph tags and returns string of combined paragraphs
