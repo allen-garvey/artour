@@ -1,4 +1,5 @@
 defmodule Distill.Category do
+  alias Distill.PageRoute
   @doc """
   Returns list of tuples in format: path (string), controller module(atom), controller handler function (atom), params (map)
   e.g. {"/posts", Artour.PostController, :index, %{}}
@@ -11,6 +12,6 @@ defmodule Distill.Category do
   Takes a category struct and returns route tuple
   """
   def to_route(category) do
-    {"/categories/" <> category.slug, Artour.PublicCategoryController, :show, %{"slug" => category.slug}}
+    %PageRoute{path: "/categories/" <> category.slug, controller: Artour.PublicCategoryController, handler: :show, params: %{"slug" => category.slug}}
   end
 end

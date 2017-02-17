@@ -1,4 +1,5 @@
 defmodule Distill.Tag do
+  alias Distill.PageRoute
   @doc """
   Returns list of tuples in format: path (string), controller module(atom), controller handler function (atom), params (map)
   e.g. {"/posts", Artour.PostController, :index, %{}}
@@ -11,6 +12,6 @@ defmodule Distill.Tag do
   Takes a tag struct and returns route tuple
   """
   def to_route(tag) do
-    {"/tags/" <> tag.slug, Artour.PublicTagController, :show, %{"slug" => tag.slug}}
+    %PageRoute{path: "/tags/" <> tag.slug, controller: Artour.PublicTagController, handler: :show, params: %{"slug" => tag.slug}}
   end
 end

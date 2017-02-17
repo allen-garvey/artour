@@ -2,6 +2,7 @@
 defmodule Mix.Tasks.Distill.Html do
   use Mix.Task
   import Plug.Test, only: [conn: 2]
+  alias Distill.PageRoute
 
   @shortdoc "Generates static html files from pages and saves in given directory"
   def run(_args) do
@@ -23,10 +24,10 @@ defmodule Mix.Tasks.Distill.Html do
       #render the page
       conn = default_conn |> render_page_route(page_route)
       #make sure directory for file exists
-      directory_name = dest_dir |> Path.join(directory_for(elem(page_route, 0)))
+      directory_name = dest_dir |> Path.join(directory_for(page_route))
       File.mkdir_p! directory_name
       #save html to file
-      filename = dest_dir |> Path.join(filename_for(elem(page_route, 0)))
+      filename = dest_dir |> Path.join(filename_for(page_route))
       save_to_file(conn, filename)
     end
     
@@ -44,7 +45,7 @@ defmodule Mix.Tasks.Distill.Html do
   Can't use Path.dirname unaltered, as it strips the directory name if
   path is already a directory
   """
-  def directory_for({path, _controller, _handler, _params}) do
+  def directory_for(%PageRoute{path: path}) do
     directory_for path
   end
 
@@ -59,7 +60,7 @@ defmodule Mix.Tasks.Distill.Html do
   @doc """
   Returns the filename to save a current path as
   """
-  def filename_for({path, _controller, _handler, _params}) do
+  def filename_for(%PageRoute{path: path}) do
     filename_for path
   end
 
@@ -91,17 +92,10 @@ defmodule Mix.Tasks.Distill.Html do
   second argument should be list item from page_routes function
   conn.resp_body will contain rendered page
   """
-  def render_page_route(conn, {_path, controller, handler, params}) do
+  def render_page_route(conn, %PageRoute{controller: controller, handler: handler, params: params}) do
     #can't use pipes if we want to dynamically call controller
     conn = Phoenix.Controller.put_new_view(conn, default_view_for(controller))
     apply(controller, handler, [conn, params])
-  end
-
-  @doc """
-  Convenience version of render_page_route for routes with no params
-  """
-  def render_page_route(conn, {path, controller, handler}) do
-    render_page_route(conn, {path, controller, handler, %{}})
   end
 
   @doc """
