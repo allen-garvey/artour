@@ -44,7 +44,7 @@
 		}
 	}
 	.cover-image-container{
-		background-color: #d9edf7;
+		background-color: $item_selected_color;
 		[data-role="set-cover-image-button"]{
 			display: none;
 		}
