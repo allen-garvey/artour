@@ -13,6 +13,7 @@
 .post-album-image-list{
 	padding: 0;
 	list-style-type: none;
+	margin-top: 10px;
 	li{
 		width: 100%;
 		display: flex;
@@ -55,6 +56,7 @@
 }
 
 .post-tags-list{
+	margin-bottom: 40px;
 	//list header
 	& > .list-group-item:first-of-type{
 		padding-bottom: 2em;

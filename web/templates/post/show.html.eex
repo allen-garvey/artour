@@ -7,4 +7,7 @@
                                 title: display_name(@post)
 %>
 <%= render "tags_list.html", conn: @conn, post: @post %>
+<div class="button-container-right">
+	<%= link "Add images", to: post_path(@conn, :add_images, @post), class: "btn btn-success" %>
+</div>
 <%= render "album_list.html", conn: @conn, post: @post, post_images: @post_images %>
