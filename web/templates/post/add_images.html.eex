@@ -5,7 +5,7 @@
 
 <%= form_tag(post_path(@conn, :save_images, @post), method: "post") do %>
 	<div class="button-container-right">
-		<button type="submit" class="btn btn-primary">Save</button>
+		<button type="submit" class="btn btn-primary" disabled="disabled" data-role="save-images">Save</button>
 	</div>
 	<ul class="post-add-images-list">
 		<%= for image <- @images do %>
