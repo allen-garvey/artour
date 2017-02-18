@@ -1,4 +1,7 @@
-<%= content_tag :h1, "Add Images to " <> display_name(@post) %>
+<%= link "Back", to: post_path(@conn, :show, @post), class: "back-link" %>
+<div class="show-heading">
+	<%= content_tag :h1, "Add Images to " <> display_name(@post), class: "show-title" %>	
+</div>
 
 <form action="">
 	<div class="button-container-right">
