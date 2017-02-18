@@ -83,5 +83,23 @@ defmodule Artour.PostController do
     render conn, "add_images.html", post: post, images: unused_images
   end
 
+  @doc """
+  Saves images added from add_images form
+  images should be array of image_ids
+  """
+  def save_images(conn, %{"post" => post_id, "images" => images}) do
+    post = Repo.get!(Post, post_id)
+    
+    #add images to post
+    for image_id <- images do
+      changeset = Artour.PostImage.changeset(%Artour.PostImage{}, %{"post_id" => post.id, "image_id" => image_id})
+      Repo.insert!(changeset)
+    end
+    
+    conn
+        |> put_flash(:info, "Images added")
+        |> redirect(to: post_path(conn, :show, post))
+  end
+
 
 end

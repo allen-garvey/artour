@@ -53,6 +53,7 @@ defmodule Artour.Router do
 
     #displays form to add images to post
     get "/posts/:post/images/add", PostController, :add_images
+    post "/posts/:post/images", PostController, :save_images
 
     resources "/categories", CategoryController
     resources "/posts", PostController
