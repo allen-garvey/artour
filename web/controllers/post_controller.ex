@@ -70,4 +70,18 @@ defmodule Artour.PostController do
     |> put_flash(:info, "Post deleted successfully.")
     |> redirect(to: post_path(conn, :index))
   end
+
+  @doc """
+  Displays form with images not used in post album
+  that can be added
+  """
+  def add_images(conn, %{"post" => post_id}) do
+    post = Repo.get!(Post, post_id)
+    image_ids_used = Repo.all(from(pi in Artour.PostImage, select: pi.image_id, where: pi.post_id == ^post_id))
+    unused_images = Repo.all(from(i in Artour.Image, where: not(i.id in ^image_ids_used), order_by: [desc: i.id]))
+    
+    render conn, "add_images.html", post: post, images: unused_images
+  end
+
+
 end

@@ -51,6 +51,9 @@ defmodule Artour.Router do
 
     get "/", AdminController, :index
 
+    #displays form to add images to post
+    get "/posts/:post/images/add", PostController, :add_images
+
     resources "/categories", CategoryController
     resources "/posts", PostController
     resources "/formats", FormatController
