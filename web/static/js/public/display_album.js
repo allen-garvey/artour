@@ -9,49 +9,58 @@
     var currentImageIndex = null;
     var isLightboxVisible = false;
 
+    function createDiv(className){
+        var div = document.createElement('div');
+        div.className = className;
+        return div;
+    }
+
     function initializeLightbox(numImageLinks){
-    	var lightboxContainer = document.createElement('div');
-    	lightboxContainer.className = 'lightbox-container hidden';
+    	var lightboxContainer = createDiv('lightbox-container hidden');
     	
-        var lightboxBackground = document.createElement('div');
-    	lightboxBackground.className = 'lightbox-background';
+        var lightboxBackground = createDiv('lightbox-background');
     	lightboxBackground.onclick = hideLightbox;
 
-        var imagesContainer = document.createElement('div');
-    	imagesContainer.className = 'lightbox-images-container';
+        var imagesContainer = createDiv('lightbox-images-container');
         
         //add empty placeholder divs for images
         //will be lazy loaded by inserting img tag
         //when necessary
         for(var i=0; i<numImageLinks;i++){
-            var div = document.createElement('div');
-            div.className = 'image-container';
-            imagesContainer.appendChild(div);
+            imagesContainer.appendChild(createDiv('image-container'));
         }
 
         //add close 'X' button
         //have to add this after the .image-containers,
         //because nth-child and nth-of-type do not work
         //on class selectors, only elements
-        var closeButton = document.createElement('div');
-        closeButton.className = 'close-window-button';
+        var closeButton = createDiv('close-window-button');
         closeButton.onclick = hideLightbox;
         imagesContainer.appendChild(closeButton);
 
-        var buttonContainer = document.createElement('div');
-        buttonContainer.className = 'lightbox-button-container';
+        var bottomContainer = createDiv('lightbox-bottom-container');
 
-        var leftButton = document.createElement('div');
-        leftButton.className = 'slideshow-left-button';
+        //captions
+
+        var captionContainer = createDiv('caption-container');
+        bottomContainer.appendChild(captionContainer);
+
+        captionContainer.appendChild(createDiv('caption-body'));
+        captionContainer.appendChild(createDiv('caption-overlay'));
+
+        //buttons
+        var buttonContainer = createDiv('lightbox-button-container');
+        bottomContainer.appendChild(buttonContainer);
+
+        var leftButton = createDiv('slideshow-left-button');
         leftButton.onclick = showPreviousImage;
         buttonContainer.appendChild(leftButton);
 
-        var rightButton = document.createElement('div');
-        rightButton.className = 'slideshow-right-button';
+        var rightButton = createDiv('slideshow-right-button');
         rightButton.onclick = showNextImage;
         buttonContainer.appendChild(rightButton);
     	
-        lightboxContainer.appendChild(buttonContainer);
+        lightboxContainer.appendChild(bottomContainer);
         lightboxContainer.appendChild(imagesContainer);
     	lightboxContainer.appendChild(lightboxBackground);
     	document.body.appendChild(lightboxContainer);
@@ -71,6 +80,7 @@
             imgTag.srcset = imageLink.data('srcset');
             document.querySelector(parentSelector).appendChild(imgTag);
         }
+        document.querySelector('.caption-body').textContent = imageLink.data('caption');
         //set image slug in hash url
         window.location.hash = '#' + imageLink.data('slug'); 
         $('.lightbox-images-container>.image-container').addClass('hidden');

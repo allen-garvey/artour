@@ -50,16 +50,48 @@
 	}
 	//buttons
 	$lightbox_button_dimensions: 25px;
-	.lightbox-button-container{
+	.lightbox-bottom-container{
 		display: flex;
-		justify-content: center;
+		flex-direction: column;
 		align-items: center;
 		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
-		top: calc(100vh - #{$lightbox_button_dimensions * 2 + 10px});
+		top: calc(100vh - #{$lightbox_button_dimensions * 2 + 50px});
 		z-index: 100;
+	}
+	.lightbox-button-container{
+		display: flex;
+		justify-content: space-between;
+		width: 120px;
+		
+	}
+	.caption-container{
+		position: relative;
+		text-align: center;
+		font-size: 1em;
+		padding: 0.7em;
+		margin-bottom: 10px;
+		max-width: 30em;
+
+		.caption-overlay{
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: black;
+			opacity: 0.4;
+		}
+		.caption-body{
+			position: relative;
+			z-index: 100;
+			color: white;
+		}
+		.caption-body:empty + .caption-overlay{
+			display: none;
+		}
 	}
 
 	.slideshow-right-button, .slideshow-left-button, .close-window-button{
@@ -85,7 +117,6 @@
 		}
 	}
 	.slideshow-left-button{
-		margin-right: 65px;
 		&:before{
 			content: '\2039';
 		}
