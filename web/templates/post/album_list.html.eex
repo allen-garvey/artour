@@ -9,6 +9,6 @@
 		    	false -> ""
 			end
 
-		render "album_list_item.html", conn: @conn, image: post_image.image, post_image: post_image, list_item_class: list_item_class
+		render "album_list_item.html", conn: @conn, image: post_image.image, post_image: post_image, list_item_class: list_item_class, caption: post_image.caption
 	end %>
 </ol>

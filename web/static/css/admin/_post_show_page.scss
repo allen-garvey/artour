@@ -28,6 +28,8 @@
 		}
 		.image-title{
 			width: 20em;
+			flex-direction: column;
+			justify-content: center;
 		}
 		.list-item-dragger{
 			padding: 2em;
