@@ -16,33 +16,29 @@
 	}
 }
 
-.lightbox-container, .lightbox-background, .lightbox-images-container{
-	top: 0;
-}
-
 .lightbox-container, .lightbox-background{
+	position: fixed;
+	top: 0;
 	right: 0;
 	left: 0;
 	bottom: 0;
 }
 
 .lightbox-container{
-	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
 	&.hidden{
 		display: none;
 	}
 	
 	.lightbox-background{
-		position: fixed;
 		background-color: black;
 		opacity: 0.8;
 		z-index: 1;
 	}
 
 	.lightbox-images-container{
-		display: flex;
-		justify-content: center;
-		position: fixed;
 		z-index: 99;
 		img{
 			max-height: 100vh;
@@ -128,16 +124,5 @@
 		&:before{
 			content: '\2715';
 		}
-	}
-}
-
-@media screen and (min-width: 900px){
-	//horizontally center fixed element
-	//http://stackoverflow.com/questions/2005954/center-a-positionfixed-element
-	//with media query look a bit weird for tablets when portrait images are displayed
-	//but will have to do for now
-	.lightbox-images-container{
-		left: 50%;
-		transform: translateX(-50%);	
 	}
 }
