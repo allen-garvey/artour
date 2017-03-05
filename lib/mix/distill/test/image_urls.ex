@@ -4,6 +4,13 @@ defmodule Mix.Tasks.Distill.Test.ImageUrls do
 
     @shortdoc "Checks image urls for 404s. Requires curl"
 	def run([base_url]) do
+
+        #make sure base_url ends with trailing slash
+        base_url = cond do
+                        !String.ends_with?(base_url, "/") -> base_url = base_url <> "/"
+                        true -> base_url 
+                    end
+
         #start app so repo is available
         Mix.Task.run "app.start", []
 
