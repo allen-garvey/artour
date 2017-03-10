@@ -3,3 +3,13 @@
   render Artour.PublicPostView, "post_excerpt.html", conn: @conn, post: post
 
 end %>
+
+<div>
+	<%= if @current_page != 1 do
+	  link "newer", to: page_path(@conn, :index, page_num: Integer.to_string(@current_page - 1))
+	end %>
+	<%= if @current_page != @last_page do
+	  link "older", to: page_path(@conn, :index, page_num: Integer.to_string(@current_page + 1))
+	end %>
+
+</div>
