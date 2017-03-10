@@ -1,3 +1,4 @@
+<h1>Pages</h1>
 <ol>
 	<%= for {page_title, page_num} <- Enum.with_index(@page_list, 1) do
 	  content_tag :li, link(page_title, to: page_path(@conn, :page, page_num))
