@@ -16,6 +16,7 @@ defmodule Mix.Tasks.Distill.Html do
     Mix.Task.run "app.start", []
     
     routes = Distill.Page.routes
+              ++ Distill.Page.paginated_index_routes(Artour.Page.last_page(Artour.Repo))
               ++ Distill.Post.routes
               ++ Distill.Tag.routes
               ++ Distill.Category.routes

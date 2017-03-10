@@ -1,8 +1,7 @@
 defmodule Distill.Page do
 	alias Distill.PageRoute
 	@doc """
-	Returns list of tuples in format: path (string), controller module(atom), controller handler function (atom), params (map)
-	e.g. {"/posts", Artour.PostController, :index, %{}}
+	Returns a list of page routes for page controller
 	"""
 	def routes() do
 		[
@@ -14,5 +13,19 @@ defmodule Distill.Page do
 	  		%PageRoute{path: "/categories", controller: Artour.PublicCategoryController, handler: :index},
 	  		%PageRoute{path: "/tags", controller: Artour.PublicTagController, handler: :index},
 		]
+	end
+
+	@doc """
+	Returns a list of page routes for paginated index pages
+	"""
+	def paginated_index_routes(last_page_num) when is_integer(last_page_num) do
+		Enum.map 1..last_page_num, &page_route_for/1
+	end
+
+	@doc """
+	Returns a page route for a given page number for paginated index pages
+	"""
+	def page_route_for(page_num) when is_integer(page_num) do
+		%PageRoute{path: "/page/" <> Integer.to_string(page_num), controller: Artour.PageController, handler: :page, params: %{"page_num" => page_num}}
 	end
 end
