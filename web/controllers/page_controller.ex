@@ -2,6 +2,16 @@ defmodule Artour.PageController do
   use Artour.Web, :controller
   alias Artour.Page
 
+  @doc """
+  Index defaults to first page
+  """
+  def index(conn, _params) do
+    page conn, %{"page_num" => 1}
+  end
+
+  @doc """
+  Displays single page of paginated index
+  """
   def page(conn, %{"page_num" => page_num}) do
     last_page = Page.last_page Repo
     #no checking if page_num is valid or in range, because final product will be static site
@@ -15,10 +25,16 @@ defmodule Artour.PageController do
   end
 
   @doc """
-  Index defaults to first page
+  Displays list of all pages in paginated index
   """
-  def index(conn, _params) do
-    page conn, %{"page_num" => 1}
+  def pagination_index(conn, _params) do
+    page_list = Artour.Post.default_order_query
+            |> Repo.all
+            #more verbose version of chunk needed so that unfilled pages will not be discarded
+            |> Enum.chunk(Page.posts_per_page, Page.posts_per_page, [])
+            |> Enum.map(&Artour.PageView.page_summary_title/1)
+
+    render conn, "pagination_index.html", page_list: page_list 
   end
 
   @doc """
