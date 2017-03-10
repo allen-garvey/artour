@@ -26,6 +26,6 @@ defmodule Distill.Page do
 	Returns a page route for a given page number for paginated index pages
 	"""
 	def page_route_for(page_num) when is_integer(page_num) do
-		%PageRoute{path: "/page/" <> Integer.to_string(page_num), controller: Artour.PageController, handler: :page, params: %{"page_num" => page_num}}
+		%PageRoute{path: "/pages/" <> Integer.to_string(page_num), controller: Artour.PageController, handler: :page, params: %{"page_num" => page_num}}
 	end
 end

@@ -32,7 +32,7 @@ defmodule Artour.Router do
 
     get "/", PageController, :index
     #pagination for index
-    get "page/:page_num", PageController, :page
+    get "pages/:page_num", PageController, :page
 
     get "/about", PageController, :about
     get "/browse", PageController, :browse
