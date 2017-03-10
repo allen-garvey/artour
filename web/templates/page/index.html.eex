@@ -6,10 +6,10 @@ end %>
 
 <div>
 	<%= if @current_page != 1 do
-	  link "newer", to: page_path(@conn, :index, page_num: Integer.to_string(@current_page - 1))
+	  link "newer", to: page_path(@conn, :page, Integer.to_string(@current_page - 1))
 	end %>
 	<%= if @current_page != @last_page do
-	  link "older", to: page_path(@conn, :index, page_num: Integer.to_string(@current_page + 1))
+	  link "older", to: page_path(@conn, :page, Integer.to_string(@current_page + 1))
 	end %>
 
 </div>

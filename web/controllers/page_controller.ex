@@ -2,7 +2,7 @@ defmodule Artour.PageController do
   use Artour.Web, :controller
   alias Artour.Page
 
-  def index(conn, %{"page_num" => page_num}) do
+  def page(conn, %{"page_num" => page_num}) do
     last_page = Page.last_page Repo
     #no checking if page_num is valid or in range, because final product will be static site
     page_num = cond do
@@ -18,7 +18,7 @@ defmodule Artour.PageController do
   Index defaults to first page
   """
   def index(conn, _params) do
-    index conn, %{"page_num" => 1}
+    page conn, %{"page_num" => 1}
   end
 
   @doc """
