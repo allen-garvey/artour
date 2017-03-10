@@ -6,7 +6,7 @@ defmodule Artour.Page do
 	Number of posts per page in index post list
 	"""
 	def posts_per_page() do
-		2
+		4
 	end
 
 	@doc """
