@@ -41,7 +41,12 @@
 	//when focus lost on image name source, autofill targets with pre-generated image name,
 	//unless they are already filled
 	imageNameSource.on('blur', function(event){
-		var imageName = urlify(this.value);
+		var inputText = this.value;
+		//don't do anything if input is blank
+		if(!inputText){
+			return;
+		}
+		var imageName = urlify(inputText);
 		var fileSuffixes = isPortraitCheckbox.checked ? FILE_SUFFIXES_PORTRAIT : FILE_SUFFIXES;
 
 		TEXTFIELD_TARGETS.forEach(function(textfield, i){
