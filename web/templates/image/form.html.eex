@@ -7,7 +7,7 @@
 
   <div class="checkbox">
     <label>
-      <input type="checkbox" id="is_portrait_checkbox"> Portrait
+      <input type="checkbox" id="is_portrait_checkbox" checked> Portrait
     </label>
   </div>
 
