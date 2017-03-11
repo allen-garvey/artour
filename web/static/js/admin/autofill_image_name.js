@@ -8,6 +8,7 @@
 	if(imageNameSource.length < 1){
 		return;
 	}
+	var isPortraitCheckbox = document.getElementById('is_portrait_checkbox');
 	//sets a textfield element value to 
 	//passed in value
 	//if it does not already have a value already
@@ -20,6 +21,7 @@
 		textfield.value = value;
 	};
 	var FILE_SUFFIXES = ['lg', 'med', 'sm', 'thumb'];
+	var FILE_SUFFIXES_PORTRAIT = ['med', 'med', 'sm', 'thumb'];
 
 	var TEXTFIELD_TARGETS = ['large', 'medium', 'small', 'thumbnail'].map(function(elem){
 		return document.querySelector('[data-image-' + elem + ']');
@@ -40,12 +42,10 @@
 	//unless they are already filled
 	imageNameSource.on('blur', function(event){
 		var imageName = urlify(this.value);
-		var fileNames = FILE_SUFFIXES.map(function(suffix){
-			return imageName + '-' + suffix + '.jpg';
-		});
+		var fileSuffixes = isPortraitCheckbox.checked ? FILE_SUFFIXES_PORTRAIT : FILE_SUFFIXES;
 
 		TEXTFIELD_TARGETS.forEach(function(textfield, i){
-			autofillTextfield(textfield, suffixToImageFilename(imageName, FILE_SUFFIXES[i]));
+			autofillTextfield(textfield, suffixToImageFilename(imageName, fileSuffixes[i]));
 		});
 		
 	});
