@@ -15,7 +15,7 @@
 	var autofillTextfield = function(textfield, value){
 		//val() is null if unset
 		var val = textfield.value;
-		if(val && val !== ''){
+		if(val){
 			return;
 		}
 		textfield.value = value;
