@@ -91,7 +91,8 @@ defmodule Artour.PostController do
     post = Repo.get!(Post, post_id)
     
     #add images to post
-    for image_id <- images do
+    #reverse order so images are ordered oldest to newest
+    for image_id <- Enum.reverse(images) do
       changeset = Artour.PostImage.changeset(%Artour.PostImage{}, %{"post_id" => post.id, "image_id" => image_id})
       Repo.insert!(changeset)
     end
