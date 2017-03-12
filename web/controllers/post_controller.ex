@@ -9,7 +9,9 @@ defmodule Artour.PostController do
   end
 
   def new(conn, _params) do
-    changeset = Post.changeset(%Post{})
+    #set new posts to use last added image by default
+    default_cover_image_id = Repo.one!(from i in Artour.Image, select: i.id, order_by: [desc: :id], limit: 1)
+    changeset = Post.changeset(%Post{cover_image_id: default_cover_image_id})
     categories = Artour.Category.form_list(Repo)
     render(conn, "new.html", changeset: changeset, categories: categories)
   end
