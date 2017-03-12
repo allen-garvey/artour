@@ -4,8 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= site_title assigns[:page_title] %></title>
-    <%= tag :meta, name: "description", content: site_description %>
     <%= tag :link, rel: "stylesheet", href: static_path(@conn, "/css/main.css") %>
+    <%= tag :meta, name: "description", content: site_description %>
+    <%= if assigns[:facebook_image] do
+      tag :meta, property: "og:image", content: Artour.ImageView.url_for(@conn, @facebook_image, :small, :cloud)
+    end %>
+    <%= if assigns[:page_title] do
+      tag :meta, property: "og:title", content: @page_title
+    end %>
   </head>
 
   <body>
