@@ -12,7 +12,7 @@ A CMS and blog for photography and artwork.
 Now you can visit [`localhost:3000`](http://localhost:3000) from your browser.
 
 ## Custom Mix Tasks
-	* Render site to static HTML files `mix distill.html`
-	* Copy static assets for static site `mix distill.static`
-	* Convenience task to combine previous two tasks `mix distill.site`
-	* Test image urls for 404s `mix distill.test.image_urls image_url/folder/`
+  * Render site to static HTML files `mix distill.html`
+  * Copy static assets for static site `mix distill.static`
+  * Convenience task to combine previous two tasks `mix distill.site`
+  * Test image urls for 404s `mix distill.test.image_urls image_url/folder/`
