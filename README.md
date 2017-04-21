@@ -1,7 +1,6 @@
 # Artour
 
-A CMS and blog for photography and artwork.
-
+A CMS and blog static site generator specifically designed for photography and artwork.
 
 ## Getting Started
   * Install dependencies with `mix deps.get`
