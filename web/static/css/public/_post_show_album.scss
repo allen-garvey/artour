@@ -123,6 +123,11 @@
 		right: 6px;
 		&:before{
 			content: '\2715';
+			height: $lightbox_button_dimensions;
+			width: $lightbox_button_dimensions;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 	}
 }
