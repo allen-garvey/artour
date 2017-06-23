@@ -110,6 +110,45 @@
         });
     }
 
+    function initializeImageSwipeHandlers(){
+        var imagesContainer = document.querySelector('.lightbox-images-container');
+        //number of pixels allowed in diagonal between touch start and start end
+        var yThreshold = 100;
+        //number of pixels need to be swiped in x direction to register as swipe
+        var xThreshold = 50;
+
+        var touchStartX = null;
+        var touchStartY = null;
+
+        imagesContainer.addEventListener('touchstart', function(e){
+            var touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+        });
+        imagesContainer.addEventListener('touchend', function(e){
+            var touch = e.changedTouches[0];
+            var touchEndX = touch.clientX;
+            var touchEndY = touch.clientY;
+
+            var yDifference = Math.abs(touchEndY - touchStartY);
+            if(yDifference > yThreshold){
+                return;
+            }
+            var xDifference = Math.abs(touchEndX - touchStartX);
+            if(xDifference < xThreshold){
+                return;
+            }
+            //swiped right, show previous image
+            if(touchEndX > touchStartX){
+                showPreviousImage();
+            }
+            //swiped left, show next image
+            else{
+                showNextImage();
+            }
+        });
+    }
+
     function showNextImage(){
         //don't do anything if we are at the last image
         if(currentImageIndex >= imageLinks.length - 1){
@@ -165,6 +204,7 @@
 
     initializeLightbox(imageLinks.length);
     initializeImageLinkClickHandlers(imageLinks);
+    initializeImageSwipeHandlers();
     displayImageFromUrl(imageLinks, window.location.hash.replace(/^#/, ''));
 
 
