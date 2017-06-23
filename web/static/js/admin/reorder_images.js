@@ -57,6 +57,7 @@
     var clickTarget = null;
     var currentlyDraggedItemIndex = null;
     var currentlyDraggedOverIndex = null;
+    var currentlyDraggingImage = false;
     
     //used to keep track if drag was caused by clicking on handle
     imageListItems.on('mousedown', function(event) {
@@ -65,6 +66,12 @@
 
     imageListItems.on('dragstart', function(event) {
     	var handle = $(this).find('.list-item-dragger');
+        //length will be 0 when dragging image instead of button
+        if(handle.length < 1){
+            currentlyDraggingImage = true;
+            return;
+        }
+        currentlyDraggingImage = false;
     	//see if drag was caused by clicking on handle
     	if(!handle.elementList[0].contains(clickTarget)){
     		event.preventDefault();
@@ -73,7 +80,10 @@
     	currentlyDraggedItemIndex = indexOfElement(this, imageListItems);
     });
 
-    imageListItems.on('dragover', function(event) {
+    imageListItems.on('dragover', function(event){
+        if(currentlyDraggingImage){
+            return;
+        }
     	//required so drop events fire
     	event.preventDefault();
     	//required to get actual li, and not part of li that was dragged over
@@ -93,7 +103,10 @@
     	}
     });
 
-    imageListItems.on('dragend', function(event) {
+    imageListItems.on('dragend', function(event){
+        if(currentlyDraggingImage){
+            return;
+        }
     	event.preventDefault();
     	//remove placeholders
     	removeDragPlaceholders(imageListItems);
