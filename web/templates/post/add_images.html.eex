@@ -1,4 +1,13 @@
-<%= link "Back", to: post_path(@conn, :show, @post), class: "back-link" %>
+<div class="add-images-top-links">
+	<%= link "Back", to: post_path(@conn, :show, @post), class: "back-link" %>
+	<%= if @all_images_shown do
+	  		link "Show unused images", to: post_path(@conn, :add_images, @post, unused: true)
+		else
+			link "Show all images", to: post_path(@conn, :add_images, @post)
+	end %>
+	<div></div>
+</div>
+
 <div class="show-heading">
 	<%= content_tag :h1, "Add Images to " <> display_name(@post), class: "show-title" %>	
 </div>

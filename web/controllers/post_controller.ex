@@ -74,15 +74,29 @@ defmodule Artour.PostController do
   end
 
   @doc """
+  Displays form with images not used in any albums
+  """
+  def add_images(conn, %{"post" => post_id, "unused" => _unused}) do
+    image_ids_used = Repo.all(from(pi in Artour.PostImage, select: pi.image_id))
+
+    add_images_page(conn, post_id, image_ids_used, false)
+  end
+
+  @doc """
   Displays form with images not used in post album
   that can be added
   """
   def add_images(conn, %{"post" => post_id}) do
-    post = Repo.get!(Post, post_id)
     image_ids_used = Repo.all(from(pi in Artour.PostImage, select: pi.image_id, where: pi.post_id == ^post_id))
+
+    add_images_page(conn, post_id, image_ids_used, true)
+  end
+
+  defp add_images_page(conn, post_id, image_ids_used, all_images_shown) do
+    post = Repo.get!(Post, post_id)
     unused_images = Repo.all(from(i in Artour.Image, where: not(i.id in ^image_ids_used), order_by: [desc: i.id]))
     
-    render conn, "add_images.html", post: post, images: unused_images
+    render conn, "add_images.html", post: post, images: unused_images, all_images_shown: all_images_shown
   end
 
   @doc """
