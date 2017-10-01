@@ -41,7 +41,7 @@ defmodule Artour.PostView do
   same order as the attribute_values function
   """
   def attribute_names_short() do
-    ["Title", "Slug", "Category", "Date Created"]
+    ["Title", "Slug", "NSFW", "Category", "Date Created"]
   end
 
   @doc """
@@ -49,7 +49,7 @@ defmodule Artour.PostView do
   formatted values
   """
   def attribute_values_short(post) do
-  	[post.title, post.slug, Artour.CategoryView.display_name(post.category), datetime_to_us_date(Artour.Post.date_created(post))]
+  	[post.title, post.slug, post.is_nsfw, Artour.CategoryView.display_name(post.category), datetime_to_us_date(Artour.Post.date_created(post))]
   end
 
   @doc """
@@ -57,7 +57,7 @@ defmodule Artour.PostView do
   same order as the attribute_values function
   """
   def attribute_names() do
-    ["Title", "Public Url", "Date Created", "Category", "Body"]
+    ["Title", "Public Url", "Date Created", "Category", "NSFW", "Body"]
   end
 
   @doc """
@@ -65,6 +65,6 @@ defmodule Artour.PostView do
   formatted values
   """
   def attribute_values(conn, post) do
-    [post.title, link(Artour.PublicPostView.show_path(conn, post), to: Artour.PublicPostView.show_path(conn, post)), datetime_to_us_date(Artour.Post.date_created(post)), Artour.CategoryView.display_name(post.category), to_paragraphs(post.body)]
+    [post.title, link(Artour.PublicPostView.show_path(conn, post), to: Artour.PublicPostView.show_path(conn, post)), datetime_to_us_date(Artour.Post.date_created(post)), Artour.CategoryView.display_name(post.category), post.is_nsfw, to_paragraphs(post.body)]
   end
 end

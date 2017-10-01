@@ -1,4 +1,4 @@
-<div class="post-show-heading post-heading">
+<div class="post-show-heading post-heading <%= if @post.is_nsfw do "nsfw" end %>">
 	<h1 class="post-title"><%= @post.title %></h1>
 	<div class="post-date">
 		<%= datetime_to_display_date(Artour.Post.date_created(@post)) %>

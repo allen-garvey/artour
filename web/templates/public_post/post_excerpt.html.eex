@@ -1,4 +1,4 @@
-<article class="post-brief">
+<article class="post-brief <%= if @post.is_nsfw do "nsfw" end %>">
 	<div class="post-heading">
 		<h2 class="post-title">
 			<%= link @post.title, to: show_path(@conn, @post) %>		

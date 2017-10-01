@@ -45,6 +45,13 @@ $symbol_margin: 5px;
 .post-title{
 	margin: 0;
 }
+.nsfw .post-title:after{
+	content: "NSFW";
+	color: crimson;
+}
+.nsfw.post-show-heading .post-title:after{
+	margin-left: 1em;
+}
 .post-date{
 	font-size: 0.8em;
 	text-align: right;

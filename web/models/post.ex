@@ -6,6 +6,7 @@ defmodule Artour.Post do
     field :title, :string
     field :slug, :string
     field :body, :string
+    field :is_nsfw, :boolean
 
     belongs_to :category, Artour.Category
     belongs_to :cover_image, Artour.Image
@@ -43,8 +44,8 @@ defmodule Artour.Post do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :slug, :body, :category_id, :cover_image_id])
-    |> validate_required([:title, :slug, :category_id, :cover_image_id])
+    |> cast(params, [:title, :slug, :body, :category_id, :cover_image_id, :is_nsfw])
+    |> validate_required([:title, :slug, :category_id, :cover_image_id, :is_nsfw])
     |> foreign_key_constraint(:category_id)
     |> assoc_constraint(:category) #validate category exists
     |> foreign_key_constraint(:cover_image_id)
