@@ -11,7 +11,7 @@
 			return '';
 		}
 		var slugMaxChar = 80;
-		return text.toLowerCase().replace(/[\s-_]+/g, '-').replace(/&+/g, 'and').replace(/^[-]+|[-]$|[^a-z0-9-]/g, '').slice(0, slugMaxChar);
+		return text.toLowerCase().replace(/[\s-_]+/g, '-').replace(/@+/g, 'at').replace(/&+/g, 'and').replace(/^[-]+|[-]$|[^a-z0-9-]/g, '').slice(0, slugMaxChar);
 	}
 
 	$('[data-slug-source]').on('blur', function(event){
