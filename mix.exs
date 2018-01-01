@@ -33,10 +33,10 @@ defmodule Artour.Mixfile do
     [{:phoenix, "~> 1.3"},
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.3"},
-     {:postgrex, ">= 0.0.0"},
+     {:postgrex, "~> 0.13"},
      {:phoenix_html, "~> 2.10"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.11"},
+     {:gettext, "~> 0.14"},
      {:cowboy, "~> 1.0"}]
   end
 
