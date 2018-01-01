@@ -23,7 +23,7 @@ defmodule Mix.Tasks.Distill.Html do
 
     for page_route <- routes do
       #render the page
-      conn = default_conn |> render_page_route(page_route)
+      conn = default_conn() |> render_page_route(page_route)
       #make sure directory for file exists
       directory_name = dest_dir |> Path.join(directory_for(page_route))
       File.mkdir_p! directory_name

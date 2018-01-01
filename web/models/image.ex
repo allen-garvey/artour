@@ -11,7 +11,7 @@ defmodule Artour.Image do
     field :filename_medium, :string
     field :filename_small, :string
     field :filename_thumbnail, :string
-    field :completion_date, Ecto.Date
+    field :completion_date, :date
 
     belongs_to :format, Artour.Format
     many_to_many :posts, Artour.Post, join_through: "post_images", on_delete: :delete_all

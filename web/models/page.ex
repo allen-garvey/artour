@@ -15,10 +15,10 @@ defmodule Artour.Page do
 	def posts_for_page_query(page_num) when is_integer(page_num) do
 		post_offset = cond do
 		  				page_num <= 0 -> 1
-		  				true -> (page_num - 1) * posts_per_page  
+		  				true -> (page_num - 1) * posts_per_page()  
 					end
 		
-		from(Artour.Post, order_by: [desc: :id], limit: ^posts_per_page, offset: ^post_offset)
+		from(Artour.Post, order_by: [desc: :id], limit: ^posts_per_page(), offset: ^post_offset)
 	end
 
 	@doc """
@@ -26,7 +26,7 @@ defmodule Artour.Page do
 	"""
 	def last_page(repo) do
 		post_count = repo.one!(from p in Artour.Post, select: count(p.id))
-		(1.0 * post_count / posts_per_page)
+		(1.0 * post_count / posts_per_page())
 			|> Float.ceil
 			|> round
 	end

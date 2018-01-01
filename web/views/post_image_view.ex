@@ -51,7 +51,7 @@ defmodule Artour.PostImageView do
   same order as the attribute_values function
   """
   def attribute_names() do
-    attribute_names_short
+    attribute_names_short()
   end
 
   @doc """

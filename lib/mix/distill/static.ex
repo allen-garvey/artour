@@ -13,7 +13,7 @@ defmodule Mix.Tasks.Distill.Static do
     IO.puts "Copying static assets from " <> source_dir <> " to " <> dest_dir
     IO.puts ""
 
-    for filename <- static_asset_filenames do
+    for filename <- static_asset_filenames() do
       IO.puts "Copying " <> filename
       dest_enclosing_dir = Path.join(dest_dir, Path.dirname(filename))
       #make sure enclosing directory in dest_dir exists

@@ -10,11 +10,11 @@ defmodule Artour.LayoutHelpers do
 	end
 
   def site_title(nil) do
-    site_title
+    site_title()
   end
 
   def site_title(page_title) when is_binary(page_title) do
-    site_title <> " | " <> page_title
+    site_title() <> " | " <> page_title
   end
 
   @doc """

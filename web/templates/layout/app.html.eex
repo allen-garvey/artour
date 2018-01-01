@@ -7,14 +7,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><%= site_title %> | Admin</title>
+    <title><%= site_title() %> | Admin</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/admin.css") %>">
   </head>
 
   <body>
     <div class="container">
       <header class="header">
-        <div class="brand"><%= link site_title, to: page_path(@conn, :index) %></div>
+        <div class="brand"><%= link site_title(), to: page_path(@conn, :index) %></div>
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
             <li><%= link "Admin", to: admin_path(@conn, :index) %></li>

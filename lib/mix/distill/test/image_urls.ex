@@ -7,7 +7,7 @@ defmodule Mix.Tasks.Distill.Test.ImageUrls do
 
         #make sure base_url ends with trailing slash
         base_url = cond do
-                        !String.ends_with?(base_url, "/") -> base_url = base_url <> "/"
+                        !String.ends_with?(base_url, "/") -> base_url <> "/"
                         true -> base_url 
                     end
 
@@ -17,7 +17,7 @@ defmodule Mix.Tasks.Distill.Test.ImageUrls do
         #parallel map based on:
         #http://elixir-recipes.github.io/concurrency/parallel-map/
     	Artour.Repo.all(Artour.Image)
-    		|> Enum.flat_map(fn image -> image_sizes |> Enum.map(&(url_for_image(image, base_url, &1))) end)
+    		|> Enum.flat_map(fn image -> image_sizes() |> Enum.map(&(url_for_image(image, base_url, &1))) end)
     		|> Enum.map(&(Task.async(fn -> test_url(&1) end)))
     		|> Enum.map(&Task.await/1)
             |> Enum.each(&print_image_response/1)

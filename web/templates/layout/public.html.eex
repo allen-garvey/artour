@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= site_title assigns[:page_title] %></title>
     <%= tag :link, rel: "stylesheet", href: static_path(@conn, "/css/main.css") %>
-    <%= tag :meta, name: "description", content: site_description %>
+    <%= tag :meta, name: "description", content: site_description() %>
     <%= if assigns[:facebook_image] do
       tag :meta, property: "og:image", content: Artour.ImageView.url_for(@conn, @facebook_image, :small, :cloud)
     end %>
@@ -17,7 +17,7 @@
   <body>
     <header class="header container">
       <nav class="nav">
-        <div class="brand"><%= link site_title, to: page_path(@conn, :index) %></div>
+        <div class="brand"><%= link site_title(), to: page_path(@conn, :index) %></div>
         <ul class="menu-list">
           <li><%= link "Browse", to: page_path(@conn, :browse) %></li>
           <li><%= link "About", to: page_path(@conn, :about) %></li>
