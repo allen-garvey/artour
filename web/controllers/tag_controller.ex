@@ -5,7 +5,9 @@ defmodule Artour.TagController do
 
   def index(conn, _params) do
     tags = Repo.all(Tag.default_order_query())
-    render(conn, "index.html", tags: tags)
+    view = view_module(conn)
+    render(conn, Artour.SharedView, "index.html", items: tags, item_name_singular: "tag", column_headings: view.attribute_names(), item_view: view,
+                                row_values_func_name: :attribute_values)
   end
 
   def new(conn, _params) do

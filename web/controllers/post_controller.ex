@@ -5,7 +5,9 @@ defmodule Artour.PostController do
 
   def index(conn, _params) do
     posts = Repo.all(Post.default_order_query()) |> Repo.preload([:category])
-    render(conn, "index.html", posts: posts)
+    view = view_module(conn)
+    render(conn, Artour.SharedView, "index.html", items: posts, item_name_singular: "post", column_headings: view.attribute_names_short(), item_view: view,
+                                row_values_func_name: :attribute_values_short)
   end
 
   def new(conn, _params) do

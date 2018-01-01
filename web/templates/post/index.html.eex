@@ -1,8 +1,0 @@
-<%= render Artour.SharedView, "index.html",
-                                conn: @conn,
-                                item_view: view_module(@conn),
-                                row_values_func_name: :attribute_values_short,
-                                item_name_singular: "post",
-                                column_headings: attribute_names_short(),
-                                items: @posts
-%>

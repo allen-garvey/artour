@@ -5,7 +5,9 @@ defmodule Artour.ImageController do
 
   def index(conn, _params) do
     images = Repo.all(from(Image, order_by: [desc: :id])) |> Repo.preload([:format])
-    render(conn, "index.html", images: images)
+    view = view_module(conn)
+    render(conn, Artour.SharedView, "index.html", items: images, item_name_singular: "image", column_headings: view.attribute_names_short(), item_view: view,
+                                row_values_func_name: :attribute_values_short)
   end
 
   def new(conn, _params) do

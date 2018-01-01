@@ -5,7 +5,9 @@ defmodule Artour.PostTagController do
 
   def index(conn, _params) do
     post_tags = Repo.all(from(PostTag, order_by: [desc: :id])) |> Repo.preload([:tag, :post])
-    render(conn, "index.html", post_tags: post_tags)
+    view = view_module(conn)
+    render(conn, Artour.SharedView, "index.html", items: post_tags, item_name_singular: "post tag", column_headings: view.attribute_names_short(), item_view: view,
+                                row_values_func_name: :attribute_values_short)
   end
 
   def new(conn, _params) do
