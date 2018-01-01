@@ -1,5 +1,4 @@
 defmodule Artour.Page do
-	import Ecto
     import Ecto.Query
 
 	@doc """
