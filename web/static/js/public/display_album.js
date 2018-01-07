@@ -9,6 +9,11 @@
     var currentImageIndex = null;
     var isLightboxVisible = false;
 
+    //history stuff
+    var BASE_URL = window.location.href.replace(/[?#].*$/, '');
+    var IMAGE_QUERY_STRING_KEY = 'image';
+    var history = window.history;
+
     function createDiv(className){
         var div = document.createElement('div');
         div.className = className;
@@ -81,8 +86,11 @@
             document.querySelector(parentSelector).appendChild(imgTag);
         }
         document.querySelector('.caption-body').textContent = imageLink.data('caption');
-        //set image slug in hash url
-        window.location.hash = '#' + imageLink.data('slug'); 
+        
+        //set history state
+        var imageSlug = imageLink.data('slug');
+        history.replaceState({image_slug: imageSlug}, '', BASE_URL+'?'+IMAGE_QUERY_STRING_KEY+'='+imageSlug);
+
         $('.lightbox-images-container>.image-container').addClass('hidden');
         $(parentSelector).removeClass('hidden');
     }
@@ -95,8 +103,8 @@
     function hideLightbox(){
         isLightboxVisible = false;
         $('.lightbox-container').addClass('hidden');
-        //remove image slug from hash url
-        window.location.hash = '';
+        //clear history
+        history.replaceState({}, '', BASE_URL);
     }
 
     function initializeImageLinkClickHandlers(imageLinks){
@@ -202,10 +210,15 @@
         });
     }
 
-    initializeLightbox(imageLinks.length);
-    initializeImageLinkClickHandlers(imageLinks);
-    initializeImageSwipeHandlers();
-    displayImageFromUrl(imageLinks, window.location.hash.replace(/^#/, ''));
+    (function(){
+        initializeLightbox(imageLinks.length);
+        initializeImageLinkClickHandlers(imageLinks);
+        initializeImageSwipeHandlers();
+        
+        //display image based if query string in url
+        var imageQueryStringRegex = new RegExp('^.*\\?'+IMAGE_QUERY_STRING_KEY+'=|[&#].*$', 'g');
+        displayImageFromUrl(imageLinks, window.location.href.replace(imageQueryStringRegex, ''));
+    })();
 
 
 })(aQuery);
