@@ -62,7 +62,8 @@
   <div class="form-group">
     <%= label f, :completion_date, class: "control-label" %>
     <div class="date-select">
-    <%= date_select f, :completion_date, year: [options: 2014..Ecto.Date.utc.year, selected: Ecto.Date.utc.year, class: "form-control"], month: [selected: Ecto.Date.utc.month, class: "form-control"], day: [selected: Ecto.Date.utc.day, class: "form-control"], builder: fn b -> %>
+    <% today = Date.utc_today() %>
+    <%= date_select f, :completion_date, year: [options: 2014..today.year, selected: today.year, class: "form-control"], month: [selected: today.month, class: "form-control"], day: [selected: today.day, class: "form-control"], builder: fn b -> %>
       <%= b.(:month, []) %> / <%= b.(:day, []) %> / <%= b.(:year, []) %>
     <% end %>
     </div>

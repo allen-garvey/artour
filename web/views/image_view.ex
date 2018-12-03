@@ -113,7 +113,7 @@ defmodule Artour.ImageView do
   formatted values
   """
   def attribute_values_short(image) do
-  	[image.title, image.description, Artour.FormatView.display_name(image.format), date_to_us_date(image.completion_date), image.id]
+  	[image.title, image.description, Artour.FormatView.display_name(image.format), Artour.DateHelpers.date_to_us_date(image.completion_date), image.id]
   end
 
   @doc """
@@ -129,6 +129,6 @@ defmodule Artour.ImageView do
   formatted values
   """
   def attribute_values(image) do
-    [image.title, image.slug, image.description, image.filename_large, image.filename_medium, image.filename_small, image.filename_thumbnail, Artour.FormatView.display_name(image.format), date_to_us_date(image.completion_date)]
+    [image.title, image.slug, image.description, image.filename_large, image.filename_medium, image.filename_small, image.filename_thumbnail, Artour.FormatView.display_name(image.format), Artour.DateHelpers.date_to_us_date(image.completion_date)]
   end
 end
