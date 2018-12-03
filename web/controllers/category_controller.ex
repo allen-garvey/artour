@@ -7,7 +7,8 @@ defmodule Artour.CategoryController do
   def index(conn, _params) do
     categories = Repo.all(Category.default_order_query())
     view = view_module(conn)
-    render(conn, Artour.SharedView, "index.html", items: categories, item_name_singular: "category", column_headings: view.attribute_names(), item_view: view,
+    put_view(conn, Artour.SharedView) |>
+      render("index.html", items: categories, item_name_singular: "category", column_headings: view.attribute_names(), item_view: view,
                                 row_values_func_name: :attribute_values)
   end
 

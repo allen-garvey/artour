@@ -6,7 +6,8 @@ defmodule Artour.FormatController do
   def index(conn, _params) do
     formats = Repo.all(Format.default_order_query())
     view = view_module(conn)
-    render(conn, Artour.SharedView, "index.html", items: formats, item_name_singular: "format", column_headings: view.attribute_names(), item_view: view,
+    put_view(conn, Artour.SharedView) |>
+      render("index.html", items: formats, item_name_singular: "format", column_headings: view.attribute_names(), item_view: view,
                                 row_values_func_name: :attribute_values)
   end
 
