@@ -30,13 +30,18 @@ defmodule Artour.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.3"},
-     {:phoenix_ecto, "~> 3.3"},
-     {:postgrex, "~> 0.13"},
-     {:phoenix_html, "~> 2.10"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.14"},
-     {:cowboy, "~> 1.0"}]
+    [
+      {:phoenix, "~> 1.4"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:ecto_sql, "~> 3.0.3"},
+      {:postgrex, ">= 0.14.1"},
+      {:phoenix_html, "~> 2.12"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
+      {:gettext, "~> 0.16"},
+      {:cowboy, "~> 2.6"},
+      {:plug_cowboy, "~> 2.0"},
+      {:poison, "~> 3.0"},
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

@@ -24,48 +24,14 @@ defmodule Artour.DateHelpers do
 
 	@doc """
   	Takes datetime string as argument
-  	returns tuple of integers
-  	{YYYY, MM, DD}
-  	"""
-	def datetime_to_tuple(datetime) do
-		datetime
-			|> Ecto.DateTime.cast! 
-			|> Ecto.DateTime.to_date
-			|> Ecto.Date.dump
-			|> elem(1)
-	end
-
-	@doc """
-  	Takes date string as argument
-  	returns tuple of integers
-  	{YYYY, MM, DD}
-  	"""
-	def date_to_tuple(date) do
-		date
-			|> Ecto.Date.cast! 
-			|> Ecto.Date.dump
-			|> elem(1)
-	end
-
-	@doc """
-  	Takes datetime string as argument
   	returns string date in format `Month name DD, YYYY`
   	"""
 	def datetime_to_display_date(datetime) do
-		date_tuple = datetime_to_tuple(datetime)
-		to_month_name(elem(date_tuple, 1)) <> 
+		to_month_name(datetime.month) <> 
 		" " <>
-		Integer.to_string(elem(date_tuple, 2)) <> 
+		String.pad_leading(Integer.to_string(datetime.day), 2, "0") <> 
 		", " <>
-		Integer.to_string(elem(date_tuple, 0))
-	end
-
-	@doc """
-  	Takes datetime string as argument
-  	returns string date in format MM-DD-YYYY
-  	"""
-	def datetime_to_us_date(datetime) do
-		datetime |> datetime_to_tuple |> date_tuple_to_us_date
+		Integer.to_string(datetime.year)
 	end
 
 	@doc """
@@ -73,19 +39,19 @@ defmodule Artour.DateHelpers do
   	returns string date in format MM-DD-YYYY
   	"""
 	def date_to_us_date(date) do
-		date |> date_to_tuple |> date_tuple_to_us_date
+		datetime_to_us_date(date)
 	end
 
 	@doc """
-  	Takes date tuple in format {YYYY, MM, DD}
+  	Takes date or datetime and
   	returns string date in format MM-DD-YYYY
   	"""
-	def date_tuple_to_us_date(date_tuple) do
-		Integer.to_string(elem(date_tuple, 1)) <> 
+	def datetime_to_us_date(datetime) do
+		String.pad_leading(Integer.to_string(datetime.month), 2, "0") <> 
 		"-" <>
-		Integer.to_string(elem(date_tuple, 2)) <> 
+		String.pad_leading(Integer.to_string(datetime.day), 2, "0") <> 
 		"-" <>
-		Integer.to_string(elem(date_tuple, 0))
+		Integer.to_string(datetime.year)
 	end
 
 
