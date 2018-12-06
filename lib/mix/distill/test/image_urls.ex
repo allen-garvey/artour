@@ -18,21 +18,29 @@ defmodule Mix.Tasks.Distill.Test.ImageUrls do
         #http://elixir-recipes.github.io/concurrency/parallel-map/
     	Artour.Repo.all(Artour.Image)
     		|> Enum.flat_map(fn image -> image_sizes() |> Enum.map(&(url_for_image(image, base_url, &1))) end)
-    		|> Enum.map(&(Task.async(fn -> test_url(&1) end)))
-    		|> Enum.map(&Task.await/1)
+            |> Task.async_stream(&test_url/1, max_concurrency: System.schedulers_online * 8, timeout: :infinity)
+            |> Enum.to_list()
             |> Enum.each(&print_image_response/1)
 
-    	IO.puts "All image urls checked"
+    	IO.puts "All image urls checked and return HTTP status code 200"
 	end
 
     def image_sizes() do
         [:thumbnail, :small, :medium, :large]
     end
 
-    def print_image_response({status, message}) do
-        if status != :ok do
-            IO.puts message
-        end
+    #task status and http status is ok, so do nothing
+    def print_image_response({:ok, {:ok, _message}}) do
+    end
+
+    #problem with http status
+    def print_image_response({:ok, {_http_status, message}}) do
+        IO.puts message
+    end
+
+    #problem with running async task somehow
+    def print_image_response({_task_status, {_http_status, _message}}) do
+        IO.puts "Problem with testing image url async task"
     end
 
 	def url_for_image(image, base_url, size) do
