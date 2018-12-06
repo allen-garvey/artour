@@ -42,6 +42,7 @@ defmodule Artour.Mixfile do
       {:cowboy, "~> 2.6"},
       {:plug_cowboy, "~> 2.0"},
       {:poison, "~> 3.0"},
+      {:httpoison, "~> 1.4"},
     ]
   end
 

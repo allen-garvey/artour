@@ -2,7 +2,7 @@
 defmodule Mix.Tasks.Distill.Test.ImageUrls do
     use Mix.Task
 
-    @shortdoc "Checks image urls for 404s. Requires curl"
+    @shortdoc "Checks that all image urls return HTTP 200 status code"
 	def run([base_url]) do
 
         #make sure base_url ends with trailing slash
@@ -14,15 +14,18 @@ defmodule Mix.Tasks.Distill.Test.ImageUrls do
         #start app so repo is available
         Mix.Task.run "app.start", []
 
+        #start HTTPoison
+        HTTPoison.start
+
         #parallel map based on:
         #http://elixir-recipes.github.io/concurrency/parallel-map/
     	Artour.Repo.all(Artour.Image)
     		|> Enum.flat_map(fn image -> image_sizes() |> Enum.map(&(url_for_image(image, base_url, &1))) end)
-            |> Task.async_stream(&test_url/1, max_concurrency: System.schedulers_online * 8, timeout: :infinity)
+            |> Task.async_stream(&HTTPoison.head/1, max_concurrency: System.schedulers_online * 8, timeout: :infinity)
             |> Enum.to_list()
             |> Enum.each(&print_image_response/1)
 
-    	IO.puts "All image urls checked and return HTTP status code 200"
+    	IO.puts "\nAll image urls checked"
 	end
 
     def image_sizes() do
@@ -30,16 +33,20 @@ defmodule Mix.Tasks.Distill.Test.ImageUrls do
     end
 
     #task status and http status is ok, so do nothing
-    def print_image_response({:ok, {:ok, _message}}) do
+    def print_image_response({:ok, {:ok, %HTTPoison.Response{status_code: 200}}}) do
     end
 
-    #problem with http status
-    def print_image_response({:ok, {_http_status, message}}) do
+    def print_image_response({:ok, {:ok, response}}) do
+        IO.puts "HTTP status code of " <> Integer.to_string(response.status_code) <> " for " <> response.request_url
+    end
+
+    #url sent no response
+    def print_image_response({:ok, {:error, message}}) do
         IO.puts message
     end
 
     #problem with running async task somehow
-    def print_image_response({_task_status, {_http_status, _message}}) do
+    def print_image_response({_task_status, {_httpoison_status, _message}}) do
         IO.puts "Problem with testing image url async task"
     end
 
@@ -52,18 +59,4 @@ defmodule Mix.Tasks.Distill.Test.ImageUrls do
 		end
 	end
 	
-	@doc """
-  	runs this curl command to get http status code
-	curl -s -o /dev/null -w "%{http_code}" http://www.example.org/
-	http://superuser.com/questions/272265/getting-curl-to-output-http-status-code
-	have to use resolve because curl will not use hosts file
-	http://stackoverflow.com/questions/3390549/set-curl-to-use-local-virtual-hosts
-	return :ok if response is 200, else :error
-  	"""
-	def test_url(url) do
-  		case System.cmd "curl", ["-s", "-o", "/dev/null", "-w", "%{http_code}", url] do
-    		{"200", 0} -> {:ok, url <> " found"}
-    		{_bad_status, _exit_code} -> {:error, url <> " not found"}
-    	end
-  	end
 end
