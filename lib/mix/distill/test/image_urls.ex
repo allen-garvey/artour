@@ -51,12 +51,13 @@ defmodule Mix.Tasks.Distill.Test.ImageUrls do
     end
 
 	def url_for_image(image, base_url, size) do
-		case size do
-			:thumbnail -> URI.merge(base_url, image.filename_thumbnail) |> to_string
-			:small -> URI.merge(base_url, image.filename_small) |> to_string
-			:medium -> URI.merge(base_url, image.filename_medium) |> to_string
-			:large -> URI.merge(base_url, image.filename_large) |> to_string
+		image_filename = case size do
+			:thumbnail -> image.filename_thumbnail
+			:small -> image.filename_small
+			:medium -> image.filename_medium
+			:large -> image.filename_large
 		end
+        URI.merge(base_url, image_filename) |> to_string
 	end
 	
 end
