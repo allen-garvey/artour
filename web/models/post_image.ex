@@ -17,10 +17,8 @@ defmodule Artour.PostImage do
     struct
     |> cast(params, [:order, :caption, :post_id, :image_id])
     |> validate_required([:post_id, :image_id])
-    |> foreign_key_constraint(:post_id)
-    |> foreign_key_constraint(:image_id)
-    |> assoc_constraint(:post) #validate existence
-    |> assoc_constraint(:image) #validate existence
+    |> assoc_constraint(:post)
+    |> assoc_constraint(:image)
     |> unique_constraint(:post_image_unique_composite, name: :post_image_unique_composite)
   end
 end

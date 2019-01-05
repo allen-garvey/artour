@@ -46,10 +46,8 @@ defmodule Artour.Post do
     struct
     |> cast(params, [:title, :slug, :body, :category_id, :cover_image_id, :is_nsfw])
     |> validate_required([:title, :slug, :category_id, :cover_image_id, :is_nsfw])
-    |> foreign_key_constraint(:category_id)
-    |> assoc_constraint(:category) #validate category exists
-    |> foreign_key_constraint(:cover_image_id)
-    |> assoc_constraint(:cover_image) #validate image exists
+    |> assoc_constraint(:category)
+    |> assoc_constraint(:cover_image)
     |> validate_slug(:slug)
     |> unique_constraint(:title)
     |> unique_constraint(:slug)

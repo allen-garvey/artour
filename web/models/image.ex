@@ -25,8 +25,7 @@ defmodule Artour.Image do
     struct
     |> cast(params, [:title, :slug, :description, :filename_large, :filename_medium, :filename_small, :filename_thumbnail, :completion_date, :format_id])
     |> validate_required([:title, :slug, :description, :filename_large, :filename_medium, :filename_small, :filename_thumbnail, :completion_date, :format_id])
-    |> foreign_key_constraint(:format_id)
-    |> assoc_constraint(:format) #validate format exists
+    |> assoc_constraint(:format)
     |> unique_constraint(:title)
     |> unique_constraint(:slug)
     |> validate_slug(:slug)
