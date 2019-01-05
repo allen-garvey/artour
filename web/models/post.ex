@@ -7,6 +7,7 @@ defmodule Artour.Post do
     field :slug, :string
     field :body, :string
     field :is_nsfw, :boolean, default: false
+    field :is_markdown, :boolean, default: false
 
     belongs_to :category, Artour.Category
     belongs_to :cover_image, Artour.Image
@@ -44,8 +45,8 @@ defmodule Artour.Post do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title, :slug, :body, :category_id, :cover_image_id, :is_nsfw])
-    |> validate_required([:title, :slug, :category_id, :cover_image_id, :is_nsfw])
+    |> cast(params, [:title, :slug, :body, :category_id, :cover_image_id, :is_nsfw, :is_markdown])
+    |> validate_required([:title, :slug, :category_id, :cover_image_id, :is_nsfw, :is_markdown])
     |> assoc_constraint(:category)
     |> assoc_constraint(:cover_image)
     |> validate_slug(:slug)

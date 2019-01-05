@@ -24,6 +24,12 @@
   </div>
 
   <div class="form-group">
+    <%= label f, :is_markdown, "Markdown body", class: "control-label" %>
+    <%= checkbox f, :is_markdown, class: "form-control" %>
+    <%= error_tag f, :is_markdown %>
+  </div>
+
+  <div class="form-group">
     <%= label f, :body, class: "control-label" %>
     <%= textarea f, :body, class: "form-control", spellcheck: "true" %>
     <%= error_tag f, :body %>
