@@ -6,7 +6,7 @@ defmodule Artour.Post do
     field :title, :string
     field :slug, :string
     field :body, :string
-    field :is_nsfw, :boolean
+    field :is_nsfw, :boolean, default: false
 
     belongs_to :category, Artour.Category
     belongs_to :cover_image, Artour.Image
