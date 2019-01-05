@@ -43,6 +43,7 @@ defmodule Artour.Mixfile do
       {:plug_cowboy, "~> 2.0"},
       {:poison, "~> 3.0"},
       {:httpoison, "~> 1.4"},
+      {:earmark, "1.3.1" }, #for markdown in post bodies
     ]
   end
 
