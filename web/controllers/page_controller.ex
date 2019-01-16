@@ -31,7 +31,7 @@ defmodule Artour.PageController do
     page_list = Artour.Post.default_order_query
             |> Repo.all
             #more verbose version of chunk needed so that unfilled pages will not be discarded
-            |> Enum.chunk(Page.posts_per_page, Page.posts_per_page, [])
+            |> Enum.chunk_every(Page.posts_per_page, Page.posts_per_page, [])
             |> Enum.map(&Artour.PageView.page_summary_title/1)
 
     render conn, "pagination_index.html", page_list: page_list 
