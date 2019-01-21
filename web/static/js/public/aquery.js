@@ -89,10 +89,4 @@ aQueryObject.prototype.on = function(eventName, selector, callback){
 	});
 
 };
-	/*
-	* Input validation
-	*/
-	if(typeof selector === 'string' || typeof selector === 'object'){
-		return (new aQueryObject(selector));
-	}
 }
