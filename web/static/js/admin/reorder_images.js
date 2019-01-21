@@ -1,8 +1,11 @@
 /*
  * Used to reorder images on post show pages
  */
-(function($){
-	var imageListItems = $('.post-album-image-list li');
+
+import { aQuery as $ } from './aquery.js';
+
+export function initializeDragReorderImages(){
+	const imageListItems = $('.post-album-image-list li');
     //sanity check that we have images to reorder
     if(imageListItems.elementList.length < 1){
     	return;
@@ -10,8 +13,8 @@
     //returns index of node in aQuery collection
     //element is raw DOM node
     //$elements is aQuery object
-    var indexOfElement = function(element, $elements){
-    	var index = -1;
+    const indexOfElement = function(element, $elements){
+    	let index = -1;
     	$elements.each(function(i, el){
     		if(el.isSameNode(element)){
     			index = i;
@@ -24,13 +27,13 @@
     //original index of item to be moved
     //new index of item to be moved
     //no bounds checking done
-    var reorderListItems = function(originalIndex, newIndex){
+    const reorderListItems = function(originalIndex, newIndex){
     	//don't do anything if item not moved
     	if(originalIndex === newIndex){
     		return;
     	}
-    	var movedElement = imageListItems.elementList[originalIndex];
-    	var draggedOverElement = imageListItems.elementList[newIndex]
+    	const movedElement = imageListItems.elementList[originalIndex];
+    	const draggedOverElement = imageListItems.elementList[newIndex]
     	//remove from dom
     	movedElement.remove();
 
@@ -46,7 +49,7 @@
     	imageListItems = $('.post-album-image-list li');
     }
 
-    var removeDragPlaceholders = function(listItems){
+    const removeDragPlaceholders = function(listItems){
     	listItems.removeClass('dragged-over-from-top').removeClass('dragged-over-from-bottom')
     }
 
@@ -54,10 +57,10 @@
     //whose handle we are currently using, and disable dragging if we
     //don't use the handles
     //based on: http://stackoverflow.com/questions/26283661/drag-drop-with-handle
-    var clickTarget = null;
-    var currentlyDraggedItemIndex = null;
-    var currentlyDraggedOverIndex = null;
-    var currentlyDraggingImage = false;
+    let clickTarget = null;
+    let currentlyDraggedItemIndex = null;
+    let currentlyDraggedOverIndex = null;
+    let currentlyDraggingImage = false;
     
     //used to keep track if drag was caused by clicking on handle
     imageListItems.on('mousedown', function(event) {
@@ -65,7 +68,7 @@
     });
 
     imageListItems.on('dragstart', function(event) {
-    	var handle = $(this).find('.list-item-dragger');
+    	const handle = $(this).find('.list-item-dragger');
         //length will be 0 when dragging image instead of button
         if(handle.length < 1){
             currentlyDraggingImage = true;
@@ -87,7 +90,7 @@
     	//required so drop events fire
     	event.preventDefault();
     	//required to get actual li, and not part of li that was dragged over
-    	var listItemDraggedOver = $(this).closest('[draggable="true"]')
+    	const listItemDraggedOver = $(this).closest('[draggable="true"]')
     	currentlyDraggedOverIndex = indexOfElement(listItemDraggedOver.elementList[0], imageListItems);
     	//remove placeholders
     	removeDragPlaceholders(imageListItems);
@@ -118,8 +121,8 @@
     });
 
     $('[data-role="save-image-order-button"]').on('click', function(event) {
-    	var apiReorderImageUrl = $('.post-album-image-list').data('reorder-images-url');
-    	var imageIds = $('.post-album-image-list li').map(function(el){ return $(el).data('image-id'); });
+    	const apiReorderImageUrl = $('.post-album-image-list').data('reorder-images-url');
+    	const imageIds = $('.post-album-image-list li').map(function(el){ return $(el).data('image-id'); });
     	$.ajax({
     		url: apiReorderImageUrl,
     		method: 'PATCH',
@@ -135,4 +138,4 @@
 
 
 
-})(aQuery);
+}

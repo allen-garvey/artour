@@ -1,7 +1,9 @@
 /*
  * Functionality to display album show pages in lightbox
  */
-(function($){
+import { aQuery as $ } from './aquery.js';
+
+export function initializeDisplayAlbumLightbox(){
     var imageLinks = $('.post-thumbnails a');
     //used to keep track on if an image has been initialized to lightbox already
     //used to lazy-load images
@@ -221,4 +223,4 @@
     })();
 
 
-})(aQuery);
+}

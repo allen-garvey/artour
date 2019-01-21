@@ -2,18 +2,18 @@
  * Used to autofill image names on forms
  * by using image title
  */
-(function(){
-	var imageNameSource = document.querySelector('[data-image-name]');
+export function initializeAutofillImageName(){
+	const imageNameSource = document.querySelector('[data-image-name]');
 	//sanity check first
 	if(!imageNameSource){
 		return;
 	}
-	var regenerateButton = document.getElementById('autofill-image-button');
-	var isPortraitCheckbox = document.getElementById('is_portrait_checkbox');
-	var FILE_SUFFIXES = ['lg', 'med', 'sm', 'thumb'];
-	var FILE_SUFFIXES_PORTRAIT = ['med', 'med', 'sm', 'thumb'];
+	const regenerateButton = document.getElementById('autofill-image-button');
+	const isPortraitCheckbox = document.getElementById('is_portrait_checkbox');
+	const FILE_SUFFIXES = ['lg', 'med', 'sm', 'thumb'];
+	const FILE_SUFFIXES_PORTRAIT = ['med', 'med', 'sm', 'thumb'];
 
-	var TEXTFIELD_TARGETS = ['large', 'medium', 'small', 'thumbnail'].map(function(elem){
+	const TEXTFIELD_TARGETS = ['large', 'medium', 'small', 'thumbnail'].map(function(elem){
 		return document.querySelector('[data-image-' + elem + ']');
 	});
 	
@@ -41,8 +41,8 @@
 		if(!inputText){
 			return;
 		}
-		var imageName = urlify(inputText);
-		var fileSuffixes = isPortraitCheckbox.checked ? FILE_SUFFIXES_PORTRAIT : FILE_SUFFIXES;
+		const imageName = urlify(inputText);
+		const fileSuffixes = isPortraitCheckbox.checked ? FILE_SUFFIXES_PORTRAIT : FILE_SUFFIXES;
 
 		TEXTFIELD_TARGETS.forEach(function(textfield, i){
 			autofillTextfield(textfield, suffixToImageFilename(imageName, fileSuffixes[i]), shouldForce);
@@ -60,4 +60,4 @@
 		autofillFields(imageNameSource.value, true);
 	};
 
-})();
+}

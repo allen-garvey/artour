@@ -2,18 +2,21 @@
   "repository": {},
   "license": "MIT",
   "scripts": {
-    "deploy": "gulp build",
-    "watch": "gulp watch"
+    "deploy": "webpack --mode production",
+    "watch": "webpack --mode production --watch"
   },
   "dependencies": {
     "phoenix": "file:deps/phoenix",
     "phoenix_html": "file:deps/phoenix_html"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.3.2",
-    "gulp-uglify": "^3.0.1"
+    "css-loader": "^0.28.10",
+    "mini-css-extract-plugin": "^0.4.0",
+    "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.0",
+    "sass-loader": "^7.1.0",
+    "uglifyjs-webpack-plugin": "^1.2.4",
+    "webpack": "4.4.0",
+    "webpack-cli": "^2.0.10"
   }
 }

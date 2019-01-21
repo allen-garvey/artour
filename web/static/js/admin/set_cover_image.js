@@ -2,18 +2,21 @@
  * Functionality to 
  * make image in album list post cover image
  */
-(function($){
+
+import { aQuery as $ } from './aquery.js';
+
+export function initializeSetCoverImage(){
     $('[data-role="set-cover-image-button"]').on('click', function(event){
-    	var clicked = $(this);
-    	var parentList = clicked.closest('.post-album-image-list');
-    	var apiUpdateUrl = parentList.data('post-update-url');
-    	var parentListItem = clicked.closest('li');
-    	var imageId = parentListItem.data('image-id');
+    	const clicked = $(this);
+    	const parentList = clicked.closest('.post-album-image-list');
+    	const apiUpdateUrl = parentList.data('post-update-url');
+    	const parentListItem = clicked.closest('li');
+    	const imageId = parentListItem.data('image-id');
     	$.ajax({
     		url: apiUpdateUrl,
     		method: 'PATCH',
     		data: {cover_image_id: imageId},
-    		success: function(response){
+    		success: (response)=>{
     			//don't need to do anything
     			//since we are optimistically updating
     		}
@@ -23,4 +26,4 @@
     	parentListItem.addClass('cover-image-container');
     	
     });
-})(aQuery);
+}

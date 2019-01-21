@@ -6,7 +6,7 @@
  //modules should go between core_start and core_end
 'use strict';
 
-function aQuery(selector){
+export function aQuery(selector){
 	function aQueryObject(selector){
 		if(typeof selector === 'string'){
 			this.elementList = document.querySelectorAll(selector);
