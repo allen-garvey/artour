@@ -13,7 +13,8 @@ config :artour,
 config :artour, Artour.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "HFASDja/QLCC9Tv9sreLiCsB1FfJaNswgMnhkYWckyZo2Wo/JtselfjNDteA4v5v",
-  render_errors: [view: Artour.ErrorView, accepts: ~w(html json)]
+  render_errors: [view: Artour.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Artour.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
