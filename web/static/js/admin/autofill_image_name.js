@@ -56,8 +56,8 @@ export function initializeAutofillImageName(){
 		autofillFields(this.value, false);
 	});
 
-	regenerateButton.onclick = function(){
+	regenerateButton.addEventListener('click', function(){
 		autofillFields(imageNameSource.value, true);
-	};
+	});
 
 }
