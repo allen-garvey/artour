@@ -65,7 +65,7 @@
     <div class="date-select">
     <% today = Date.utc_today() %>
     <%= date_select f, :completion_date, year: [options: 2014..today.year, selected: today.year, class: "form-control"], month: [selected: today.month, class: "form-control"], day: [selected: today.day, class: "form-control"], builder: fn b -> %>
-      <%= b.(:month, []) %> / <%= b.(:day, []) %> / <%= b.(:year, []) %>
+      <%= b.(:month, []) %><%= b.(:day, []) %><%= b.(:year, []) %>
     <% end %>
     </div>
     <%= error_tag f, :completion_date %>
