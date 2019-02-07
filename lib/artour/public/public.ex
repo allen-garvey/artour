@@ -8,7 +8,9 @@ defmodule Artour.Public do
 
   alias Artour.Post
   alias Artour.Tag
-  alias Artour.Category
+  # alias Artour.Category
+  # alias Artour.Image
+  alias Artour.PostImage
 
   @doc """
   Returns the list of posts.
@@ -34,6 +36,7 @@ defmodule Artour.Public do
         )
     |> Repo.one!
     |> Repo.preload(tags: from(Tag, order_by: :name))
+    |> Repo.preload(post_images: from(pi in PostImage, join: image in assoc(pi, :image), preload: [image: image], order_by: [pi.order, pi.id]))
   end
 
 end

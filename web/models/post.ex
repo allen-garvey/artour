@@ -14,6 +14,8 @@ defmodule Artour.Post do
     belongs_to :category, Artour.Category
     belongs_to :cover_image, Artour.Image
 
+    has_many :post_images, Artour.PostImage
+
     many_to_many :images, Artour.Image, join_through: "post_images", on_delete: :delete_all
     many_to_many :tags, Artour.Tag, join_through: "post_tags", on_delete: :delete_all
     timestamps()

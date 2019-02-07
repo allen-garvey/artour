@@ -1,7 +1,6 @@
 defmodule Artour.PublicPostController do
   use Artour.Web, :controller
 
-  alias Artour.Post
   alias Artour.Public
 
   @doc """
@@ -17,8 +16,7 @@ defmodule Artour.PublicPostController do
   """
   def show(conn, %{"slug" => slug}) do
     post = Public.get_post_by_slug!(slug)
-    post_images = Post.album_post_images(Repo, post)
-    render conn, "show.html", page_title: Artour.PostView.display_name(post), post: post, post_images: post_images, javascript: true, facebook_image: post.cover_image 
+    render conn, "show.html", page_title: Artour.PostView.display_name(post), post: post, javascript: true, facebook_image: post.cover_image 
   end
 
   
