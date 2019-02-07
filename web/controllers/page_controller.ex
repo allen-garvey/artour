@@ -22,7 +22,7 @@ defmodule Artour.PageController do
                   true -> String.to_integer page_num
               end
 
-    posts = Repo.all(Page.posts_for_page_query(page_num)) |> Repo.preload([:category, :cover_image])
+    posts = Public.posts_for_page(page_num)
     render conn, "index.html", posts: posts, current_page: page_num, last_page: last_page
   end
 
