@@ -71,7 +71,6 @@ defmodule Artour.Public do
     post_count = Repo.one!(from p in Post, where: p.is_published, select: count(p.id))
     (1.0 * post_count / Page.posts_per_page())
       |> Float.ceil
-      |> round
   end
 
 end
