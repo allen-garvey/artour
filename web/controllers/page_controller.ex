@@ -32,7 +32,7 @@ defmodule Artour.PageController do
   def pagination_index(conn, _params) do
     page_list = Public.list_posts()
             #more verbose version of chunk needed so that unfilled pages will not be discarded
-            |> Enum.chunk_every(Page.posts_per_page, Page.posts_per_page, [])
+            |> Enum.chunk_every(Public.posts_per_page, Public.posts_per_page, [])
             |> Enum.map(&Artour.PageView.page_summary_title/1)
 
     render conn, "pagination_index.html", page_list: page_list 

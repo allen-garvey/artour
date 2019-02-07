@@ -11,7 +11,6 @@ defmodule Artour.Public do
   # alias Artour.Category
   # alias Artour.Image
   alias Artour.PostImage
-  alias Artour.Page
 
   @doc """
   Returns the list of posts.
@@ -41,14 +40,20 @@ defmodule Artour.Public do
   end
 
   @doc """
+  Number of posts per page in index post list
+  """
+  def posts_per_page() do
+    4
+  end
+
+  @doc """
   Returns posts for current page
   page_num is 1 indexed page
   """
   def posts_for_page(page_num) when is_integer(page_num) do
-    posts_per_page = Page.posts_per_page()
     post_offset = cond do
               page_num <= 0 -> 1
-              true -> (page_num - 1) * posts_per_page
+              true -> (page_num - 1) * posts_per_page()
           end
     
     from(
@@ -58,7 +63,7 @@ defmodule Artour.Public do
           where: p.is_published == true, 
           preload: [category: category, cover_image: cover_image],
           order_by: [desc: :publication_date, desc: :id], 
-          limit: ^posts_per_page, 
+          limit: ^posts_per_page(), 
           offset: ^post_offset
         )
     |> Repo.all
@@ -69,7 +74,7 @@ defmodule Artour.Public do
   """
   def last_page do
     post_count = Repo.one!(from p in Post, where: p.is_published, select: count(p.id))
-    (1.0 * post_count / Page.posts_per_page())
+    (1.0 * post_count / posts_per_page())
       |> Float.ceil
   end
 
