@@ -1,5 +1,7 @@
 defmodule Artour.PageController do
   use Artour.Web, :controller
+  
+  alias Artour.Public
   alias Artour.Page
 
   @doc """
@@ -28,8 +30,7 @@ defmodule Artour.PageController do
   Displays list of all pages in paginated index
   """
   def pagination_index(conn, _params) do
-    page_list = Artour.Post.default_order_query
-            |> Repo.all
+    page_list = Public.list_posts()
             #more verbose version of chunk needed so that unfilled pages will not be discarded
             |> Enum.chunk_every(Page.posts_per_page, Page.posts_per_page, [])
             |> Enum.map(&Artour.PageView.page_summary_title/1)
