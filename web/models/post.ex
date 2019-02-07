@@ -29,15 +29,6 @@ defmodule Artour.Post do
   end
 
   @doc """
-  Get all images in Post's album in correct album order
-  """
-  def album_post_images(repo, post) do
-    from(pi in Artour.PostImage, where: pi.post_id == ^post.id, order_by: [pi.order, pi.id])
-      |> repo.all
-      |> repo.preload([:image])
-  end
-
-  @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do

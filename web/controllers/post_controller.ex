@@ -1,6 +1,7 @@
 defmodule Artour.PostController do
   use Artour.Web, :controller
 
+  alias Artour.Admin
   alias Artour.Post
 
   def index(conn, _params) do
@@ -34,12 +35,9 @@ defmodule Artour.PostController do
   end
 
   def show(conn, %{"id" => id}) do
-    post = Repo.get!(Post, id) 
-      |> Repo.preload([:category])
-      |> Repo.preload(tags: Artour.Tag.default_order_query)
+    post = Admin.get_post_for_show!(id)
 
-    post_images = Post.album_post_images(Repo, post)
-    render(conn, "show.html", post: post, post_images: post_images)
+    render(conn, "show.html", post: post)
   end
 
   def edit(conn, %{"id" => id}) do
