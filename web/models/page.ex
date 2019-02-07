@@ -18,14 +18,14 @@ defmodule Artour.Page do
 		  				true -> (page_num - 1) * posts_per_page()  
 					end
 		
-		from(Artour.Post, order_by: [desc: :id], limit: ^posts_per_page(), offset: ^post_offset)
+		from(p in Artour.Post, where: p.is_published == true, order_by: [desc: :id], limit: ^posts_per_page(), offset: ^post_offset)
 	end
 
 	@doc """
 	Returns last page number (1 indexed)
 	"""
 	def last_page(repo) do
-		post_count = repo.one!(from p in Artour.Post, select: count(p.id))
+		post_count = repo.one!(from p in Artour.Post, where: p.is_published, select: count(p.id))
 		(1.0 * post_count / posts_per_page())
 			|> Float.ceil
 			|> round
