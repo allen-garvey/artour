@@ -1,6 +1,6 @@
 defmodule Artour.Tag do
   use Artour.Web, :model
-  import Artour.SlugValidator, only: [validate_slug: 2]
+  import Artour.ModelHelpers.SlugValidator, only: [validate_slug: 2]
 
   schema "tags" do
     field :name, :string

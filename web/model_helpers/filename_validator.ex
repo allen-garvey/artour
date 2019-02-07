@@ -1,4 +1,4 @@
-defmodule Artour.FilenameValidator do
+defmodule Artour.ModelHelpers.FilenameValidator do
     import Ecto.Changeset
 
 	@doc """

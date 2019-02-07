@@ -1,6 +1,6 @@
 defmodule Artour.Category do
   use Artour.Web, :model
-  import Artour.SlugValidator, only: [validate_slug: 2]
+  import Artour.ModelHelpers.SlugValidator, only: [validate_slug: 2]
 
   schema "categories" do
     field :name, :string

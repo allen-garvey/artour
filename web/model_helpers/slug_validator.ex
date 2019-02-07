@@ -1,4 +1,4 @@
-defmodule Artour.SlugValidator do
+defmodule Artour.ModelHelpers.SlugValidator do
     import Ecto.Changeset
 
 	@doc """

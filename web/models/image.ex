@@ -1,7 +1,7 @@
 defmodule Artour.Image do
   use Artour.Web, :model
-  import Artour.FilenameValidator, only: [validate_image_filename: 2]
-  import Artour.SlugValidator, only: [validate_slug: 2]
+  import Artour.ModelHelpers.FilenameValidator, only: [validate_image_filename: 2]
+  import Artour.ModelHelpers.SlugValidator, only: [validate_slug: 2]
 
   schema "images" do
     field :title, :string
