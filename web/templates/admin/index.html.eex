@@ -1,6 +1,6 @@
-<h1>Admin Home</h1>
+<h1>Resources</h1>
 
-<ul>
+<ul class="admin-resources-list">
 	<li><%= link "Categories", to: category_path(@conn, :index) %></li>
 	<li><%= link "Formats", to: format_path(@conn, :index) %></li>
 	<li><%= link "Images", to: image_path(@conn, :index) %></li>
