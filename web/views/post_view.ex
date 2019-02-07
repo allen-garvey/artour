@@ -41,7 +41,7 @@ defmodule Artour.PostView do
   same order as the attribute_values function
   """
   def attribute_names_short() do
-    ["Title", "Slug", "NSFW", "Category", "Date Created"]
+    ["Title", "Slug", "NSFW", "Category", "Publication Date"]
   end
 
   @doc """
@@ -57,7 +57,7 @@ defmodule Artour.PostView do
   same order as the attribute_values function
   """
   def attribute_names() do
-    ["Title", "Public Url", "Date Created", "Category", "NSFW", "Markdown", "Body"]
+    ["Title", "Public Url", "Publication Date", "Category", "NSFW", "Markdown", "Body"]
   end
 
   @doc """

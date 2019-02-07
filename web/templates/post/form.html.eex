@@ -47,6 +47,18 @@
     <%= error_tag f, :is_nsfw %>
   </div>
 
+  <div class="form-group">
+    <%= label f, :is_published, "Published", class: "control-label" %>
+    <%= checkbox f, :is_published, class: "form-control" %>
+    <%= error_tag f, :is_published %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :publication_date, class: "control-label" %>
+    <%= date_input f, :publication_date, class: "form-control" %>
+    <%= error_tag f, :publication_date %>
+  </div>
+
   <%= render Artour.SharedView, "form_submit_buttons.html",
                                 show_delete: @show_delete,
                                 save_another: @save_another
