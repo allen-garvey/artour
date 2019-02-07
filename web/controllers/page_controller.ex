@@ -15,7 +15,7 @@ defmodule Artour.PageController do
   Displays single page of paginated index
   """
   def page(conn, %{"page_num" => page_num}) do
-    last_page = Page.last_page Repo
+    last_page = Public.last_page
     #no checking if page_num is valid or in range, because final product will be static site
     page_num = cond do
                   is_integer(page_num) -> page_num
