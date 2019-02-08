@@ -8,6 +8,7 @@
 		height: 1px; //hack so below height of 100% works
 
 		& > *{
+			display: block;
 			padding: 8px;
 			height: 100%;
 			text-align: center;
