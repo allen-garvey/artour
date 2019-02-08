@@ -83,9 +83,16 @@ defmodule Artour.Public do
   Returns list of all tags associated with at least 1 (published) post
   """
   def tags_with_posts() do
-    tag_ids_subquery = from(pt in PostTag, join: post in assoc(pt, :post), where: post.is_published == true, distinct: true, select: pt.tag_id) 
-                        |> Repo.all
-    from(t in Tag, where: t.id in ^tag_ids_subquery, order_by: [:name])
+    # need to use distinct name instead of id so order by works
+    # since names have to be unique we can do this, otherwise we would need to find another way
+    # https://stackoverflow.com/questions/5391564/how-to-use-distinct-and-order-by-in-same-select-statement
+    from(
+          t in Tag, 
+          join: post in assoc(t, :posts),
+          where: post.is_published == true, 
+          distinct: t.name,
+          order_by: [t.name]
+        )
     |> Repo.all
   end
 
