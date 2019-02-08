@@ -96,4 +96,20 @@ defmodule Artour.Public do
     |> Repo.all
   end
 
+  @doc """
+   Gets a single tag by slug
+
+  Raises `Ecto.NoResultsError` if the Tag does not exist or has no published posts
+  """
+  def get_tag_by_slug!(slug) do
+    from(
+          t in Tag, 
+          join: post in assoc(t, :posts),
+          where: t.slug == ^slug and post.is_published == true, 
+          preload: [posts: post],
+          order_by: post.title
+        )
+    |> Repo.one!
+  end
+
 end
