@@ -2,7 +2,6 @@ defmodule Artour.PublicTagController do
   use Artour.Web, :controller
 
   alias Artour.Public
-  alias Artour.Tag
 
   def index(conn, _params) do
     tags = Public.tags_with_posts()
