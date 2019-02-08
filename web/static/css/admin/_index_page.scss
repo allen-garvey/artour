@@ -1,3 +1,26 @@
 .index-heading{
 	margin-top: 0;
 }
+
+.index_table{
+	td.has_children{
+		padding: 0;
+		height: 1px; //hack so below height of 100% works
+
+		& > *{
+			padding: 8px;
+			height: 100%;
+			text-align: center;
+		}
+	}
+
+	.warning_cell{
+		background-color: #fff9b7;
+		// background-color: #fff48b;
+		color: #654e27;
+	}
+	.danger_cell{
+		background-color: $alert-danger-bg;
+		color: $alert-danger-text;
+	}
+}
