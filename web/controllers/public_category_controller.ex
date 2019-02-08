@@ -1,10 +1,10 @@
 defmodule Artour.PublicCategoryController do
   use Artour.Web, :controller
 
-  alias Artour.Category
+  alias Artour.Public
 
   def index(conn, _params) do
-    categories = Category.all_with_posts Repo
+    categories = Public.categories_with_posts()
     render conn, "index.html", page_title: "Categories", categories: categories
   end
 
@@ -13,7 +13,7 @@ defmodule Artour.PublicCategoryController do
   individual category's posts
   """
   def show(conn, %{"slug" => slug}) do
-    category = Repo.get_by!(Category, slug: slug) |> Repo.preload(posts: from(Artour.Post, order_by: [desc: :id]))
+    category = Public.get_category_by_slug!(slug)
     render conn, "show.html", page_title: Artour.CategoryView.display_name(category), category: category
   end
 

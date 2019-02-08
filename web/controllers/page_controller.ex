@@ -52,7 +52,7 @@ defmodule Artour.PageController do
   """
   def browse(conn, _params) do
   	
-  	categories = Artour.Category.all_with_posts Repo
+  	categories = Public.categories_with_posts()
     tags = Public.tags_with_posts()
     
     render conn, "browse.html", page_title: "Browse", categories: categories, tags: tags

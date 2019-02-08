@@ -8,10 +8,10 @@ defmodule Artour.Public do
 
   alias Artour.Post
   alias Artour.Tag
-  # alias Artour.Category
+  alias Artour.Category
   # alias Artour.Image
   alias Artour.PostImage
-  alias Artour.PostTag
+  # alias Artour.PostTag
 
   @doc """
   Returns the list of posts.
@@ -97,7 +97,7 @@ defmodule Artour.Public do
   end
 
   @doc """
-   Gets a single tag by slug
+  Gets a single tag by slug
 
   Raises `Ecto.NoResultsError` if the Tag does not exist or has no published posts
   """
@@ -106,6 +106,39 @@ defmodule Artour.Public do
           t in Tag, 
           join: post in assoc(t, :posts),
           where: t.slug == ^slug and post.is_published == true, 
+          preload: [posts: post],
+          order_by: post.title
+        )
+    |> Repo.one!
+  end
+
+  @doc """
+  Returns list of all categories associated with at least 1 (published) post
+  """
+  def categories_with_posts() do
+    # need to use distinct name instead of id so order by works
+    # since names have to be unique we can do this, otherwise we would need to find another way
+    # https://stackoverflow.com/questions/5391564/how-to-use-distinct-and-order-by-in-same-select-statement
+    from(
+          c in Category, 
+          join: post in assoc(c, :posts),
+          where: post.is_published == true, 
+          distinct: c.name,
+          order_by: [c.name]
+        )
+    |> Repo.all
+  end
+
+  @doc """
+  Gets a single category by slug
+
+  Raises `Ecto.NoResultsError` if the Category does not exist or has no published posts
+  """
+  def get_category_by_slug!(slug) do
+    from(
+          c in Category, 
+          join: post in assoc(c, :posts),
+          where: c.slug == ^slug and post.is_published == true, 
           preload: [posts: post],
           order_by: post.title
         )
