@@ -49,8 +49,12 @@ defmodule Artour.CategoryView do
   Used on index and show pages - takes category instance and returns list of 
   formatted values
   """
-  def attribute_values(_conn, category) do
-  	[category.name, category.slug, category_type_name(category.type)]
+  def attribute_values(conn, category) do
+  	[
+      category.name, 
+      link(category.slug, to: Artour.PublicCategoryView.show_path(conn, category)),
+      category_type_name(category.type)
+    ]
   end
 
 end
