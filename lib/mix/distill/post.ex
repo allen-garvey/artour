@@ -5,7 +5,8 @@ defmodule Distill.Post do
   e.g. {"/posts", Artour.PostController, :index, %{}}
   """
   def routes() do
-    Artour.Repo.all(Artour.Post) |> Enum.map(&to_route/1)
+    Artour.Public.list_posts()
+    |> Enum.map(&to_route/1)
   end
 
   @doc """
