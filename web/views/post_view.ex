@@ -49,7 +49,43 @@ defmodule Artour.PostView do
   formatted values
   """
   def attribute_values_short(post) do
-  	[post.title, post.slug, post.is_nsfw, Artour.CategoryView.display_name(post.category), datetime_to_us_date(post.publication_date)]
+  	[
+      post.title, 
+      post.slug, 
+      content_tag(:div, is_nsfw_index_cell_content(post.is_nsfw), class: is_nsfw_index_cell_class(post.is_nsfw)), 
+      Artour.CategoryView.display_name(post.category), 
+      content_tag(:div, datetime_to_us_date(post.publication_date), class: publication_date_index_cell_class(post.is_published)), 
+    ]
+  end
+
+  @doc """
+  Returns css class for index table cell
+  """
+  def publication_date_index_cell_class(is_published) do
+    case is_published do
+      true  -> ""
+      false -> "warning_cell"
+    end
+  end
+
+  @doc """
+  Returns css class for index table cell
+  """
+  def is_nsfw_index_cell_class(is_nsfw) do
+    case is_nsfw do
+      true  -> "danger_cell"
+      false -> ""
+    end
+  end
+
+  @doc """
+  Returns text content for index table cell
+  """
+  def is_nsfw_index_cell_content(is_nsfw) do
+    case is_nsfw do
+      true  -> "yes"
+      false -> ""
+    end
   end
 
   @doc """
