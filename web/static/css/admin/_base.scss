@@ -31,3 +31,9 @@ form, ul, table {
 form.link, form.button {
   display: inline;
 }
+
+.spread_content{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
