@@ -41,7 +41,7 @@ defmodule Artour.FormatView do
   Used on index and show pages - takes format instance and returns list of 
   formatted values
   """
-  def attribute_values(format) do
+  def attribute_values(_conn, format) do
   	[format.name]
   end
 

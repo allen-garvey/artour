@@ -41,7 +41,7 @@ defmodule Artour.TagView do
   Used on index and show pages - takes tag instance and returns list of 
   formatted values
   """
-  def attribute_values(tag) do
+  def attribute_values(_conn, tag) do
   	[tag.name, tag.slug]
   end
 end

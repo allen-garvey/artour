@@ -48,10 +48,10 @@ defmodule Artour.PostView do
   Used on index page - takes post instance and returns abbreviated list of 
   formatted values
   """
-  def attribute_values_short(post) do
+  def attribute_values_short(conn, post) do
   	[
       post.title, 
-      post.slug, 
+      link(post.slug, to: Artour.PublicPostView.show_path(conn, post), class: publication_date_index_cell_class(post.is_published)), 
       content_tag(:div, is_nsfw_index_cell_content(post.is_nsfw), class: is_nsfw_index_cell_class(post.is_nsfw)), 
       Artour.CategoryView.display_name(post.category), 
       content_tag(:div, datetime_to_us_date(post.publication_date), class: publication_date_index_cell_class(post.is_published)), 

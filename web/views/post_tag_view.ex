@@ -41,7 +41,7 @@ defmodule Artour.PostTagView do
   Used on index pages - takes post tag instance and returns list of 
   formatted values
   """
-  def attribute_values_short(post_tag) do
+  def attribute_values_short(_conn, post_tag) do
   	[Artour.PostView.display_name(post_tag.post), Artour.TagView.display_name(post_tag.tag)]
   end
 

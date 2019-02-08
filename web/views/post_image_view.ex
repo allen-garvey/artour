@@ -42,7 +42,7 @@ defmodule Artour.PostImageView do
   Used on index pages - takes post image instance and returns list of 
   formatted values
   """
-  def attribute_values_short(post_image) do
+  def attribute_values_short(_conn, post_image) do
   	[Artour.PostView.display_name(post_image.post), Artour.ImageView.display_name(post_image.image), post_image.caption, post_image.order]
   end
 

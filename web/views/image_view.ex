@@ -112,7 +112,7 @@ defmodule Artour.ImageView do
   Used on index page - takes image instance and returns abbreviated list of 
   formatted values
   """
-  def attribute_values_short(image) do
+  def attribute_values_short(_conn, image) do
   	[image.title, image.description, Artour.FormatView.display_name(image.format), Artour.DateHelpers.date_to_us_date(image.completion_date), image.id]
   end
 
