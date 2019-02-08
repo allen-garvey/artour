@@ -18,16 +18,6 @@ defmodule Artour.Tag do
   end
 
   @doc """
-  Returns list of all tags associated with at least
-  1 post
-  """
-  def all_with_posts(repo) do
-    tag_ids_subquery = repo.all(from(pt in Artour.PostTag, distinct: true, select: pt.tag_id))
-    repo.all(from t in Artour.Tag, where: t.id in ^tag_ids_subquery, order_by: t.name)
-  end
-
-
-  @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do

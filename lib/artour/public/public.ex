@@ -11,6 +11,7 @@ defmodule Artour.Public do
   # alias Artour.Category
   # alias Artour.Image
   alias Artour.PostImage
+  alias Artour.PostTag
 
   @doc """
   Returns the list of posts.
@@ -76,6 +77,16 @@ defmodule Artour.Public do
     post_count = Repo.one!(from p in Post, where: p.is_published, select: count(p.id))
     (1.0 * post_count / posts_per_page())
       |> Float.ceil
+  end
+
+  @doc """
+  Returns list of all tags associated with at least 1 (published) post
+  """
+  def tags_with_posts() do
+    tag_ids_subquery = from(pt in PostTag, join: post in assoc(pt, :post), where: post.is_published == true, distinct: true, select: pt.tag_id) 
+                        |> Repo.all
+    from(t in Tag, where: t.id in ^tag_ids_subquery, order_by: [:name])
+    |> Repo.all
   end
 
 end

@@ -5,7 +5,8 @@ defmodule Distill.Tag do
   e.g. {"/posts", Artour.PostController, :index, %{}}
   """
   def routes() do
-    Artour.Repo |> Artour.Tag.all_with_posts |> Enum.map(&to_route/1)
+    Artour.Public.tags_with_posts() 
+    |> Enum.map(&to_route/1)
   end
 
   @doc """
