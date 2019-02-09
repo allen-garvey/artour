@@ -105,15 +105,15 @@ defmodule Artour.ImageView do
   same order as the attribute_values function
   """
   def attribute_names_short() do
-    ["Title", "Description", "Format", "Date Completed"]
+    ["Title", "Thumbnail", "Description", "Format", "Date Completed"]
   end
 
   @doc """
   Used on index page - takes image instance and returns abbreviated list of 
   formatted values
   """
-  def attribute_values_short(_conn, image) do
-  	[image.title, image.description, Artour.FormatView.display_name(image.format), Artour.DateHelpers.date_to_us_date(image.completion_date)]
+  def attribute_values_short(conn, image) do
+  	[image.title, img_tag(url_for(conn, image, :thumbnail, :local), class: "thumbnail"), image.description, Artour.FormatView.display_name(image.format), Artour.DateHelpers.date_to_us_date(image.completion_date)]
   end
 
   @doc """
