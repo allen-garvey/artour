@@ -82,18 +82,27 @@ defmodule Artour.ImageView do
   end
 
   @doc """
+  Returns image filename for given size
+  """
+  def filename_for_size(image, size) do
+    case size do
+      :large -> image.filename_large
+      :medium -> image.filename_medium
+      :small -> image.filename_small
+      :thumbnail -> image.filename_thumbnail
+    end
+  end
+
+  @doc """
   Returns url for image
   size is atom representing image size
   location is either :cloud (public) or :local (admin)
   """
   def url_for(conn, image, size, location) do
     base_url = base_url_for(location)
-    case size do
-      :large -> static_path(conn, base_url <> image.filename_large)
-      :medium -> static_path(conn, base_url <> image.filename_medium)
-      :small -> static_path(conn, base_url <> image.filename_small)
-      :thumbnail -> static_path(conn, base_url <> image.filename_thumbnail)      
-    end
+    filename = filename_for_size(image, size)
+    
+    static_path(conn, base_url <> filename)
   end
 
   @doc """
