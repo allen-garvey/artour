@@ -99,10 +99,9 @@ defmodule Artour.ImageView do
   location is either :cloud (public) or :local (admin)
   """
   def url_for(conn, image, size, location) do
-    base_url = base_url_for(location)
-    filename = filename_for_size(image, size)
+    image_url = URI.encode(base_url_for(location) <> filename_for_size(image, size))
     
-    static_path(conn, base_url <> filename)
+    static_path(conn, image_url)
   end
 
   @doc """
