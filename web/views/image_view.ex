@@ -71,32 +71,28 @@ defmodule Artour.ImageView do
   end
 
   @doc """
-  Returns cloud URL for image (i.e. for public site)
-  size is atom representing image size
-  While same as local url for now, in the future this might change to
-  S3 or B2
+  Returns base url for location
+  location is local (admin) or cloud (potentially b2 on s3)
   """
-  def url_for(conn, image, size, :cloud) do
-    cloud_folder = "/media/images/"
-    case size do
-      :large -> static_path(conn, cloud_folder <> image.filename_large)
-      :medium -> static_path(conn, cloud_folder <> image.filename_medium)
-      :small -> static_path(conn, cloud_folder <> image.filename_small)
-      :thumbnail -> static_path(conn, cloud_folder <> image.filename_thumbnail)      
+  def base_url_for(location_atom) do
+    case location_atom do
+      :local -> "/media/images/"
+      :cloud -> "/media/images/"
     end
   end
 
   @doc """
-  Returns local URL for image (i.e. for admin site)
+  Returns url for image
   size is atom representing image size
+  location is either :cloud (public) or :local (admin)
   """
-  def url_for(conn, image, size, :local) do
-    local_folder = "/media/images/"
+  def url_for(conn, image, size, location) do
+    base_url = base_url_for(location)
     case size do
-      :large -> static_path(conn, local_folder <> image.filename_large)
-      :medium -> static_path(conn, local_folder <> image.filename_medium)
-      :small -> static_path(conn, local_folder <> image.filename_small)
-      :thumbnail -> static_path(conn, local_folder <> image.filename_thumbnail)      
+      :large -> static_path(conn, base_url <> image.filename_large)
+      :medium -> static_path(conn, base_url <> image.filename_medium)
+      :small -> static_path(conn, base_url <> image.filename_small)
+      :thumbnail -> static_path(conn, base_url <> image.filename_thumbnail)      
     end
   end
 
