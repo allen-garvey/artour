@@ -15,10 +15,16 @@ defmodule Artour.Admin do
   @doc """
   Returns the list of posts.
   """
-  # def list_posts do
-  #   from(p in Post, where: p.is_published == true, order_by: [desc: :publication_date, desc: :id])
-  #   |> Repo.all
-  # end
+  def list_posts do
+    from(
+          p in Post, 
+          join: category in assoc(p, :category), 
+          join: cover_image in assoc(p, :cover_image), 
+          preload: [category: category, cover_image: cover_image],
+          order_by: [desc: :id]
+        )
+    |> Repo.all
+  end
 
 
   @doc """

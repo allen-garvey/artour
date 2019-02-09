@@ -22,13 +22,6 @@ defmodule Artour.Post do
   end
 
   @doc """
-  Query used for default order
-  """
-  def default_order_query() do
-    from(Artour.Post, order_by: [desc: :id])
-  end
-
-  @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do
