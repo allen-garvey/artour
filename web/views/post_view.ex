@@ -41,7 +41,7 @@ defmodule Artour.PostView do
   same order as the attribute_values function
   """
   def attribute_names_short() do
-    ["Title", "Slug", "NSFW", "Category", "Publication Date"]
+    ["Title", "Thumbnail", "Slug", "NSFW", "Category", "Publication Date"]
   end
 
   @doc """
@@ -51,6 +51,7 @@ defmodule Artour.PostView do
   def attribute_values_short(conn, post) do
   	[
       post.title, 
+      img_tag(Artour.ImageView.url_for(conn, post.cover_image, :thumbnail, :local), class: "thumbnail-sm"),
       link(post.slug, to: Artour.PublicPostView.show_path(conn, post), class: publication_date_index_cell_class(post.is_published)), 
       content_tag(:div, is_nsfw_index_cell_content(post.is_nsfw), class: is_nsfw_index_cell_class(post.is_nsfw)), 
       Artour.CategoryView.display_name(post.category), 
