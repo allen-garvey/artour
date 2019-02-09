@@ -100,7 +100,6 @@ defmodule Artour.ImageView do
   """
   def url_for(conn, image, size, location) do
     image_url = URI.encode(base_url_for(location) <> filename_for_size(image, size))
-    
     static_path(conn, image_url)
   end
 
