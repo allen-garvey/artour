@@ -60,4 +60,26 @@ defmodule Artour.ApiPostController do
     end
     render(conn, "ok.json", message: "Post image order updated")
   end
+
+  @doc """
+  Gets images that can be added to post
+  """
+  def add_images(conn, %{"post" => post_id, "unused" => _unused}) do
+    image_ids_used = Repo.all(from(pi in Artour.PostImage, select: pi.image_id))
+
+    images_addable_to_post(conn, post_id, image_ids_used)
+  end
+
+  def add_images(conn, %{"post" => post_id}) do
+    image_ids_used = Repo.all(from(pi in Artour.PostImage, select: pi.image_id, where: pi.post_id == ^post_id))
+
+    images_addable_to_post(conn, post_id, image_ids_used)
+  end
+
+  defp images_addable_to_post(conn, post_id, image_ids_used) do
+    post = Repo.get!(Artour.Post, post_id)
+    unused_images = Repo.all(from(i in Artour.Image, where: not(i.id in ^image_ids_used), order_by: [desc: i.id]))
+
+    render conn, "addable_images.json", post: post, images: unused_images
+  end
 end

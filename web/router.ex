@@ -78,5 +78,8 @@ defmodule Artour.Router do
     patch "/posts/:post_id/images/reorder", ApiPostController, :reorder_images
     post "/posts/:post_id/tags", ApiPostController, :add_tags
     delete "/posts/:post_id/tags/:tag_id", ApiPostController, :remove_tag
+
+    #displays form to add images to post
+    get "/posts/:post/images/add", ApiPostController, :add_images
   end
 end

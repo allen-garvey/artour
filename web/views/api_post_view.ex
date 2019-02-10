@@ -26,5 +26,12 @@ defmodule Artour.ApiPostView do
   #   %{data: render_one(api_post, Artour.ApiPostView, "api_post.json")}
   # end
 
+  @doc """
+  Used to get images that can be added to post
+  """
+  def render("addable_images.json", %{images: images}) do
+    %{data: render_many(images, Artour.ApiImageView, "image_thumbnail_excerpt.json")}
+  end
+
 
 end
