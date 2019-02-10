@@ -31,6 +31,10 @@ export default {
             type: String,                                                                                                                 
             required: true,                                                                                                                
         },
+        imagesApiUrl: {                                                                                                                   
+            type: String,                                                                                                                 
+            required: true,                                                                                                                
+        },
     },
     created(){
 

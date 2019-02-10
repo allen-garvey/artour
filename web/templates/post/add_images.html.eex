@@ -34,4 +34,4 @@
 	</ul>
 <% end %>
 
-<div id="post_add_images_component" data-form-url="<%= post_path(@conn, :save_images, @post) %>" data-csrf-token="<%= @csrf_token %>"></div>
+<div id="post_add_images_component" data-form-url="<%= post_path(@conn, :save_images, @post) %>" data-csrf-token="<%= @csrf_token %>" data-images-api-url="<%= api_post_path(@conn, :add_images, @post) %>"></div>

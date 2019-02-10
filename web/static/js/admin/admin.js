@@ -28,9 +28,10 @@ import PostAddImagesComponent from './vues/post_add_images_component.vue';
     if(postAddImagesContainer){
         const csrfToken = postAddImagesContainer.dataset.csrfToken;
         const formUrl = postAddImagesContainer.dataset.formUrl;
+        const imagesApiUrl = postAddImagesContainer.dataset.imagesApiUrl;
         new Vue({
             el: postAddImagesContainer,
-            render: h => h(PostAddImagesComponent, {props: {csrfToken, formUrl}}),
+            render: h => h(PostAddImagesComponent, {props: {csrfToken, formUrl, imagesApiUrl}}),
         });
     }
 })();
