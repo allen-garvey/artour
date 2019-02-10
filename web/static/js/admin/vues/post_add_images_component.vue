@@ -63,8 +63,8 @@ export default {
             });
         },
         areAllImagesChecked(){
-            return this.imagesSelected.every((value)=>{
-                return value;
+            return !this.imagesSelected.some((value)=>{
+                return !value;
             });
         },
         ImageApiUrlFull(){
