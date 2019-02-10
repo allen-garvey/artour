@@ -87,6 +87,7 @@ export function aQuery(selector){
 			//element.addEventListener(eventName, function(e){callbackFunc.call(element, e);}, false);
 			element.addEventListener(eventName, callbackFunc, false);
 		});
-
 	};
+
+	return (new aQueryObject(selector));
 }
