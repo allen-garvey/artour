@@ -97,7 +97,7 @@ defmodule Artour.PostController do
     post = Repo.get!(Post, post_id)
     unused_images = Repo.all(from(i in Artour.Image, where: not(i.id in ^image_ids_used), order_by: [desc: i.id]))
     
-    render conn, "add_images.html", post: post, images: unused_images, all_images_shown: all_images_shown
+    render conn, "add_images.html", post: post, images: unused_images, all_images_shown: all_images_shown, csrf_token: get_csrf_token()
   end
 
   @doc """

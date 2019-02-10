@@ -20,3 +20,17 @@ initializeSetCoverImage();
 
 import { initializeAutofillSlug } from './slugify.js';
 initializeAutofillSlug();
+
+import Vue from 'vue';
+import PostAddImagesComponent from './vues/post_add_images_component.vue';
+(function(){
+    const postAddImagesContainer = document.getElementById('post_add_images_component');
+    if(postAddImagesContainer){
+        const csrfToken = postAddImagesContainer.dataset.csrfToken;
+        const formUrl = postAddImagesContainer.dataset.formUrl;
+        new Vue({
+            el: postAddImagesContainer,
+            render: h => h(PostAddImagesComponent, {props: {csrfToken, formUrl}}),
+        });
+    }
+})();
