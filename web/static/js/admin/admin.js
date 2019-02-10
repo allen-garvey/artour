@@ -9,9 +9,6 @@ initializeAutofillImageName();
 import { initializeAddTags } from './add_tags.js';
 initializeAddTags();
 
-import { initializeAddImagesToPost } from './add_images_to_post.js';
-initializeAddImagesToPost();
-
 import { initializeFormDeleteButton } from './form_delete_button.js';
 initializeFormDeleteButton();
 
