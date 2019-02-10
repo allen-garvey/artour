@@ -3,6 +3,7 @@
         <input name="_csrf_token" type="hidden" :value="csrfToken">
         <input name="_utf8" type="hidden" value="✓">
         <div class="button-container-right">
+            <button type="button" @click="toggleUnusedImages" class="btn btn-default">{{this.unusedImagesButtonText}}</button>
             <button type="submit" class="btn btn-primary" :disabled="areAllImagesUnchecked">Save</button>
         </div>
         <ul class="post-add-images-list">
@@ -43,14 +44,12 @@ export default {
         },
     },
     created(){
-        fetchJson(this.imagesApiUrl).then((images)=>{
-            this.images = images;
-            //uncheck all images initially
-            this.imagesSelected = images.map(()=>{return false;});
-        });
+        this.fetchImages();
     },
     data(){
         return {
+            //whether or not to show images that have not been used with any other posts 
+            unusedImagesOnly: true,
             images: [],
             imagesSelected: [],
         };
@@ -61,12 +60,37 @@ export default {
             return this.imagesSelected.every((value)=>{
                 return !value;
             });
+        },
+        ImageApiUrlFull(){
+            const queryParams = this.unusedImagesOnly ? '?unused=true' : '';
+            return this.imagesApiUrl + queryParams;
+        },
+        unusedImagesButtonText(){
+            if(this.unusedImagesOnly){
+                return 'All images';
+            }
+            return 'Unused images';
+        },
+    },
+    watch: {
+        unusedImagesOnly(){
+            this.fetchImages();
         }
     },
     methods: {
         imageChecked(index){
             //need to use vue.set to mutate array directly
             Vue.set(this.imagesSelected, index, !this.imagesSelected[index]);
+        },
+        toggleUnusedImages(){
+            this.unusedImagesOnly = !this.unusedImagesOnly;
+        },
+        fetchImages(){
+            return fetchJson(this.ImageApiUrlFull).then((images)=>{
+                this.images = images;
+                //uncheck all images initially
+                this.imagesSelected = images.map(()=>{return false;});
+            });
         }
     },
 }

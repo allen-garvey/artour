@@ -26,6 +26,12 @@
 .button-container-right{
 	display: flex;
 	justify-content: flex-end;
+	& > *{
+		margin-right: 1em;
+	}
+	& > *:last-child{
+		margin-right: 0;
+	}
 }
 
 .add-images-top-links{
