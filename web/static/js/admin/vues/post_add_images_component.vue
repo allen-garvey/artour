@@ -3,6 +3,7 @@
         <input name="_csrf_token" type="hidden" :value="csrfToken">
         <input name="_utf8" type="hidden" value="✓">
         <div class="button-container-right">
+            <button type="button" @click="toggleSelectAllImages" class="btn btn-default" v-show="images.length > 0">{{this.selectAllButtonText}}</button>
             <button type="button" @click="toggleUnusedImages" class="btn btn-default">{{this.unusedImagesButtonText}}</button>
             <button type="submit" class="btn btn-primary" :disabled="areAllImagesUnchecked">Save</button>
         </div>
@@ -61,6 +62,11 @@ export default {
                 return !value;
             });
         },
+        areAllImagesChecked(){
+            return this.imagesSelected.every((value)=>{
+                return value;
+            });
+        },
         ImageApiUrlFull(){
             const queryParams = this.unusedImagesOnly ? '?unused=true' : '';
             return this.imagesApiUrl + queryParams;
@@ -70,6 +76,12 @@ export default {
                 return 'All images';
             }
             return 'Unused images';
+        },
+        selectAllButtonText(){
+            if(this.areAllImagesChecked){
+                return 'Deselect all';
+            }
+            return 'Select all';
         },
     },
     watch: {
@@ -81,6 +93,14 @@ export default {
         imageChecked(index){
             //need to use vue.set to mutate array directly
             Vue.set(this.imagesSelected, index, !this.imagesSelected[index]);
+        },
+        toggleSelectAllImages(){
+            if(this.areAllImagesChecked){
+                this.imagesSelected = this.imagesSelected.map(() => false);
+            }
+            else{
+                this.imagesSelected = this.imagesSelected.map(() => true);
+            }
         },
         toggleUnusedImages(){
             this.unusedImagesOnly = !this.unusedImagesOnly;
