@@ -11,7 +11,7 @@ export function initializeAddImagesToPost(){
 	if(checkboxes.length === 0){
 		return;
 	}
-	const numCheckboxesChecked = 0;
+	let numCheckboxesChecked = 0;
     
     checkboxes.on('change', function(event){
     	$(this).closest('li').toggleClass('item-selected');
