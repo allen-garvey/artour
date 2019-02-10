@@ -58,8 +58,8 @@ export default {
     computed: {
         //save button is disabled if every image is unchecked
         areAllImagesUnchecked(){
-            return this.imagesSelected.every((value)=>{
-                return !value;
+            return !this.imagesSelected.some((value)=>{
+                return value;
             });
         },
         areAllImagesChecked(){
