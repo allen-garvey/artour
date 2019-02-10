@@ -75,29 +75,12 @@ defmodule Artour.PostController do
   end
 
   @doc """
-  Displays form with images not used in any albums
-  """
-  def add_images(conn, %{"post" => post_id, "unused" => _unused}) do
-    image_ids_used = Repo.all(from(pi in Artour.PostImage, select: pi.image_id))
-
-    add_images_page(conn, post_id, image_ids_used, false)
-  end
-
-  @doc """
-  Displays form with images not used in post album
-  that can be added
+  Displays form with images not used in post that can be added to it
   """
   def add_images(conn, %{"post" => post_id}) do
-    image_ids_used = Repo.all(from(pi in Artour.PostImage, select: pi.image_id, where: pi.post_id == ^post_id))
-
-    add_images_page(conn, post_id, image_ids_used, true)
-  end
-
-  defp add_images_page(conn, post_id, image_ids_used, all_images_shown) do
     post = Repo.get!(Post, post_id)
-    unused_images = Repo.all(from(i in Artour.Image, where: not(i.id in ^image_ids_used), order_by: [desc: i.id]))
-    
-    render conn, "add_images.html", post: post, images: unused_images, all_images_shown: all_images_shown, csrf_token: get_csrf_token()
+
+    render conn, "add_images.html", post: post, csrf_token: get_csrf_token()
   end
 
   @doc """
@@ -106,14 +89,14 @@ defmodule Artour.PostController do
   """
   def save_images(conn, %{"post" => post_id, "images" => images}) do
     post = Repo.get!(Post, post_id)
-    
+
     #add images to post
     #reverse order so images are ordered oldest to newest
     for image_id <- Enum.reverse(images) do
       changeset = Artour.PostImage.changeset(%Artour.PostImage{}, %{"post_id" => post.id, "image_id" => image_id})
       Repo.insert!(changeset)
     end
-    
+
     conn
         |> put_flash(:info, "Images added")
         |> redirect(to: post_path(conn, :show, post))
