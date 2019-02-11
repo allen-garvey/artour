@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="list-group-item-info post-album-image-list-controls" v-show="haveImagesBeenReordered">
-            <button class="btn btn-primary">Save Image Order</button>
+            <button class="btn btn-primary" @click="saveImageOrder()">Save Image Order</button>
         </div>
         <ol class="post-album-image-list">
-            <li v-for="postImage in postImages" :key="postImage.id" draggable="true" :class="{'cover-image-container': postImage.image.id === coverImageId}">
+            <li v-for="(postImage, index) in postImages" :key="postImage.id" draggable="true" :class="{'cover-image-container': postImage.image.id === coverImageId}" @dragstart="imageDragStart($event, index)" @dragover="imageDraggedOver($event, index)" @drop="imageDropped($event)">
                 <div>
                     <a :href="postImage.image.url.self"><img :src="postImage.image.url.thumbnail" :alt="postImage.image.description"/></a>
                 </div>
@@ -41,6 +41,10 @@ export default {
             type: String,                                                                                                                 
             required: true,                                                                                                                
         },
+        reorderImagesApiUrl: {
+            type: String,                                                                                                                 
+            required: true,                                                                                                                
+        },
         coverImageId: {                                                                                                                   
             type: Number,                                                                                                                 
             required: true,                                                                                                                
@@ -53,6 +57,7 @@ export default {
         return {
             postImages: [],
             haveImagesBeenReordered: false,
+            currentDragIndex: null,
         };
     },
     computed: {
@@ -70,7 +75,34 @@ export default {
             sendJson(this.editPostApiUrl, this.csrfToken, 'PATCH', {cover_image_id: imageId}).then((_response)=>{
                 this.coverImageId = imageId;
             });
-        }
+        },
+        saveImageOrder(){
+            const postImageIds = this.postImages.map(postImage=>postImage.id).join(',');
+            sendJson(this.reorderImagesApiUrl, this.csrfToken, 'PATCH', {post_images: postImageIds}).then((_response)=>{
+                this.haveImagesBeenReordered = false;
+            });
+        },
+        imageDragStart(e, index){
+            this.currentDragIndex = index;
+        },
+        imageDropped(e){
+            e.preventDefault();
+        },
+        //drag functions based on: https://www.w3schools.com/html/html5_draganddrop.asp
+        //and dithermark color-dither.vue/handleColorDragover()
+        imageDraggedOver(e, index){
+            e.preventDefault();
+            e.stopPropagation();
+
+            if(this.currentDragIndex != index){
+                let postImagesCopy = this.postImages.slice();
+                const draggedImage = postImagesCopy.splice(this.currentDragIndex, 1)[0];
+                postImagesCopy.splice(index, 0, draggedImage);
+                this.postImages = postImagesCopy;
+                this.currentDragIndex = index;
+                this.haveImagesBeenReordered = true;
+            }
+        },
     },
 }
 </script>

@@ -62,14 +62,14 @@ defmodule Artour.ApiPostController do
   @doc """
   Reorder post album images
   """
-  def reorder_images(conn, %{"post_id" => post_id, "images" => images}) do
-   for {image_id, i} <- String.split(images, ",") |> Enum.with_index do
-      post_tag = Repo.get_by!(Artour.PostImage, post_id: post_id, image_id: image_id)
-      post_tag = Ecto.Changeset.change post_tag, order: i
-      Repo.update!(post_tag)   
-    end
-    render(conn, "ok.json", message: "Post image order updated")
-  end
+  def reorder_images(conn, %{"post_id" => _post_id, "post_images" => post_images}) do
+    for {post_image_id, i} <- String.split(post_images, ",") |> Enum.with_index do
+       post_tag = Repo.get!(Artour.PostImage, post_image_id)
+       post_tag_changeset = Ecto.Changeset.change post_tag, order: i
+       Repo.update!(post_tag_changeset)
+     end
+     render(conn, "ok.json", message: "Post image order updated")
+   end
 
   @doc """
   Gets images that can be added to post
