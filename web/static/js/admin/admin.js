@@ -12,9 +12,6 @@ initializeAddTags();
 import { initializeFormDeleteButton } from './form_delete_button.js';
 initializeFormDeleteButton();
 
-import { initializeSetCoverImage } from './set_cover_image.js';
-initializeSetCoverImage();
-
 import { initializeAutofillSlug } from './slugify.js';
 initializeAutofillSlug();
 
