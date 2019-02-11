@@ -40,9 +40,10 @@ import PostAlbumListComponent from './vues/post_album_list_component.vue';
         const csrfToken = postAlbumListContainer.dataset.csrfToken;
         const coverImageId = parseInt(postAlbumListContainer.dataset.coverImageId);
         const postImagesApiUrl = postAlbumListContainer.dataset.postImagesApiUrl;
+        const editPostApiUrl = postAlbumListContainer.dataset.editPostApiUrl;
         new Vue({
             el: postAlbumListContainer,
-            render: h => h(PostAlbumListComponent, {props: {csrfToken, coverImageId, postImagesApiUrl}}),
+            render: h => h(PostAlbumListComponent, {props: {csrfToken, coverImageId, postImagesApiUrl, editPostApiUrl}}),
         });
     }
 })();

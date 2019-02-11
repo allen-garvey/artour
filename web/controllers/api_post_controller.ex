@@ -44,7 +44,7 @@ defmodule Artour.ApiPostController do
   """
   def update(conn, %{"post_id" => post_id, "cover_image_id" => cover_image_id}) do
     post = Repo.get!(Artour.Post, post_id)
-    post = Ecto.Changeset.change post, cover_image_id: String.to_integer(cover_image_id)
+    post = Ecto.Changeset.change post, cover_image_id: cover_image_id
     case Repo.update post do
       {:ok, _struct}       -> render(conn, "ok.json", message: "Post cover_image_id updated")
       {:error, _changeset} -> render(conn, "error.json", message: "Error changing post cover_image_id")
