@@ -76,10 +76,9 @@ defmodule Artour.ApiPostController do
     images_addable_to_post(conn, post_id, image_ids_used)
   end
 
-  defp images_addable_to_post(conn, post_id, image_ids_used) do
-    post = Repo.get!(Artour.Post, post_id)
+  defp images_addable_to_post(conn, _post_id, image_ids_used) do
     unused_images = Repo.all(from(i in Artour.Image, where: not(i.id in ^image_ids_used), order_by: [desc: i.id]))
 
-    render conn, "addable_images.json", post: post, images: unused_images
+    render conn, "image_excerpts.json", images: unused_images
   end
 end
