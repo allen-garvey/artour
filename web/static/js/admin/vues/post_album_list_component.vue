@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="list-group-item-info post-album-image-list-controls" v-show="haveImagesBeenReordered">
-            <button class="btn btn-primary" @click="saveImageOrder()">Save Image Order</button>
+        <div class="post-album-image-list-controls" :class="{'list-group-item-info': haveImagesBeenReordered}">
+            <button class="btn btn-primary" @click="saveImageOrder()" :style="{visibility: haveImagesBeenReordered ? 'visible' : 'hidden'}">Save Image Order</button>
         </div>
         <ol class="post-album-image-list">
             <li v-for="(postImage, index) in postImages" :key="postImage.id" draggable="true" :class="{'cover-image-container': postImage.image.id === coverImageId}" @dragstart="imageDragStart($event, index)" @dragover="imageDraggedOver($event, index)" @drop="imageDropped($event)">
