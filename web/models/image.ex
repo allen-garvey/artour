@@ -14,6 +14,9 @@ defmodule Artour.Image do
     field :completion_date, :date
 
     belongs_to :format, Artour.Format
+
+    has_many :post_images, Artour.PostImage
+
     many_to_many :posts, Artour.Post, join_through: "post_images", on_delete: :delete_all
     timestamps()
   end
