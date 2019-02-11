@@ -55,8 +55,8 @@ defmodule Artour.ApiPostController do
   Returns list of all of a post's images
   """
   def post_images(conn, %{"post_id" => post_id}) do
-    images = Api.list_post_images(post_id)
-    render(conn, "image_excerpts.json", images: images)
+    post_images = Api.list_post_images_for_post(post_id)
+    render(conn, "post_images_list.json", post_images: post_images)
   end
 
   @doc """
