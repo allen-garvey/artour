@@ -1,6 +1,8 @@
 defmodule Artour.ApiPostController do
   use Artour.Web, :controller
 
+  alias Artour.Api
+
   @doc """
   Returns list of all tags unused by a post
   """
@@ -47,6 +49,14 @@ defmodule Artour.ApiPostController do
       {:ok, _struct}       -> render(conn, "ok.json", message: "Post cover_image_id updated")
       {:error, _changeset} -> render(conn, "error.json", message: "Error changing post cover_image_id")
     end
+  end
+
+  @doc """
+  Returns list of all of a post's images
+  """
+  def post_images(conn, %{"post_id" => post_id}) do
+    images = Api.list_post_images(post_id)
+    render(conn, "image_excerpts.json", images: images)
   end
 
   @doc """
