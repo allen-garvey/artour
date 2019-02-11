@@ -32,3 +32,17 @@ import PostAddImagesComponent from './vues/post_add_images_component.vue';
         });
     }
 })();
+
+import PostAlbumListComponent from './vues/post_album_list_component.vue';
+(function(){
+    const postAlbumListContainer = document.getElementById('post_album_list_component');
+    if(postAlbumListContainer){
+        const csrfToken = postAlbumListContainer.dataset.csrfToken;
+        const coverImageId = parseInt(postAlbumListContainer.dataset.coverImageId);
+        const postImagesApiUrl = postAlbumListContainer.dataset.postImagesApiUrl;
+        new Vue({
+            el: postAlbumListContainer,
+            render: h => h(PostAlbumListComponent, {props: {csrfToken, coverImageId, postImagesApiUrl}}),
+        });
+    }
+})();

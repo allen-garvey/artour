@@ -37,7 +37,7 @@ defmodule Artour.PostController do
   def show(conn, %{"id" => id}) do
     post = Admin.get_post_for_show!(id)
 
-    render(conn, "show.html", post: post)
+    render(conn, "show.html", post: post, csrf_token: get_csrf_token())
   end
 
   def edit(conn, %{"id" => id}) do

@@ -50,14 +50,13 @@
 	}
 	.cover-image-container{
 		background-color: $item_selected_color;
-		[data-role="set-cover-image-button"]{
-			display: none;
+	}
+	.image-buttons > *{
+		margin-right: 1em;
+		&:last-child{
+			margin-right: 0;
 		}
-	}
-	[data-role="set-cover-image-button"]{
-		margin-left: 1em;
-	}
-
+	} 
 }
 
 .post-tags-list{
