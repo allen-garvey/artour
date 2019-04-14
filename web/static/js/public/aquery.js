@@ -2,10 +2,6 @@
  * aQuery - lightweight version of jQuery 
  */
 
- //core functionality required to work
- //modules should go between core_start and core_end
-'use strict';
-
 export function aQuery(selector){
 	function aQueryObject(selector){
 		if(typeof selector === 'string'){
