@@ -20,14 +20,14 @@ defmodule Mix.Tasks.Distill.Static do
       File.mkdir_p! dest_enclosing_dir
       File.cp Path.join(source_dir, filename), Path.join(dest_dir, filename)
     end
-    
+
   end
 
   @doc """
   Default directory for static assets
   """
   def default_static_assets_directory() do
-    File.cwd! 
+    File.cwd!
       |> Path.join("priv")
       |> Path.join("static")
   end
@@ -38,12 +38,12 @@ defmodule Mix.Tasks.Distill.Static do
   def static_asset_filenames() do
     [
       "favicon.ico",
-      "robots.text",
+      "robots.txt",
       Path.join("css", "main.css"),
       Path.join("js", "app.min.js"),
     ]
   end
 
-  
+
 
 end
