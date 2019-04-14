@@ -25,7 +25,7 @@
 
 <script>
 import Vue from 'vue';
-import { fetchJson, sendJson } from '../api_helpers.js';
+import { fetchJson, sendJson } from '../ajax.js';
 
 export default {
     props: {
