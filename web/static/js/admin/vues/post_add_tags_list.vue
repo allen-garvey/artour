@@ -51,11 +51,7 @@ export default {
             type: String,
             required: true,
         },
-        newBookmarkTagUrl: {
-            type: String,
-            required: true,
-        },
-        deleteBookmarkTagUrl: {
+        apiBaseUrl: {
             type: String,
             required: true,
         },
@@ -101,23 +97,23 @@ export default {
             this.addTagMode = false;
         },
         saveButtonAction(){
-            const selectedTag = this.tagsThatCanBeAdded[this.$refs.tagSelect.selectedIndex];
             this.busy = true;
-            const data = {bookmark_id: this.postId, tag_id: selectedTag.id};
+            const selectedTags = this.tagsThatCanBeAdded.filter(tag=>tag.selected);
+            const selectedTagIds = selectedTags.map(tag=>tag.id);
+            const data = {tags: selectedTagIds};
 
-            sendJson(this.newBookmarkTagUrl, this.csrfToken, 'POST', data).then((json)=>{
+            sendJson(this.apiBaseUrl, this.csrfToken, 'POST', data).then((json)=>{
                 this.busy = false;
                 if(json.error){
                     console.log(json.error);
                     return;
                 }
+                this.tags = this.tags.concat(selectedTags);
                 this.addTagMode = false;
-                this.tags.push(selectedTag);
             });
         },
         removeTag(tagId){
-            const data = {bookmark_id: this.postId, tag_id: tagId};
-            sendJson(this.deleteBookmarkTagUrl, this.csrfToken, 'DELETE', data).then((json)=>{
+            sendJson(`${this.apiBaseUrl}/${tagId}`, this.csrfToken, 'DELETE', data).then((json)=>{
                 //don't need to do anything here, since we are optimistically assuming succeeeded
             });
             //optimistic remove
