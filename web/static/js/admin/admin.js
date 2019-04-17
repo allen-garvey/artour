@@ -45,3 +45,18 @@ import PostAlbumListComponent from './vues/post_album_list_component.vue';
         });
     }
 })();
+
+import PostAddTagsList from './vues/post_add_tags_list.vue';
+(function(){
+    const postAddTagsListContainer = document.getElementById('post_add_tags_list');
+    if(postAddTagsListContainer){
+        const props = {};
+        ['csrfToken', 'postId', 'apiBaseUrl', 'newTagUrl'].forEach((propKey)=>{
+            props[propKey] = postAddTagsListContainer.dataset[propKey];
+        });
+        new Vue({
+            el: postAddTagsListContainer,
+            render: h => h(PostAddTagsList, {props}),
+        });
+    }
+})();
