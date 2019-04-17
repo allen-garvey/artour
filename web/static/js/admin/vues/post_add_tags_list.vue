@@ -105,7 +105,7 @@ export default {
             });
         },
         removeTag(tagId){
-            sendJson(`${this.apiBaseUrl}/${tagId}`, this.csrfToken, 'DELETE', data).then((json)=>{
+            sendJson(`${this.apiBaseUrl}/${tagId}`, this.csrfToken, 'DELETE').then((json)=>{
                 //don't need to do anything here, since we are optimistically assuming succeeeded
             });
             //optimistic remove
