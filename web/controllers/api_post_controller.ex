@@ -12,6 +12,17 @@ defmodule Artour.ApiPostController do
     render(conn, "tags_list.json", tags: tags)
   end
 
+  def tags_for(conn, %{"post_id" => post_id}) do
+    tags = from(
+                t in Artour.Tag,
+                join: post_tag in assoc(t, :post_tags),
+                where: post_tag.post_id == ^post_id,
+                order_by: t.name
+              )
+    |> Repo.all
+    render(conn, "tags_list.json", tags: tags)
+  end
+
   @doc """
   Adds tags to a post
   tags json list of tag ids
@@ -19,7 +30,7 @@ defmodule Artour.ApiPostController do
   def add_tags(conn, %{"post_id" => post_id, "tags" => tags}) do
     for tag_id <- String.split(tags, ",") do
       changeset = Artour.PostTag.changeset(%Artour.PostTag{}, %{"post_id" => post_id, "tag_id" => tag_id})
-      Repo.insert!(changeset)   
+      Repo.insert!(changeset)
     end
     render(conn, "ok.json", message: "Tags added to post")
   end
