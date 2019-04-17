@@ -63,9 +63,6 @@
 			font-size: 1.563em;
 		}
 	}
-	.error-container, .add-tags-container{
-		display: none;
-	}
 	.add-tag-link{
 		margin-top: 0.5em;
 		a:before{
@@ -74,23 +71,6 @@
 			display: inline-block;
 			margin-right: 0.2em;
 			font-weight: bold;
-		}
-	}
-	&[data-state="add"]{
-		.add-tags-container{
-			display: block;
-		}
-		.header-buttons-container{
-			display: none;
-		}
-	}
-
-	&[data-state="error"]{
-		.header-buttons-container{
-			display: none;
-		}
-		.error-container{
-			display: block;
 		}
 	}
 
