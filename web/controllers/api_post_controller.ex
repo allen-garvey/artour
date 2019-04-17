@@ -28,7 +28,7 @@ defmodule Artour.ApiPostController do
   tags json list of tag ids
   """
   def add_tags(conn, %{"post_id" => post_id, "tags" => tags}) do
-    for tag_id <- String.split(tags, ",") do
+    for tag_id <- tags do
       changeset = Artour.PostTag.changeset(%Artour.PostTag{}, %{"post_id" => post_id, "tag_id" => tag_id})
       Repo.insert!(changeset)
     end
