@@ -6,9 +6,6 @@ import css from "../../css/admin.scss"
 import { initializeAutofillImageName } from './autofill_image_name.js';
 initializeAutofillImageName();
 
-import { initializeAddTags } from './add_tags.js';
-initializeAddTags();
-
 import { initializeFormDeleteButton } from './form_delete_button.js';
 initializeFormDeleteButton();
 
