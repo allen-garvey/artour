@@ -55,17 +55,9 @@ export default {
             type: String,
             required: true,
         },
-        tagsUrl: {
-            type: String,
-            required: true,
-        },
-        unusedTagsUrl: {
-            type: String,
-            required: true,
-        },
     },
     created(){
-        fetchJson(this.tagsUrl).then((data)=>{
+        fetchJson(this.apiBaseUrl).then((data)=>{
             this.tags = data;
             this.initialLoadComplete = true;
         });
@@ -84,7 +76,7 @@ export default {
     methods: {
         addButtonAction(){
             this.busy = true;
-            fetchJson(this.unusedTagsUrl).then((data)=>{
+            fetchJson(`${this.apiBaseUrl}?unused=true`).then((data)=>{
                 this.tagsThatCanBeAdded = data;
                 this.addTagMode = true;
                 this.busy = false;
