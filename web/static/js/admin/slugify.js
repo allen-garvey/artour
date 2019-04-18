@@ -2,7 +2,7 @@
  * Used for automatic slug generation on forms
  */
 
-import { aQuery as $ } from './aquery.js';
+import { addListener } from './events.js';
 
 //converts string into string that can be used for slug
 //RULES: limited to 80 characters long, only lowercase letters,
@@ -27,16 +27,15 @@ function autofillSlug(target, slug, shouldForce=false){
 
 
 export function initializeAutofillSlug(){
-	$('[data-slug-source]').on('blur', function(event){
-		const slugSource = this.value;
+	addListener('[data-slug-source]', 'blur', (event, element)=>{
+		const slugSource = element.value;
 		const slugDest = document.querySelector('[data-slug]');
 
     	autofillSlug(slugDest, slugify(slugSource));
 	});
 
 	//initialize regenerate button
-	$('#autofill-image-button').on('click', function(event){
-		//use query selector, because there is a bug in this version of aQuery in getting value
+	addListener('#autofill-image-button', 'click', (event, element)=>{
 		const slugSource = document.querySelector('[data-slug-source]');
 		const slugDest = document.querySelector('[data-slug]');
 		if(!slugSource || !slugDest){
