@@ -29,25 +29,25 @@ import { fetchJson, sendJson } from '../ajax.js';
 
 export default {
     props: {
-        csrfToken: {                                                                                                                   
-            type: String,                                                                                                                 
-            required: true,                                                                                                                
+        csrfToken: {                        
+            type: String,
+            required: true,                                    
         },
-        postImagesApiUrl: {                                                                                                               
-            type: String,                                                                                                                 
-            required: true,                                                                                                                
+        postImagesApiUrl: {
+            type: String,                                      
+            required: true,                                         
         },
         editPostApiUrl: {
-            type: String,                                                                                                                 
-            required: true,                                                                                                                
+            type: String,                                      
+            required: true,
         },
         reorderImagesApiUrl: {
-            type: String,                                                                                                                 
-            required: true,                                                                                                                
+            type: String,                                      
+            required: true,                                     
         },
-        coverImageId: {                                                                                                                   
-            type: Number,                                                                                                                 
-            required: true,                                                                                                                
+        coverImageId: {
+            type: Number,
+            required: true,                                      
         },
     },
     created(){
