@@ -18,6 +18,8 @@ defmodule Artour.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug :protect_from_forgery
   end
 
   # based on:
@@ -42,10 +44,10 @@ defmodule Artour.Router do
 
     get "/categories", PublicCategoryController, :index
     get "/categories/:slug", PublicCategoryController, :show
-    
+
     get "/tags", PublicTagController, :index
     get "/tags/:slug", PublicTagController, :show
-    
+
     get "/posts", PublicPostController, :index
     get "/posts/:slug", PublicPostController, :show
   end
