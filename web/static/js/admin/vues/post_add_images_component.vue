@@ -31,17 +31,17 @@ import { fetchJson } from '../ajax.js';
 
 export default {
     props: {
-        csrfToken: {                                                                                                                   
-            type: String,                                                                                                                 
-            required: true,                                                                                                                
+        csrfToken: {
+            type: String,
+            required: true,
         },
-        formUrl: {                                                                                                                   
-            type: String,                                                                                                                 
-            required: true,                                                                                                                
+        formUrl: {
+            type: String,
+            required: true,
         },
-        imagesApiUrl: {                                                                                                                   
-            type: String,                                                                                                                 
-            required: true,                                                                                                                
+        imagesApiUrl: {
+            type: String,
+            required: true,
         },
     },
     created(){
