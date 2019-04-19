@@ -77,7 +77,7 @@ export default {
             });
         },
         saveImageOrder(){
-            const postImageIds = this.postImages.map(postImage=>postImage.id).join(',');
+            const postImageIds = this.postImages.map(postImage=>postImage.id);
             sendJson(this.reorderImagesApiUrl, this.csrfToken, 'PATCH', {post_images: postImageIds}).then((_response)=>{
                 this.haveImagesBeenReordered = false;
             });
