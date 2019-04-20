@@ -46,7 +46,7 @@ export default {
             required: true,                                     
         },
         coverImageId: {
-            type: Number,
+            type: String,
             required: true,                                      
         },
     },
