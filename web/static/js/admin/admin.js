@@ -14,16 +14,16 @@ initializeAutofillSlug();
 
 import { initializeVueComponent } from './vue-helpers.js';
 
-import PostAddImagesComponent from './vues/post_add_images_component.vue';
+import PostAddImages from './vues/post_add_images.vue';
 (function(){
     const keys = ['csrfToken', 'formUrl', 'imagesApiUrl'];
-    initializeVueComponent('post_add_images_component', PostAddImagesComponent, keys);
+    initializeVueComponent('post_add_images_component', PostAddImages, keys);
 })();
 
-import PostAlbumListComponent from './vues/post_album_list_component.vue';
+import PostAlbumList from './vues/post_album_list.vue';
 (function(){
     const keys = ['csrfToken', 'coverImageId', 'postImagesApiUrl', 'editPostApiUrl', 'reorderImagesApiUrl'];
-    initializeVueComponent('post_album_list_component', PostAlbumListComponent, keys);
+    initializeVueComponent('post_album_list_component', PostAlbumList, keys);
 })();
 
 import PostAddTagsList from './vues/post_add_tags_list.vue';
