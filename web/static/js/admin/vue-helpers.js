@@ -1,4 +1,6 @@
-export function extractProps(container, keys){
+import Vue from 'vue';
+
+function extractProps(container, keys){
     const props = {};
 
     keys.forEach(key => {
@@ -6,4 +8,16 @@ export function extractProps(container, keys){
     });
 
     return props;
+}
+
+export function initializeVueComponent(elementId, vueComponent, propKeys){
+    const container = document.getElementById(elementId);
+    if(container){
+        const props = extractProps(container, propKeys);
+
+        new Vue({
+            el: container,
+            render: h => h(vueComponent, {props}),
+        });
+    }
 }
