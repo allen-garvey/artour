@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div class="alert alert-warning error-container" v-if="addTagMode && tagsThatCanBeAdded.length === 0">
-                    This post has already been tagged with all available tags. <a :href="newTagUrl">Want to create more?</a>
+                    This post has already been tagged with all available tags. <a :href="newTagUrl" target="_blank">Want to create more?</a>
                 </div>
                 <div class="add-tags-container" v-show="addTagMode">
                     <div class="tag-checkboxes">
@@ -18,7 +18,7 @@
                         </label>
                     </div>
                     <div class="add-tag-link">
-                        <a :href="newTagUrl">Create tag</a>
+                        <a :href="newTagUrl" target="_blank">Create tag</a>
                     </div>
                     <div class="button-container-right">
                         <button class="btn btn-default" @click="cancelButtonAction()">Cancel</button>
