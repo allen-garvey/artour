@@ -1,6 +1,11 @@
+.import-images-header{
+    margin-bottom: 1em;
+}
+
 .import-images-container{
     //input styling based on:
     //https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/
+    //and https://css-tricks.com/drag-and-drop-file-uploading/
     #file_input {
         width: 0.1px;
         height: 0.1px;
@@ -20,6 +25,12 @@
             min-height: 300px;
             span{
                 font-weight: 400;
+            }
+            svg{
+                display: block;
+                margin: 0 auto;
+                height: 80px;
+                width: 80px;
             }
         }
         
