@@ -31,3 +31,9 @@ import PostAddTagsList from './vues/post_add_tags_list.vue';
     const keys = ['csrfToken', 'postId', 'apiBaseUrl', 'newTagUrl'];
     initializeVueComponent('post_add_tags_list', PostAddTagsList, keys);
 })();
+
+import ImportImages from './vues/import_images.vue';
+(function(){
+    const keys = ['csrfToken'];
+    initializeVueComponent('import_images', ImportImages, keys);
+})();

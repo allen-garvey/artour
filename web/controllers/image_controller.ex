@@ -11,6 +11,10 @@ defmodule Artour.ImageController do
                                 row_values_func_name: :attribute_values_short)
   end
 
+  def import_images(conn, _params) do
+    render(conn, "import.html", csrf_token: get_csrf_token())
+  end
+
   def new(conn, _params) do
     changeset = Image.changeset(%Image{})
     formats = Artour.Format.form_list(Repo)
