@@ -6,6 +6,7 @@ module.exports = {
   entry: {
       admin: './web/static/js/admin/admin.js',
       app: './web/static/js/public/app.js',
+      'admin-styles': './web/static/css/admin.scss',
   },
   output: {
     filename: '[name].min.js',

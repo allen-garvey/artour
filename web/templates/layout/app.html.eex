@@ -8,7 +8,7 @@
     <meta name="author" content="">
 
     <title><%= site_title() %> | Admin</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/admin.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/admin-styles.css") %>">
   </head>
 
   <body>
