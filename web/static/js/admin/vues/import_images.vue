@@ -1,5 +1,7 @@
 <template>
-    <div class="import-images-container">
+<div class="import-images-container">
+    <!-- File input -->
+    <div v-if="imageFiles.length < 1">
         <input type="file" multiple ref="fileInput" id="file_input" @change="filesSelected($event)"/>
         <label for="file_input" @drop.prevent="filesDropped($event)" @dragover.prevent="doNothing()">
             <div>
@@ -9,9 +11,24 @@
             </div>
         </label>
     </div>
+
+    <!-- File display -->
+    <div v-if="imageFiles.length > 0">
+        <ul>
+            <li v-for="(image, i) in images" :key="i">
+                <span>{{image.lg}}</span>
+                <span>{{image.med}}</span>
+                <span>{{image.sm}}</span>
+                <span>{{image.thumbnail}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
 </template>
 
 <script>
+import { extractImages } from '../import_images.js';
+
 export default {
     props: {
         csrfToken: {
@@ -25,25 +42,34 @@ export default {
     },
     data(){
         return {
+            imageFiles: [],
+            images: [],
         };
     },
     computed: {
     },
     watch: {
+        imageFiles(newValue){
+            this.images = newValue.map((imageFile)=>{
+                return {
+                    lg: imageFile.lg || imageFile.med,
+                    med: imageFile.med,
+                    sm: imageFile.sm,
+                    thumbnail: imageFile.thumbnail,
+                };
+            });
+        }
     },
     methods: {
         doNothing(){
 
         },
         filesSelected(event){
-            console.log(this.$refs.fileInput.files);
+            this.imageFiles = extractImages(this.$refs.fileInput.files);
         },
         filesDropped(event){
-            console.log(event);
-            //no foreach method for files array
-            for(let file of event.dataTransfer.files){
-                console.log(file);
-            }
+            this.imageFiles = extractImages(event.dataTransfer.files);
+            console.log(this.imageFiles);
         }
     }
 };
