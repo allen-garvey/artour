@@ -20,6 +20,7 @@
                 <span>{{image.med}}</span>
                 <span>{{image.sm}}</span>
                 <span>{{image.thumbnail}}</span>
+                <img :src="image.src" v-if="image.src"/>
             </li>
         </ul>
     </div>
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { extractImages } from '../import_images.js';
 
 export default {
@@ -50,7 +52,15 @@ export default {
     },
     watch: {
         imageFiles(newValue){
-            this.images = newValue.map((imageFile)=>{
+            this.images = newValue.map((imageFile, i)=>{
+                //preview image based on: https://stackoverflow.com/questions/5802580/html-input-type-file-get-the-image-before-submitting-the-form
+                const reader = new FileReader();
+                reader.onload = (e)=>{
+                    const image = this.images[i];
+                    image.src = e.target.result;
+                    Vue.set(this.images, i, image);
+                };
+                reader.readAsDataURL(imageFile.file);
                 return {
                     lg: imageFile.lg || imageFile.med,
                     med: imageFile.med,
@@ -69,7 +79,6 @@ export default {
         },
         filesDropped(event){
             this.imageFiles = extractImages(event.dataTransfer.files);
-            console.log(this.imageFiles);
         }
     }
 };

@@ -3,9 +3,12 @@
 }
 
 .import-images-container{
-    //input styling based on:
-    //https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/
-    //and https://css-tricks.com/drag-and-drop-file-uploading/
+    /*
+    * File input
+    * based on: https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way
+    * and
+    * https://css-tricks.com/drag-and-drop-file-uploading/
+    */
     #file_input {
         width: 0.1px;
         height: 0.1px;
@@ -42,5 +45,13 @@
             outline: 1px dotted #000;
 	        outline: -webkit-focus-ring-color auto 5px;
         }
+    }
+
+    /*
+    * Image file display
+    */
+    img{
+        max-width: 300px;
+        max-height: 240px;
     }
 }
