@@ -1,2 +1,2 @@
-<h1 class="import-images-header">Create images from files</h1>
+<h1 class="import-images-header">Import images</h1>
 <div id="import_images" data-csrf-token="<%= @csrf_token %>"></div>
