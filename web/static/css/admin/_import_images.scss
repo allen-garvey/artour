@@ -38,7 +38,8 @@
         }
         
         &:focus + label,
-        & + label:hover {
+        & + label:hover,
+        & + label.dragged-over {
             background-color: #e8e8e8;
         }
         &:focus + label{
