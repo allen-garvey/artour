@@ -13,16 +13,45 @@
     </div>
 
     <!-- File display -->
-    <div v-if="imageFiles.length > 0">
+    <div v-if="imageFiles.length > 0" class="images-list-container">
         <ul>
             <li v-for="(image, i) in images" :key="i">
-                <span>{{image.lg}}</span>
-                <span>{{image.med}}</span>
-                <span>{{image.sm}}</span>
-                <span>{{image.thumbnail}}</span>
-                <img :src="image.src" v-if="image.src"/>
+                <div class="image-form">
+                    <div class="form-group">
+                        <label class="control-label" :for="`image_${i}_title`">Title</label>
+                        <input class="form-control" type="text" :id="`image_${i}_title`" :value="image.title" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" :for="`image_${i}_slug`">Slug</label>
+                        <input class="form-control" type="text" :id="`image_${i}_slug`" :value="image.slug" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" :for="`image_${i}_description`">Description</label>
+                        <input class="form-control" type="text" :id="`image_${i}_description`" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" :for="`image_${i}_completion_date`">Completion date</label>
+                        <input class="form-control" type="date" :id="`image_${i}_completion_date`" />
+                    </div>
+                    <div class="form-group form-group-fixed">
+                        <label>Filename large</label>{{image.lg}}
+                    </div>
+                    <div class="form-group form-group-fixed">
+                        <label>Filename medium</label>{{image.med}}
+                    </div>
+                    <div class="form-group form-group-fixed">
+                        <label>Filename small</label>{{image.sm}}
+                    </div>
+                    <div class="form-group form-group-fixed">
+                        <label>Filename thumbnail</label>{{image.thumbnail}}
+                    </div>
+                </div>
+                <figure>
+                    <img :src="image.src" v-if="image.src"/>
+                </figure>
             </li>
         </ul>
+        <div class="button-container"><button class="btn btn-success">Save</button></div>
     </div>
 </div>
 </template>
@@ -66,6 +95,8 @@ export default {
                 };
                 reader.readAsDataURL(imageFile.file);
                 return {
+                    title: imageFile.title,
+                    slug: imageFile.slug,
                     lg: imageFile.lg || imageFile.med,
                     med: imageFile.med,
                     sm: imageFile.sm,

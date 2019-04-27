@@ -51,6 +51,40 @@
     /*
     * Image file display
     */
+    .images-list-container{
+        ul{
+            padding-left: 0;
+            list-style-type: none;
+        }
+        li{
+            display: flex;
+            justify-content: space-between;
+            padding: 2em 0;
+            border-bottom: 1px solid #e5e5e5;
+
+            &:last-of-type{
+                padding-bottom: 0;
+                border-bottom: 0;
+            }
+
+            .image-form{
+                flex-basis: 100%;
+                padding-right: 2em;
+            }
+            figure{
+                flex-basis: 300px;
+            }
+        }
+        .form-group-fixed{
+            label{
+                min-width: 165px;
+            }
+        }
+        .button-container{
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
     img{
         max-width: 300px;
         max-height: 240px;
