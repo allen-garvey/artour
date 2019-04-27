@@ -13,7 +13,9 @@ export function extractImages(files){
 
             const fileObject = imageFilesMap.has(uniqueName) ? imageFilesMap.get(uniqueName) : {};
             fileObject[sizeSuffix] = name;
-            fileObject.thumbnail = `${uniqueName}-thumb${extension}`;
+            if(!fileObject.thumb){
+                fileObject.thumb = `${uniqueName}-thumb${extension}`;
+            }
             
             if(sizeSuffix === 'thumb' || (!fileObject.src && sizeSuffix === 'sm')){
                 fileObject.file = file;

@@ -65,7 +65,7 @@ export default {
                     lg: imageFile.lg || imageFile.med,
                     med: imageFile.med,
                     sm: imageFile.sm,
-                    thumbnail: imageFile.thumbnail,
+                    thumbnail: imageFile.thumb,
                 };
             });
         }
