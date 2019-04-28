@@ -42,20 +42,20 @@
                             <input class="form-control" type="date" :id="`image_${i}_completion_date`" @change="valueChanged($event, i, 'completion_date')" />
                         </div>
                         <div class="form-group form-group-fixed">
-                            <label>Filename large</label>{{image.lg}}
+                            <label>Filename large</label>{{image.filename_large}}
                         </div>
                         <div class="form-group form-group-fixed">
-                            <label>Filename medium</label>{{image.med}}
+                            <label>Filename medium</label>{{image.filename_medium}}
                         </div>
                         <div class="form-group form-group-fixed">
-                            <label>Filename small</label>{{image.sm}}
+                            <label>Filename small</label>{{image.filename_small}}
                         </div>
                         <div class="form-group form-group-fixed">
-                            <label>Filename thumbnail</label>{{image.thumbnail}}
+                            <label>Filename thumbnail</label>{{image.filename_thumbnail}}
                         </div>
                     </div>
                     <figure>
-                        <img :src="image.src" v-if="image.src"/>
+                        <img :src="imageFiles[i].src" v-if="imageFiles[i].src"/>
                     </figure>
                 </li>
             </ul>
@@ -105,29 +105,6 @@ export default {
             return this.areFilesDraggedOver ? 'dragged-over' : '';
         },
     },
-    watch: {
-        imageFiles(newValue){
-            this.images = newValue.map((imageFile, i)=>{
-                //preview image based on: https://stackoverflow.com/questions/5802580/html-input-type-file-get-the-image-before-submitting-the-form
-                const reader = new FileReader();
-                reader.onload = (e)=>{
-                    const image = this.images[i];
-                    image.src = e.target.result;
-                    Vue.set(this.images, i, image);
-                };
-                reader.readAsDataURL(imageFile.file);
-                return {
-                    title: imageFile.title,
-                    slug: imageFile.slug,
-                    format_id: this.formats[0].id,
-                    lg: imageFile.lg || imageFile.med,
-                    med: imageFile.med,
-                    sm: imageFile.sm,
-                    thumbnail: imageFile.thumb,
-                };
-            });
-        }
-    },
     methods: {
         doNothing(){
             //required to have drag over do something
@@ -144,6 +121,29 @@ export default {
         filesDropped(event){
             this.areFilesDraggedOver = false;
             this.imageFiles = extractImages(event.dataTransfer.files);
+            this.imageFilesReplaced();
+        },
+        imageFilesReplaced(){
+            this.images = this.imageFiles.map((imageFile, i)=>{
+                //preview image based on: https://stackoverflow.com/questions/5802580/html-input-type-file-get-the-image-before-submitting-the-form
+                const reader = new FileReader();
+                reader.onload = (e)=>{
+                    imageFile.src = e.target.result;
+                    Vue.set(this.imageFiles, i, imageFile);
+                };
+                reader.readAsDataURL(imageFile.file);
+                return {
+                    title: imageFile.title,
+                    slug: imageFile.slug,
+                    format_id: this.formats[0].id,
+                    description: null,
+                    completion_date: null,
+                    filename_large: imageFile.lg || imageFile.med,
+                    filename_medium: imageFile.med,
+                    filename_small: imageFile.sm,
+                    filename_thumbnail: imageFile.thumb,
+                };
+            });
         },
         valueChanged(event, index, key){
             const newValue = event.target.value;
