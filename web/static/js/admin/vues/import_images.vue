@@ -21,25 +21,25 @@
                     <div class="image-form">
                         <div class="form-group">
                             <label class="control-label" :for="`image_${i}_title`">Title</label>
-                            <input class="form-control" type="text" :id="`image_${i}_title`" :value="image.title" />
+                            <input class="form-control" type="text" :id="`image_${i}_title`" :value="image.title" @change="valueChanged($event, i, 'title')" />
                         </div>
                         <div class="form-group">
                             <label class="control-label" :for="`image_${i}_slug`">Slug</label>
-                            <input class="form-control" type="text" :id="`image_${i}_slug`" :value="image.slug" />
+                            <input class="form-control" type="text" :id="`image_${i}_slug`" :value="image.slug" @change="valueChanged($event, i, 'slug')" />
                         </div>
                         <div class="form-group">
                             <label class="control-label" :for="`image_${i}_description`">Description</label>
-                            <input class="form-control" type="text" :id="`image_${i}_description`" />
+                            <input class="form-control" type="text" :id="`image_${i}_description`" @change="valueChanged($event, i, 'description')" />
                         </div>
                         <div class="form-group">
                             <label class="control-label" :for="`image_${i}_format`">Format</label>
-                            <select class="form-control" :id="`image_${i}_format`">
-                                <option v-for="(format, i) in formats" :key="i">{{format.name}}</option>
+                            <select class="form-control" :id="`image_${i}_format`" :value="image.format_id" @change="valueChanged($event, i, 'format_id')">
+                                <option v-for="(format, i) in formats" :key="i" :value="format.id">{{format.name}}</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label class="control-label" :for="`image_${i}_completion_date`">Completion date</label>
-                            <input class="form-control" type="date" :id="`image_${i}_completion_date`" />
+                            <input class="form-control" type="date" :id="`image_${i}_completion_date`" @change="valueChanged($event, i, 'completion_date')" />
                         </div>
                         <div class="form-group form-group-fixed">
                             <label>Filename large</label>{{image.lg}}
@@ -59,7 +59,9 @@
                     </figure>
                 </li>
             </ul>
-            <div class="button-container"><button class="btn btn-success">Save</button></div>
+            <div class="button-container">
+                <button class="btn btn-success" @click="save()">Save</button>
+            </div>
         </div>
     </div>
 </div>
@@ -117,6 +119,7 @@ export default {
                 return {
                     title: imageFile.title,
                     slug: imageFile.slug,
+                    format_id: this.formats[0].id,
                     lg: imageFile.lg || imageFile.med,
                     med: imageFile.med,
                     sm: imageFile.sm,
@@ -141,7 +144,16 @@ export default {
         filesDropped(event){
             this.areFilesDraggedOver = false;
             this.imageFiles = extractImages(event.dataTransfer.files);
-        }
+        },
+        valueChanged(event, index, key){
+            const newValue = event.target.value;
+            const image = this.images[index];
+            image[key] = newValue;
+            Vue.set(this.images, index, image);
+        },
+        save(){
+            console.log(this.images);
+        },
     }
 };
 </script>
