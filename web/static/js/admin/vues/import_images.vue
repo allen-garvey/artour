@@ -70,7 +70,7 @@
 <script>
 import Vue from 'vue';
 import { extractImages } from '../import_images.js';
-import { fetchJson } from '../ajax.js';
+import { fetchJson, sendJson } from '../ajax.js';
 
 export default {
     props: {
@@ -79,6 +79,10 @@ export default {
             required: true,
         },
         apiFormatIndexUrl: {
+            type: String,
+            required: true,
+        },
+        apiCreateImagesUrl: {
             type: String,
             required: true,
         },
@@ -153,6 +157,8 @@ export default {
         },
         save(){
             console.log(this.images);
+            const data = {images: this.images};
+            sendJson(this.apiCreateImagesUrl, this.csrfToken, 'POST', data);
         },
     }
 };

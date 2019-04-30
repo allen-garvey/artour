@@ -91,5 +91,8 @@ defmodule Artour.Router do
     get "/posts/:post/images/add", ApiPostController, :add_images
 
     get "/formats", ApiFormatController, :index
+
+    #create images from file import
+    post "/images/import", ApiImageController, :create_many
   end
 end
