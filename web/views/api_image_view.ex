@@ -23,10 +23,6 @@ defmodule Artour.ApiImageView do
   end
 
   def render("errors.json", %{errors: errors}) do
-    # TODO put errors at correct index in list
-    errors_list = Map.to_list(errors)
-    |> Enum.map(fn {_index, changeset} -> changeset end)
-
-    %{data: render_many(errors_list, ChangesetView, "error.json")}
+    %{data: render_many(errors, ChangesetView, "error.json")}
   end
 end
