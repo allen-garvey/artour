@@ -23,6 +23,6 @@ defmodule Artour.ApiImageView do
   end
 
   def render("errors.json", %{errors: errors}) do
-    %{data: render_many(errors, ChangesetView, "error.json")}
+    %{errors: render_many(errors, ChangesetView, "error.json")}
   end
 end
