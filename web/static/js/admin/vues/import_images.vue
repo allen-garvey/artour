@@ -16,30 +16,38 @@
 
         <!-- File display -->
         <div v-if="imageFiles.length > 0" class="images-list-container">
+            <div class="alert alert-danger" v-show="errors" ref="errorAlert">
+                <p>Oops, something went wrong! Please check the errors below.</p>
+            </div>
             <ul>
                 <li v-for="(image, i) in images" :key="i">
                     <div class="image-form">
                         <div class="form-group">
                             <label class="control-label" :for="`image_${i}_title`">Title</label>
                             <input class="form-control" type="text" :id="`image_${i}_title`" :value="image.title" @change="valueChanged($event, i, 'title')" />
+                            <span class="help-block">{{getError(i, 'title')}}</span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" :for="`image_${i}_slug`">Slug</label>
                             <input class="form-control" type="text" :id="`image_${i}_slug`" :value="image.slug" @change="valueChanged($event, i, 'slug')" />
+                            <span class="help-block">{{getError(i, 'slug')}}</span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" :for="`image_${i}_description`">Description</label>
                             <input class="form-control" type="text" :id="`image_${i}_description`" @change="valueChanged($event, i, 'description')" />
+                            <span class="help-block">{{getError(i, 'description')}}</span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" :for="`image_${i}_format`">Format</label>
                             <select class="form-control" :id="`image_${i}_format`" :value="image.format_id" @change="valueChanged($event, i, 'format_id')">
                                 <option v-for="(format, i) in formats" :key="i" :value="format.id">{{format.name}}</option>
                             </select>
+                            <span class="help-block">{{getError(i, 'format_id')}}</span>
                         </div>
                         <div class="form-group">
                             <label class="control-label" :for="`image_${i}_completion_date`">Completion date</label>
                             <input class="form-control" type="date" :id="`image_${i}_completion_date`" @change="valueChanged($event, i, 'completion_date')" />
+                            <span class="help-block">{{getError(i, 'completion_date')}}</span>
                         </div>
                         <div class="form-group form-group-fixed">
                             <label>Filename large</label>{{image.filename_large}}
@@ -102,6 +110,7 @@ export default {
             imageFiles: [],
             images: [],
             areFilesDraggedOver: false,
+            errors: null,
         };
     },
     computed: {
@@ -149,6 +158,12 @@ export default {
                 };
             });
         },
+        getError(index, key){
+            if(!this.errors || !this.errors[index] || !this.errors[index].errors || !this.errors[index].errors[key] || this.errors[index].errors[key].length === 0){
+                return '';
+            }
+            return this.errors[index].errors[key].join('\n');
+        },
         valueChanged(event, index, key){
             const newValue = event.target.value;
             const image = this.images[index];
@@ -156,9 +171,15 @@ export default {
             Vue.set(this.images, index, image);
         },
         save(){
-            console.log(this.images);
             const data = {images: this.images};
-            sendJson(this.apiCreateImagesUrl, this.csrfToken, 'POST', data);
+            sendJson(this.apiCreateImagesUrl, this.csrfToken, 'POST', data).then((response)=>{
+                if(response.errors){
+                    this.errors = response.errors;
+                    setTimeout(()=>{
+                        this.$refs.errorAlert.scrollIntoView({behavior: 'smooth'});
+                    }, 0);
+                }
+            });
         },
     }
 };
