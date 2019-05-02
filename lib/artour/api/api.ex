@@ -35,8 +35,7 @@ defmodule Artour.Api do
   """
   def create_images(images) do
     Repo.transaction(fn ->
-      {status, errors} = Enum.with_index(images)
-      |> Enum.reduce({:ok, []}, fn {image, i}, {status, errors} ->
+      {status, errors} = Enum.reduce(images, {:ok, []}, fn image, {status, errors} ->
         case Admin.create_image(image) do
           {:ok, %Image{} = _image} -> {status, [nil | errors]}
           {:error, changeset}      -> {:error, [changeset | errors]}
