@@ -95,6 +95,10 @@ export default {
             type: String,
             required: true,
         },
+        imagesIndexUrl: {
+            type: String,
+            required: true,
+        },
     },
     components: {
         FormInputErrors,
@@ -182,7 +186,10 @@ export default {
                     setTimeout(()=>{
                         this.$refs.errorAlert.scrollIntoView({behavior: 'smooth'});
                     }, 0);
+                    return;
                 }
+                //success, so navigate to images index page
+                window.location.href = this.imagesIndexUrl;
             });
         },
     }

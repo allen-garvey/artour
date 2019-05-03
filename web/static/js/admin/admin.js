@@ -33,6 +33,6 @@ import PostAddTagsList from './vues/post_add_tags_list.vue';
 
 import ImportImages from './vues/import_images.vue';
 (function(){
-    const keys = ['csrfToken', 'apiFormatIndexUrl', 'apiCreateImagesUrl'];
+    const keys = ['csrfToken', 'apiFormatIndexUrl', 'apiCreateImagesUrl', 'imagesIndexUrl'];
     initializeVueComponent('import_images', ImportImages, keys);
 })();
