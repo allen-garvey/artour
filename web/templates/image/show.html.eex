@@ -8,7 +8,7 @@
 %>
 
 <div class="image-thumbnails-container">
-	<%= for size <- [:thumbnail, :small, :medium] do
+	<%= for size <- Enum.filter([:thumbnail, :small, :medium], fn size -> size != :medium or @image.filename_large != @image.filename_medium end) do
 	  link img_tag_for(@conn, @image, size, :local), to: url_for(@conn, @image, size, :local)
 	end %>
 </div>
