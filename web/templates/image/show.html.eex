@@ -7,10 +7,10 @@
                                 title: display_name(@image)
 %>
 
-<%= img_tag_for(@conn, @image, :small, :local) %>
-
 <div class="image-thumbnails-container">
-	<%= for size <- [:large, :medium, :thumbnail] do
+	<%= for size <- [:thumbnail, :small, :medium] do
 	  link img_tag_for(@conn, @image, size, :local), to: url_for(@conn, @image, size, :local)
 	end %>
 </div>
+
+<%= link img_tag_for(@conn, @image, :large, :local), to: url_for(@conn, @image, :large, :local) %>
