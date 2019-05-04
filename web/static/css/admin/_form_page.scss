@@ -18,3 +18,7 @@ input[type="checkbox"]{
 	margin-left: 10px;
 	transform: scale(1.6);
 }
+
+.edit-image-preview-container img{
+	max-height: 300px;
+}

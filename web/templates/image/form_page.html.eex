@@ -4,6 +4,11 @@
                                 heading: @heading
 %>
 
+<%= if assigns[:show_delete] do
+  # if show_delete, we are on edit page
+  content_tag(:figure, img_tag_for(@conn, @image, :small, :local), class: "edit-image-preview-container")
+end %>
+
 <%= render "form.html", changeset: @changeset,
                         action: @action,
                         show_delete: assigns[:show_delete],
