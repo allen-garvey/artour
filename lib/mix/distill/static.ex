@@ -2,8 +2,10 @@
 defmodule Mix.Tasks.Distill.Static do
   use Mix.Task
 
-  @shortdoc "Copies static assets to given directory"
+  @shortdoc "Runs npm build script and copies static assets to given directory"
   def run(_args) do
+    IO.puts "Running npm production build script"
+    {_, 0} = System.cmd("npm", ["run", "deploy"], into: IO.stream(:stdio, :line))
     dest_dir = Distill.Directory.default_dest_directory
     #create root directory if it doesn't exist
     File.mkdir_p! dest_dir
