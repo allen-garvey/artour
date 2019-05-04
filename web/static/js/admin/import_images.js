@@ -19,7 +19,8 @@ export function extractImages(files){
             fileObject.slug = uniqueName;
             fileObject.title = title;
             if(!fileObject.thumb){
-                fileObject.thumb = `${uniqueName}-thumb${extension}`;
+                //thumbnail is always .jpg by default
+                fileObject.thumb = `${uniqueName}-thumb.jpg`;
             }
             
             if(sizeSuffix === 'thumb' || (!fileObject.src && sizeSuffix === 'sm')){
