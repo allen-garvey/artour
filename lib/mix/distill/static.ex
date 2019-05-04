@@ -6,21 +6,27 @@ defmodule Mix.Tasks.Distill.Static do
   def run(_args) do
     IO.puts "Running npm production build script"
     {_, 0} = System.cmd("npm", ["run", "deploy"], into: IO.stream(:stdio, :line))
+
+
     dest_dir = Distill.Directory.default_dest_directory
     #create root directory if it doesn't exist
     File.mkdir_p! dest_dir
 
     source_dir = default_static_assets_directory()
 
-    IO.puts "Copying static assets from " <> source_dir <> " to " <> dest_dir
-    IO.puts ""
+    IO.puts "\nCopying static assets\n"
 
     for filename <- static_asset_filenames() do
-      IO.puts "Copying " <> filename
       dest_enclosing_dir = Path.join(dest_dir, Path.dirname(filename))
       #make sure enclosing directory in dest_dir exists
       File.mkdir_p! dest_enclosing_dir
-      File.cp Path.join(source_dir, filename), Path.join(dest_dir, filename)
+
+      source_full_filename = Path.join(source_dir, filename)
+      dest_full_filename = Path.join(dest_dir, filename)
+
+      IO.puts "Copying #{source_full_filename} -> #{dest_full_filename}"
+
+      File.cp source_full_filename, dest_full_filename
     end
 
   end
