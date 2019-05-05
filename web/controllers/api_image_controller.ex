@@ -2,7 +2,6 @@ defmodule Artour.ApiImageController do
   use Artour.Web, :controller
 
   alias Artour.Api
-  alias Artour.Image
 
   @doc """
   Creates image resources from given array
