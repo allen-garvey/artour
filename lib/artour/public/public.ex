@@ -29,10 +29,10 @@ defmodule Artour.Public do
   """
   def get_post_by_slug!(slug) do
     from(
-          p in Post, 
-          join: category in assoc(p, :category), 
-          join: cover_image in assoc(p, :cover_image),   
-          where: p.slug == ^slug and p.is_published == true, 
+          p in Post,
+          join: category in assoc(p, :category),
+          join: cover_image in assoc(p, :cover_image),
+          where: p.slug == ^slug and p.is_published == true,
           preload: [category: category, cover_image: cover_image]
         )
     |> Repo.one!
@@ -56,15 +56,15 @@ defmodule Artour.Public do
               page_num <= 0 -> 1
               true -> (page_num - 1) * posts_per_page()
           end
-    
+
     from(
-          p in Post, 
-          join: category in assoc(p, :category), 
-          join: cover_image in assoc(p, :cover_image),   
-          where: p.is_published == true, 
+          p in Post,
+          join: category in assoc(p, :category),
+          join: cover_image in assoc(p, :cover_image),
+          where: p.is_published == true,
           preload: [category: category, cover_image: cover_image],
-          order_by: [desc: :publication_date, desc: :id], 
-          limit: ^posts_per_page(), 
+          order_by: [desc: :publication_date, desc: :id],
+          limit: ^posts_per_page(),
           offset: ^post_offset
         )
     |> Repo.all
@@ -77,6 +77,7 @@ defmodule Artour.Public do
     post_count = Repo.one!(from p in Post, where: p.is_published, select: count(p.id))
     (1.0 * post_count / posts_per_page())
       |> Float.ceil
+      |> trunc()
   end
 
   @doc """
@@ -87,9 +88,9 @@ defmodule Artour.Public do
     # since names have to be unique we can do this, otherwise we would need to find another way
     # https://stackoverflow.com/questions/5391564/how-to-use-distinct-and-order-by-in-same-select-statement
     from(
-          t in Tag, 
+          t in Tag,
           join: post in assoc(t, :posts),
-          where: post.is_published == true, 
+          where: post.is_published == true,
           distinct: t.name,
           order_by: [t.name]
         )
@@ -103,9 +104,9 @@ defmodule Artour.Public do
   """
   def get_tag_by_slug!(slug) do
     from(
-          t in Tag, 
+          t in Tag,
           join: post in assoc(t, :posts),
-          where: t.slug == ^slug and post.is_published == true, 
+          where: t.slug == ^slug and post.is_published == true,
           preload: [posts: post],
           order_by: post.title
         )
@@ -120,9 +121,9 @@ defmodule Artour.Public do
     # since names have to be unique we can do this, otherwise we would need to find another way
     # https://stackoverflow.com/questions/5391564/how-to-use-distinct-and-order-by-in-same-select-statement
     from(
-          c in Category, 
+          c in Category,
           join: post in assoc(c, :posts),
-          where: post.is_published == true, 
+          where: post.is_published == true,
           distinct: c.name,
           order_by: [c.name]
         )
@@ -136,9 +137,9 @@ defmodule Artour.Public do
   """
   def get_category_by_slug!(slug) do
     from(
-          c in Category, 
+          c in Category,
           join: post in assoc(c, :posts),
-          where: c.slug == ^slug and post.is_published == true, 
+          where: c.slug == ^slug and post.is_published == true,
           preload: [posts: post],
           order_by: post.title
         )
