@@ -48,4 +48,20 @@ defmodule Artour.Api do
     end)
   end
 
+  @doc """
+  Reorder images for post
+  """
+  def reorder_post_images(post_images) when is_list(post_images) do
+    Repo.transaction(fn ->
+      for {post_image_id, i} <- post_images |> Enum.with_index do
+        now = DateTime.utc_now() |> DateTime.truncate(:second)
+        {1, nil} = from(
+                        post_image in PostImage,
+                        where: post_image.id == ^post_image_id
+                      )
+        |> Repo.update_all(set: [order: i, updated_at: now])
+      end
+    end)
+  end
+
 end
