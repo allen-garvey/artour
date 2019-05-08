@@ -8,11 +8,11 @@ defmodule Artour.Api do
   alias Artour.Admin
 
   # alias Artour.Post
-  # alias Artour.Tag
+  alias Artour.Tag
   # alias Artour.Category
   alias Artour.Image
   alias Artour.PostImage
-  # alias Artour.PostTag
+  alias Artour.PostTag
 
   @doc """
   Returns the list of a post's post images
@@ -62,6 +62,20 @@ defmodule Artour.Api do
         |> Repo.update_all(set: [order: i, updated_at: now])
       end
     end)
+  end
+
+  def unused_tags_for_post(post_id) do
+    post_tags_subquery = from(post_tag in PostTag, where: post_tag.post_id == ^post_id)
+
+    from(
+      t in Tag,
+      left_join: post_tag in subquery(post_tags_subquery),
+      on: t.id == post_tag.tag_id,
+      where: is_nil(post_tag.tag_id),
+      order_by: t.name
+    )
+    |> Repo.all
+
   end
 
 end

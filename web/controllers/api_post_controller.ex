@@ -7,8 +7,7 @@ defmodule Artour.ApiPostController do
   Returns list of all tags unused by a post
   """
   def tags_for(conn, %{"post_id" => post_id, "unused" => "true"}) do
-    tag_ids_used = Repo.all(from(pt in Artour.PostTag, select: pt.tag_id, where: pt.post_id == ^post_id))
-    tags = Repo.all(from(t in Artour.Tag, where: not(t.id in ^tag_ids_used), order_by: t.name))
+    tags = Api.unused_tags_for_post(post_id)
     render(conn, "tags_list.json", tags: tags)
   end
 
