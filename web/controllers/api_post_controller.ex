@@ -12,13 +12,7 @@ defmodule Artour.ApiPostController do
   end
 
   def tags_for(conn, %{"post_id" => post_id}) do
-    tags = from(
-                t in Artour.Tag,
-                join: post_tag in assoc(t, :post_tags),
-                where: post_tag.post_id == ^post_id,
-                order_by: t.name
-              )
-    |> Repo.all
+    tags = Api.tags_for_post(post_id)
     render(conn, "tags_list.json", tags: tags)
   end
 

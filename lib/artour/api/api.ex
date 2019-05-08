@@ -64,6 +64,9 @@ defmodule Artour.Api do
     end)
   end
 
+  @doc """
+  Gets tags not used by post
+  """
   def unused_tags_for_post(post_id) do
     post_tags_subquery = from(post_tag in PostTag, where: post_tag.post_id == ^post_id)
 
@@ -75,7 +78,19 @@ defmodule Artour.Api do
       order_by: t.name
     )
     |> Repo.all
+  end
 
+  @doc """
+  Gets tags used by post
+  """
+  def tags_for_post(post_id) do
+    from(
+        t in Artour.Tag,
+        join: post_tag in assoc(t, :post_tags),
+        where: post_tag.post_id == ^post_id,
+        order_by: t.name
+    )
+    |> Repo.all
   end
 
 end
