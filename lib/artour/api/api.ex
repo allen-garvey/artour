@@ -93,4 +93,18 @@ defmodule Artour.Api do
     |> Repo.all
   end
 
+  @doc """
+  Adds tags to post by creating post tags from given post id and list of tag ids
+  """
+  def create_post_tags(post_id, tags) when is_list(tags) do
+    Repo.transaction(fn ->
+      for tag_id <- tags do
+        PostTag.changeset(%PostTag{}, %{"post_id" => post_id, "tag_id" => tag_id})
+        |> Repo.insert!
+      end
+    end)
+  end
+
+
+
 end
