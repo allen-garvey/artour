@@ -105,6 +105,36 @@ defmodule Artour.Api do
     end)
   end
 
+  @doc """
+  Gets images not used by given post
+  """
+  def unused_images_for_post(post_id) do
+    post_images_subquery = from(post_image in PostImage, where: post_image.post_id == ^post_id)
+
+    from(
+      i in Image,
+      left_join: post_image in subquery(post_images_subquery),
+      on: i.id == post_image.image_id,
+      where: is_nil(post_image.image_id),
+      order_by: [desc: i.id]
+    )
+    |> Repo.all
+  end
+
+  @doc """
+  Gets images not used by any postpost
+  """
+  def unused_images() do
+    from(
+      i in Image,
+      left_join: post_image in assoc(i, :post_images),
+      on: i.id == post_image.image_id,
+      where: is_nil(post_image.image_id),
+      order_by: [desc: i.id]
+    )
+    |> Repo.all
+  end
+
 
 
 end

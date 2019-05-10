@@ -69,23 +69,16 @@ defmodule Artour.ApiPostController do
    end
 
   @doc """
-  Gets images that can be added to post
+  Gets images that are unused, either for a given post or that are unused altogether
   """
-  def add_images(conn, %{"post" => post_id, "unused" => _unused}) do
-    image_ids_used = Repo.all(from(pi in Artour.PostImage, select: pi.image_id))
-
-    images_addable_to_post(conn, post_id, image_ids_used)
+  def add_images(conn, %{"post" => _post_id, "unused" => "true"}) do
+    unused_images = Api.unused_images()
+    render(conn, "image_excerpts.json", images: unused_images)
   end
 
   def add_images(conn, %{"post" => post_id}) do
-    image_ids_used = Repo.all(from(pi in Artour.PostImage, select: pi.image_id, where: pi.post_id == ^post_id))
-
-    images_addable_to_post(conn, post_id, image_ids_used)
+    unused_images = Api.unused_images_for_post(post_id)
+    render(conn, "image_excerpts.json", images: unused_images)
   end
 
-  defp images_addable_to_post(conn, _post_id, image_ids_used) do
-    unused_images = Repo.all(from(i in Artour.Image, where: not(i.id in ^image_ids_used), order_by: [desc: i.id]))
-
-    render conn, "image_excerpts.json", images: unused_images
-  end
 end
