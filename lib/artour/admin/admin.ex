@@ -8,6 +8,7 @@ defmodule Artour.Admin do
 
   alias Artour.Post
   alias Artour.Tag
+  alias Artour.PostTag
   # alias Artour.Category
   alias Artour.Image
   # alias Artour.PostImage
@@ -106,6 +107,17 @@ defmodule Artour.Admin do
   """
   def change_image(%Image{} = image) do
     Image.changeset(image, %{})
+  end
+
+  @doc """
+  Deletes a single post_tag, given post_id and tag_id
+  """
+  def delete_post_tag(post_id, tag_id) do
+    #use transaction to ensure only 1 row gets deleted
+    Repo.transaction(fn ->
+      {1, nil} = from(pt in PostTag, where: pt.post_id == ^post_id and pt.tag_id ==^tag_id)
+      |> Repo.delete_all()
+    end)
   end
 
 end

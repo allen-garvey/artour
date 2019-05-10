@@ -2,6 +2,7 @@ defmodule Artour.ApiPostController do
   use Artour.Web, :controller
 
   alias Artour.Api
+  alias Artour.Admin
 
   @doc """
   Returns list of all tags unused by a post
@@ -29,13 +30,7 @@ defmodule Artour.ApiPostController do
   Removes a tag from a post
   """
   def remove_tag(conn, %{"post_id" => post_id, "tag_id" => tag_id}) do
-    post_tag = Repo.get_by!(Artour.PostTag, post_id: post_id, tag_id: tag_id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(post_tag)
-
-    # send_resp(conn, :no_content, "")
+    Admin.delete_post_tag(post_id, tag_id)
     render(conn, "ok.json", message: "Post tag deleted")
   end
 
