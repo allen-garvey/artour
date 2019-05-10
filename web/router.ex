@@ -88,7 +88,7 @@ defmodule Artour.Router do
     patch "/posts/:post_id/images/reorder", ApiPostController, :reorder_images
 
     #add images to post
-    get "/posts/:post/images/add", ApiPostController, :add_images
+    get "/posts/:post/images/addable", ApiPostController, :addable_images
 
     get "/formats", ApiFormatController, :index
 

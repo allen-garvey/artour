@@ -71,12 +71,12 @@ defmodule Artour.ApiPostController do
   @doc """
   Gets images that are unused, either for a given post or that are unused altogether
   """
-  def add_images(conn, %{"post" => _post_id, "unused" => "true"}) do
+  def addable_images(conn, %{"post" => _post_id, "unused" => "true"}) do
     unused_images = Api.unused_images()
     render(conn, "image_excerpts.json", images: unused_images)
   end
 
-  def add_images(conn, %{"post" => post_id}) do
+  def addable_images(conn, %{"post" => post_id}) do
     unused_images = Api.unused_images_for_post(post_id)
     render(conn, "image_excerpts.json", images: unused_images)
   end
