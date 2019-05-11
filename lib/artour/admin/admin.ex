@@ -45,6 +45,33 @@ defmodule Artour.Admin do
     |> Repo.preload(tags: from(Tag, order_by: :name))
   end
 
+  @doc """
+  Returns the list of images.
+  """
+  def list_images do
+    from(
+          i in Image,
+          join: format in assoc(i, :format),
+          preload: [format: format],
+          order_by: [desc: :id]
+        )
+    |> Repo.all
+  end
+
+  @doc """
+  Returns a single image selected by image_id
+  """
+  def get_image!(image_id) do
+    from(
+          i in Image,
+          join: format in assoc(i, :format),
+          preload: [format: format],
+          where: i.id == ^image_id,
+          limit: 1
+    )
+    |> Repo.one!
+  end
+
    @doc """
   Creates a image.
 
@@ -104,7 +131,6 @@ defmodule Artour.Admin do
 
       iex> change_image(image)
       %Ecto.Changeset{source: %Image{}}
-
   """
   def change_image(%Image{} = image) do
     Image.changeset(image, %{})

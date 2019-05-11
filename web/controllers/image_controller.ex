@@ -2,9 +2,10 @@ defmodule Artour.ImageController do
   use Artour.Web, :controller
 
   alias Artour.Image
+  alias Artour.Admin
 
   def index(conn, _params) do
-    images = Repo.all(from(Image, order_by: [desc: :id])) |> Repo.preload([:format])
+    images = Admin.list_images()
     view = view_module(conn)
     put_view(conn, Artour.SharedView) |>
       render("index.html", items: images, item_name_singular: "image", column_headings: view.attribute_names_short(), item_view: view,
@@ -16,7 +17,7 @@ defmodule Artour.ImageController do
   end
 
   def new(conn, _params) do
-    changeset = Image.changeset(%Image{})
+    changeset = Admin.change_image(%Image{})
     formats = Artour.Format.form_list(Repo)
     render(conn, "new.html", changeset: changeset, formats: formats)
   end
@@ -44,7 +45,7 @@ defmodule Artour.ImageController do
   end
 
   def show(conn, %{"id" => id}) do
-    image = Repo.get!(Image, id) |> Repo.preload([:format])
+    image = Admin.get_image!(id)
     render(conn, "show.html", image: image)
   end
 
@@ -57,9 +58,8 @@ defmodule Artour.ImageController do
 
   def update(conn, %{"id" => id, "image" => image_params}) do
     image = Repo.get!(Image, id)
-    changeset = Image.changeset(image, image_params)
 
-    case Repo.update(changeset) do
+    case Admin.update_image(image, image_params) do
       {:ok, image} ->
         conn
         |> put_flash(:info, "Image updated successfully.")
