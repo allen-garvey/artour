@@ -7,7 +7,7 @@ defmodule Artour.Api do
   alias Artour.Repo
   alias Artour.Admin
 
-  # alias Artour.Post
+  alias Artour.Post
   alias Artour.Tag
   # alias Artour.Category
   alias Artour.Image
@@ -62,6 +62,22 @@ defmodule Artour.Api do
         |> Repo.update_all(set: [order: i, updated_at: now])
       end
     end)
+  end
+
+  @doc """
+  Update post's cover image
+  """
+  def update_post_cover_image(post_id, cover_image_id) do
+    now = DateTime.utc_now() |> DateTime.truncate(:second)
+    update_status = from(
+                    post in Post,
+                    where: post.id == ^post_id
+                  )
+    |> Repo.update_all(set: [cover_image_id: cover_image_id, updated_at: now])
+    case update_status do
+      {1, nil} -> :ok
+      _        -> :error
+    end
   end
 
   @doc """
