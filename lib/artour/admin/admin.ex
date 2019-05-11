@@ -9,6 +9,7 @@ defmodule Artour.Admin do
   alias Artour.Post
   alias Artour.Tag
   alias Artour.PostTag
+  alias Artour.Format
   # alias Artour.Category
   alias Artour.Image
   # alias Artour.PostImage
@@ -118,6 +119,14 @@ defmodule Artour.Admin do
       {1, nil} = from(pt in PostTag, where: pt.post_id == ^post_id and pt.tag_id ==^tag_id)
       |> Repo.delete_all()
     end)
+  end
+
+  @doc """
+  Returns list of formats
+  """
+  def list_formats() do
+    from(Format, order_by: :name)
+    |> Repo.all
   end
 
 end

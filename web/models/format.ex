@@ -9,13 +9,6 @@ defmodule Artour.Format do
   end
 
   @doc """
-  Query used for default order
-  """
-  def default_order_query() do
-    from(Artour.Format, order_by: :name)
-  end
-
-  @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(struct, params \\ %{}) do

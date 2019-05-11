@@ -2,9 +2,10 @@ defmodule Artour.FormatController do
   use Artour.Web, :controller
 
   alias Artour.Format
+  alias Artour.Admin
 
   def index(conn, _params) do
-    formats = Repo.all(Format.default_order_query())
+    formats = Admin.list_formats()
     view = view_module(conn)
     put_view(conn, Artour.SharedView) |>
       render("index.html", items: formats, item_name_singular: "format", column_headings: view.attribute_names(), item_view: view,

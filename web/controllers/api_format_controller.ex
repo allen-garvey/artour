@@ -1,10 +1,10 @@
 defmodule Artour.ApiFormatController do
   use Artour.Web, :controller
 
-  alias Artour.Format
+  alias Artour.Admin
 
   def index(conn, _params) do
-    formats = Repo.all(Format.default_order_query())
+    formats = Admin.list_formats()
     render(conn, "index.json", formats: formats)
   end
 
