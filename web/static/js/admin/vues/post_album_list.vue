@@ -14,7 +14,7 @@
                 </div>
                 <div class="image-buttons">
                     <a :href="postImage.url.edit" class="btn btn-default" target="_blank">Edit</a>
-                    <button class=" btn btn-primary" v-show="postImage.image.id !== coverImageId" @click="setCoverImage(postImage.image.id)">Make cover image</button>
+                    <button class=" btn btn-primary" v-show="postImage.image.id != coverImageId" @click="setCoverImage(postImage.image.id)">Make cover image</button>
                 </div>
                 <div class="list-item-dragger">&#9776;</div>
             </li>
