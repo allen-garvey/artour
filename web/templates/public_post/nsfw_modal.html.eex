@@ -1,4 +1,4 @@
-<div class="nsfw-modal" id="nsfwModal">
+<div class="nsfw-modal">
     <div class="nsfw-modal__backdrop"></div>
     <div class="nsfw-modal__container">
         <h1 class="nsfw-modal__header">The current post contains NSFW content. Are you sure you wish to proceed?</h1>
