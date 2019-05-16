@@ -25,6 +25,10 @@
       </nav>
     </header>
 
+    <%= if assigns[:is_nsfw] do
+	      render Artour.PublicPostView, "nsfw_modal.html", conn: @conn
+    end %>
+
     <main class="container" role="main">
       <%= render @view_module, @view_template, assigns %>
     </main>

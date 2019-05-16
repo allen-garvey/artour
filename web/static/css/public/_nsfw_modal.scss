@@ -1,0 +1,38 @@
+.nsfw-modal{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+
+    .nsfw-modal-show &{
+        display: flex;
+    }
+}
+
+.nsfw-modal__backdrop{
+    background-color: #000;
+    opacity: 0.7;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.nsfw-modal__container{
+    position: relative;
+    background-color: #fff;
+    z-index: 100;
+    padding: 2em;
+    max-width: 600px;
+}
+
+.nsfw-modal-show main{
+    filter: blur(11px) grayscale(0.5);
+}
