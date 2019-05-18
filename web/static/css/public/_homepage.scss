@@ -2,12 +2,8 @@
 * Homepage
 */
 .post-brief{
-	padding-bottom: 1.5em;
-	margin-bottom: 2.5em;
-
-	&:first-of-type{
-		margin-top: -2.5rem;
-	}
+	position: relative;
+	padding: 2rem 0 4rem;
 }
 
 /**
@@ -41,16 +37,14 @@ $symbol_margin: 5px;
 */
 .post-brief .post-heading{
 	position: relative;
-	top: 4.5rem;
 	z-index: 100;
-	padding: 0 2.441rem;
 }
 
 .post-key-image-super-container{
 	display: flex;
 	justify-content: center;
 	position: relative;
-	padding: 7rem 0 5rem;
+	padding-top: 2rem;
 }
 .post-excerpt-background-blur{
 	position: absolute;
@@ -60,8 +54,8 @@ $symbol_margin: 5px;
 	bottom: 0;
 	z-index: 1;
 	img{
-		opacity: 0.5;
-		filter: blur(25px);
+		opacity: 0.6;
+		filter: blur(25px) saturate(80%);
 		object-fit: cover;
 		max-width: initial;
 		max-height: initial;

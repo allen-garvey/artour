@@ -1,6 +1,6 @@
 defmodule Artour.PageController do
   use Artour.Web, :controller
-  
+
   alias Artour.Public
   alias Artour.Page
 
@@ -23,7 +23,7 @@ defmodule Artour.PageController do
               end
 
     posts = Public.posts_for_page(page_num)
-    render conn, "index.html", posts: posts, current_page: page_num, last_page: last_page
+    render conn, "index.html", posts: posts, current_page: page_num, last_page: last_page, main_container_class: ""
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule Artour.PageController do
             |> Enum.chunk_every(Public.posts_per_page, Public.posts_per_page, [])
             |> Enum.map(&Artour.PageView.page_summary_title/1)
 
-    render conn, "pagination_index.html", page_list: page_list 
+    render conn, "pagination_index.html", page_list: page_list
   end
 
   @doc """
@@ -51,10 +51,10 @@ defmodule Artour.PageController do
   Shows list of categories that contain 1 or more related posts
   """
   def browse(conn, _params) do
-  	
+
   	categories = Public.categories_with_posts()
     tags = Public.tags_with_posts()
-    
+
     render conn, "browse.html", page_title: "Browse", categories: categories, tags: tags
   end
 

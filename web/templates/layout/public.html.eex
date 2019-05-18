@@ -29,7 +29,7 @@
 	      render Artour.PublicPostView, "nsfw_modal.html", conn: @conn
     end %>
 
-    <main class="container" role="main">
+    <main class="<%= main_container_class(assigns[:main_container_class]) %>" role="main">
       <%= render @view_module, @view_template, assigns %>
     </main>
     <%= if assigns[:javascript] do
