@@ -12,6 +12,6 @@
 	end %>
 </ul>
 
-<h2><%= link "All Posts", to: public_post_path(@conn, :index) %></h2>
+<h4><%= link "All Posts", to: public_post_path(@conn, :index) %></h4>
 
-<h2><%= link "All Posts by Date", to: page_path(@conn, :pagination_index) %></h2>
+<h4><%= link "All Posts by Date", to: page_path(@conn, :pagination_index) %></h4>
