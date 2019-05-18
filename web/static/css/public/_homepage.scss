@@ -4,6 +4,10 @@
 .post-brief{
 	padding-bottom: 1.5em;
 	margin-bottom: 2.5em;
+
+	&:first-of-type{
+		margin-top: -2.5rem;
+	}
 }
 
 /**
@@ -35,11 +39,18 @@ $symbol_margin: 5px;
 /*
 * Post excerpt for homepage only
 */
+.post-brief .post-heading{
+	position: relative;
+	top: 4.5rem;
+	z-index: 100;
+	padding: 0 2.441rem;
+}
+
 .post-key-image-super-container{
 	display: flex;
 	justify-content: center;
 	position: relative;
-	padding: 4rem 0;
+	padding: 7rem 0 5rem;
 }
 .post-excerpt-background-blur{
 	position: absolute;
