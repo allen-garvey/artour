@@ -5,9 +5,6 @@
 		</h2>
 		<div class="post-date"><%= datetime_to_display_date(@post.publication_date) %></div>
 	</div>
-	<div class="post-excerpt">
-		<p><%= link "View album", to: show_path(@conn, @post) %></p>
-	</div>
 	<div class="post-key-image-super-container">
 		<a href="<%= show_path(@conn, @post) %>">
 			<div class="post-excerpt-background-blur">
