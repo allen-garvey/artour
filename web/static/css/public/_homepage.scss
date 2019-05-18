@@ -3,8 +3,7 @@
 */
 .post-brief{
 	padding-bottom: 1.5em;
-	border-bottom: 1px solid gray;
-	margin-bottom: 4em;
+	margin-bottom: 2.5em;
 }
 
 /**
@@ -40,6 +39,7 @@ $symbol_margin: 5px;
 	display: flex;
 	justify-content: center;
 	position: relative;
+	padding: 4rem 0;
 }
 .post-excerpt-background-blur{
 	position: absolute;
@@ -63,6 +63,7 @@ $symbol_margin: 5px;
 	z-index: 100;
 	box-shadow: -5px 5px 25px rgba(10,10,10,0.2), 5px -5px 25px rgba(10,10,10,0.2);
 	img{
+		display: block; //so takes up full height
 		max-height: 85vh;	
 	}
 }
